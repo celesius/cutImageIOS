@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/ViewController.m"
-            timestampString = "462099851.272352"
+            timestampString = "462103777.230622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "-imagePickerController:didFinishPickingImage:editingInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/ViewController.m"
-            timestampString = "462099851.272352"
+            timestampString = "462103777.230622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "220"
-            endingLineNumber = "220"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "-imagePickerController:didFinishPickingImage:editingInfo:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/ViewController.m"
-            timestampString = "462099851.272352"
+            timestampString = "462103777.230622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
+            startingLineNumber = "261"
+            endingLineNumber = "261"
             landmarkName = "-handlePan:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/ViewController.m"
-            timestampString = "462099851.272352"
+            timestampString = "462103777.230622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "235"
-            endingLineNumber = "235"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "-creatPan"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/ViewController.m"
-            timestampString = "462099851.272352"
+            timestampString = "462103777.230622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "-handlePinch:"
             landmarkType = "5">
          </BreakpointContent>

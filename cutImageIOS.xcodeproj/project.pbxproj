@@ -10,13 +10,16 @@
 		5413827D1B86E07600478FE6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5413827C1B86E07600478FE6 /* main.m */; };
 		541382801B86E07600478FE6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5413827F1B86E07600478FE6 /* AppDelegate.m */; };
 		541382831B86E07600478FE6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382821B86E07600478FE6 /* ViewController.m */; };
-		541382861B86E07600478FE6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 541382841B86E07600478FE6 /* Main.storyboard */; };
 		541382881B86E07600478FE6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 541382871B86E07600478FE6 /* Images.xcassets */; };
-		5413828B1B86E07600478FE6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541382891B86E07600478FE6 /* LaunchScreen.xib */; };
 		541382971B86E07600478FE6 /* cutImageIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382961B86E07600478FE6 /* cutImageIOSTests.m */; };
 		541382A41B870A4D00478FE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541382A21B870A2D00478FE6 /* UIKit.framework */; };
-		54D816D61B8B16A70002061D /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D816D51B8B16A70002061D /* opencv2.framework */; };
 		54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816D71B8B18F40002061D /* CutoutImage.cpp */; };
+		54D816DC1B8B220E0002061D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D816DA1B8B22010002061D /* Foundation.framework */; };
+		54D816DF1B8B254E0002061D /* bridge2OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54D816DE1B8B254E0002061D /* bridge2OpenCV.mm */; };
+		54D816E41B8B28C10002061D /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D816E31B8B28C10002061D /* opencv2.framework */; };
+		54D816E51B8B2DF00002061D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 541382841B86E07600478FE6 /* Main.storyboard */; };
+		54D816E61B8B2DF00002061D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541382891B86E07600478FE6 /* LaunchScreen.xib */; };
+		54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +31,19 @@
 			remoteInfo = cutImageIOS;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		54D816E21B8B257D0002061D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		541382771B86E07600478FE6 /* cutImageIOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cutImageIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,9 +60,14 @@
 		541382951B86E07600478FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		541382961B86E07600478FE6 /* cutImageIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cutImageIOSTests.m; sourceTree = "<group>"; };
 		541382A21B870A2D00478FE6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		54D816D51B8B16A70002061D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../tools/opeccv2.4.9IOS/opencv2.framework; sourceTree = "<group>"; };
 		54D816D71B8B18F40002061D /* CutoutImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImage.cpp; sourceTree = "<group>"; };
 		54D816D81B8B18F40002061D /* CutoutImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImage.h; sourceTree = "<group>"; };
+		54D816DA1B8B22010002061D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		54D816DD1B8B254E0002061D /* bridge2OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = bridge2OpenCV.h; path = cutImageIOS/bridge2OpenCV.h; sourceTree = "<group>"; };
+		54D816DE1B8B254E0002061D /* bridge2OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = bridge2OpenCV.mm; path = cutImageIOS/bridge2OpenCV.mm; sourceTree = "<group>"; };
+		54D816E31B8B28C10002061D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
+		54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImagePacking.cpp; sourceTree = "<group>"; };
+		54D816EB1B8C777C0002061D /* CutoutImagePacking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImagePacking.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,7 +75,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				54D816D61B8B16A70002061D /* opencv2.framework in Frameworks */,
+				54D816E41B8B28C10002061D /* opencv2.framework in Frameworks */,
+				54D816DC1B8B220E0002061D /* Foundation.framework in Frameworks */,
 				541382A41B870A4D00478FE6 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,8 +155,12 @@
 		541382A01B87079900478FE6 /* openCVSource */ = {
 			isa = PBXGroup;
 			children = (
+				54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */,
+				54D816EB1B8C777C0002061D /* CutoutImagePacking.h */,
 				54D816D71B8B18F40002061D /* CutoutImage.cpp */,
 				54D816D81B8B18F40002061D /* CutoutImage.h */,
+				54D816DD1B8B254E0002061D /* bridge2OpenCV.h */,
+				54D816DE1B8B254E0002061D /* bridge2OpenCV.mm */,
 			);
 			name = openCVSource;
 			sourceTree = "<group>";
@@ -142,7 +168,8 @@
 		541382A11B870A1300478FE6 /* Framework */ = {
 			isa = PBXGroup;
 			children = (
-				54D816D51B8B16A70002061D /* opencv2.framework */,
+				54D816E31B8B28C10002061D /* opencv2.framework */,
+				54D816DA1B8B22010002061D /* Foundation.framework */,
 				541382A21B870A2D00478FE6 /* UIKit.framework */,
 			);
 			name = Framework;
@@ -158,6 +185,7 @@
 				541382731B86E07600478FE6 /* Sources */,
 				541382741B86E07600478FE6 /* Frameworks */,
 				541382751B86E07600478FE6 /* Resources */,
+				54D816E21B8B257D0002061D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -197,6 +225,7 @@
 				TargetAttributes = {
 					541382761B86E07600478FE6 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 78L6UCY98A;
 					};
 					5413828F1B86E07600478FE6 = {
 						CreatedOnToolsVersion = 6.4;
@@ -228,8 +257,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				541382861B86E07600478FE6 /* Main.storyboard in Resources */,
-				5413828B1B86E07600478FE6 /* LaunchScreen.xib in Resources */,
+				54D816E51B8B2DF00002061D /* Main.storyboard in Resources */,
+				54D816E61B8B2DF00002061D /* LaunchScreen.xib in Resources */,
 				541382881B86E07600478FE6 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -249,7 +278,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				541382831B86E07600478FE6 /* ViewController.m in Sources */,
+				54D816DF1B8B254E0002061D /* bridge2OpenCV.mm in Sources */,
 				541382801B86E07600478FE6 /* AppDelegate.m in Sources */,
+				54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */,
 				5413827D1B86E07600478FE6 /* main.m in Sources */,
 				54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */,
 			);
@@ -379,12 +410,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/vk/workspace/tools/opeccv2.4.9IOS,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cutImageIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -393,12 +428,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/vk/workspace/tools/opeccv2.4.9IOS,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cutImageIOS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

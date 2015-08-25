@@ -7,6 +7,7 @@
 //  方形编辑区域
 
 #import "ViewController.h"
+#import <Foundation/Foundation.h>
 
 @interface ViewController ()
 
@@ -21,9 +22,11 @@
 @property (nonatomic, strong) UIButton *undoButton; //返回
 @property (nonatomic, strong) UIButton *redoButton; //前进
 
+@property (nonatomic, strong) NSMutableArray *pointArray;  //同时发送的只能有一组array, 删除，添加，选取都是这一个array
+
 @property (nonatomic, strong) UIButton *sysTestButton;
 
-@property (nonatomic) CGPoint orgXY;
+@property (nonatomic) CGRect orgRect;
 
 @end
 
@@ -39,6 +42,8 @@
     NSLog(@" mainScreen.size.height = %f  mainScreen.size.width = %f ",mainScreen.size.height, mainScreen.size.width);
     NSLog(@" mainScreen.origin.x    = %f  mainScreen.origin.y   = %f  ",mainScreen.origin.x,mainScreen.origin.y);
     CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20);
+    self.pointArray = [[NSMutableArray alloc]init];
+    
     //上半部分遮挡view
     
     //
@@ -48,7 +53,7 @@
     //
     self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
     self.appImageView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
-    self.orgXY = self.appImageView.frame.origin;
+    self.orgRect = self.appImageView.frame;
     self.appImageView.backgroundColor = [UIColor greenColor];
     [self creatPan];
     //生成一个遮挡平面，这样可以得到小图的剪切
@@ -137,7 +142,7 @@
 
 -(void) resetPosion:(id)sender
 {
-    self.appImageView.frame = CGRectMake(self.orgXY.x, self.orgXY.y, 320, 320);
+    self.appImageView.frame = self.orgRect;
 }
 
 -(void) cutImageCut:(id)sender
@@ -167,11 +172,14 @@
     CGPoint point = [touch locationInView:self.appImageView]; //返回触摸点在视图中的当前坐标
     int x = point.x;
     int y = point.y;
+   // if(x >= 0 && x<= self.orgRect.size.width)
     NSLog(@"touch moved (x, y) is (%d, %d)", x, y);
+    [self addPoint2Array:point];
 }
 
 -(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    
     NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
     UITouch *touch = [allTouches anyObject];   //视图中的所有对象
     CGPoint point = [touch locationInView:self.appImageView]; //返回触摸点在视图中的当前坐标
@@ -179,6 +187,8 @@
     int y = point.y;
     NSLog(@" ");
     NSLog(@"touch began (x, y) is (%d, %d)", x, y);
+    [self.pointArray removeAllObjects];
+    [self addPoint2Array:point];
 }
 
 -(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
@@ -189,6 +199,9 @@
     int x = point.x;
     int y = point.y;
     NSLog(@"touch ended (x, y) is (%d, %d)", x, y);
+    [self addPoint2Array:point];
+    
+    UIImage *imgSend = self.appImageView.image;
 }
 
 -(void)takePictureClick:(id)sender
@@ -213,7 +226,7 @@
     //加载图片
     self.appImageView.image = image;
     //每次打开时，将appImageView归到初始位置
-    
+    self.appImageView.frame = self.orgRect;
 //    [self creatPan];
     //选择框消失
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -276,6 +289,13 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) addPoint2Array:(CGPoint)aPoint
+{
+    if( aPoint.x >= 0 && aPoint.x < self.orgRect.size.width && aPoint.y >= 0 && aPoint.y < self.orgRect.size.height ){
+    [self.pointArray addObject: [NSValue valueWithCGPoint:aPoint]];
+    }
 }
 
 @end

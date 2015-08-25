@@ -21,7 +21,8 @@ CutoutImage::~CutoutImage()
 
 void CutoutImage::processImageCreatMask( std::vector<cv::Point> mouseSlideRegionDiscrete , const cv::Mat srcMat, cv::Mat &dstMat, int lineWidth, int expandWidth )
 {
-    cv::Mat showMat = srcMat.clone();
+    cv::Mat showMat;// = srcMat.clone();
+    cv::cvtColor(srcMat, showMat, CV_BGR2GRAY);
     cv::Mat showMergeColorImg = srcMat.clone();
     cv::Mat seedStoreMat = dstMat;   //seedStoreMat 在外部存储了本次操作所生成的全部种子点。
     mouseSlideRegion.clear();
@@ -608,8 +609,9 @@ void CutoutImage::rotateMat (const cv::Mat srcMat ,cv::Mat &dstMat,const cv::Mat
     cv::Mat cutDst;
     CutoutImage::cutImageByRect(dstMat, cutRect, cutDst); //截图
     
-    cv::rectangle(dstMat, lt, rb, cv::Scalar(0,0,255,0));
-    cv::imshow("RRRRRR", dstMat);
+    dstMat = cutDst.clone();
+    //cv::rectangle(dstMat, lt, rb, cv::Scalar(0,0,255,0));
+    //cv::imshow("RRRRRR", dstMat);
 }
 
 void CutoutImage::colorDispResult(const cv::Mat picMat, cv::Mat cutPicBitMat, cv::Point cutPicAnchorPoint , cv::Mat &mergeColorMat)
@@ -683,7 +685,7 @@ void CutoutImage::colorDispResultWithFullSeedMat(const cv::Mat picMat,const cv::
         }
     }
     //cv::imshow("showPic",showPic);
-    cv::imshow("orgGray", showPic);
+    //cv::imshow("orgGray", showPic);
     CutoutImage::classMergeMat = showPic.clone();
 }
 
