@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Bridge2OpenCV.h"
 
-@interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@interface ViewController : UIViewController<Bridge2OpenCVDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
 
 @end

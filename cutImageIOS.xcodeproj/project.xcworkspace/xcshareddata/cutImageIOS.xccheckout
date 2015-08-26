@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>3C60CC08-158F-40F6-BBE6-DF9EB6B1CD4A</string>
 	<key>IDESourceControlProjectName</key>
-	<string>cutImageIOS</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>CB1980874FBC183697D3A7167AB9C6ED0167E24D</key>
 		<string>https://github.com/celesius/cutImageIOS.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>cutImageIOS.xcodeproj</string>
+	<string>cutImageIOS.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>CB1980874FBC183697D3A7167AB9C6ED0167E24D</key>

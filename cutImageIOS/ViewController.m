@@ -21,12 +21,17 @@
 @property (nonatomic, strong) UIButton *moveImg;
 @property (nonatomic, strong) UIButton *undoButton; //返回
 @property (nonatomic, strong) UIButton *redoButton; //前进
+@property (nonatomic) int lineWidth;
 
 @property (nonatomic, strong) NSMutableArray *pointArray;  //同时发送的只能有一组array, 删除，添加，选取都是这一个array
-
 @property (nonatomic, strong) UIButton *sysTestButton;
-
 @property (nonatomic) CGRect orgRect;
+@property (nonatomic, strong) Bridge2OpenCV *b2opcv;
+@property (nonatomic) CGSize imgWindowSize;
+@property (nonatomic) CGAffineTransform orgTrf;
+@property (nonatomic) BOOL isMove; //移动时最好禁用其他操作
+@property (nonatomic) BOOL isDraw; //YES是直接画mark NO是添加生长点
+@property (nonatomic) BOOL isDelete; //YES则调用删除点，NO是再判断上面的Draw
 
 @end
 
@@ -43,6 +48,8 @@
     NSLog(@" mainScreen.origin.x    = %f  mainScreen.origin.y   = %f  ",mainScreen.origin.x,mainScreen.origin.y);
     CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20);
     self.pointArray = [[NSMutableArray alloc]init];
+    self.b2opcv = [[Bridge2OpenCV alloc]init];
+    self.b2opcv.delegate = self;
     
     //上半部分遮挡view
     
@@ -55,6 +62,10 @@
     self.appImageView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
     self.orgRect = self.appImageView.frame;
     self.appImageView.backgroundColor = [UIColor greenColor];
+   
+    self.imgWindowSize = CGSizeMake(self.appImageView.frame.size.width, self.appImageView.frame.size.height);
+    self.orgTrf = self.appImageView.transform;
+    
     [self creatPan];
     //生成一个遮挡平面，这样可以得到小图的剪切
     float tmpHeight =   self.showImgView.frame.origin.y;
@@ -88,7 +99,7 @@
     self.addCalculatePoint = [UIButton buttonWithType:UIButtonTypeCustom];
     self.addCalculatePoint.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width , smallButtonWidth, 50);
     self.addCalculatePoint.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y);
-    self.addCalculatePoint.backgroundColor = [UIColor whiteColor];
+    self.addCalculatePoint.backgroundColor = [UIColor yellowColor];
     [self.addCalculatePoint.layer setCornerRadius:5];
     [self.addCalculatePoint setTitle:@"选取" forState:UIControlStateNormal];
     [self.addCalculatePoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -137,32 +148,73 @@
     [self.view addSubview:self.moveImg];
     
     self.view.backgroundColor = [UIColor grayColor];
+    
+    self.isMove = NO;
+    self.isDraw = NO;       //默认是添加
+    self.isDelete   = NO;
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+-(void) resultImageReady:(UIImage *)sendImage
+{
+    dispatch_async(dispatch_get_global_queue(0,0), ^{
+        //耗时处理
+        dispatch_async( dispatch_get_main_queue(), ^{
+            //同步显示
+            self.appImageView.image = sendImage;
+        });
+    });
 }
 
 -(void) resetPosion:(id)sender
 {
+    self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
     self.appImageView.frame = self.orgRect;
 }
 
 -(void) cutImageCut:(id)sender
 {
     [self.appImageView setUserInteractionEnabled:NO];
+    self.addCalculatePoint.backgroundColor  = [UIColor yellowColor];
+    self.addMaskPoint.backgroundColor  = [UIColor whiteColor];
+    self.deleteMaskPoint.backgroundColor  = [UIColor whiteColor];
+    self.moveImg.backgroundColor  = [UIColor whiteColor];
+    self.isDraw = NO;
+    self.isMove = NO;
+    self.isDelete= NO;
 }
 
--(void) addMaskPointFoo:(id)sender
+-(void) addMaskPointFoo:(id)sender          //直接添加种子点
 {
     [self.appImageView setUserInteractionEnabled:NO];
+    self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
+    self.addMaskPoint.backgroundColor       = [UIColor yellowColor];
+    self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
+    self.moveImg.backgroundColor            = [UIColor whiteColor];
+    self.isDraw = YES;
+    self.isMove = NO;
+    self.isDelete= NO;
 }
 
 -(void) deleteMaskPointFoo:(id)sender
 {
     [self.appImageView setUserInteractionEnabled:NO];
+    self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
+    self.addMaskPoint.backgroundColor       = [UIColor whiteColor];
+    self.deleteMaskPoint.backgroundColor    = [UIColor yellowColor];
+    self.moveImg.backgroundColor            = [UIColor whiteColor];
+    self.isDelete = YES;
+    self.isMove = NO;
 }
 
 -(void) enableMoveImg:(id)sender
 {
     [self.appImageView setUserInteractionEnabled:YES];
+    self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
+    self.addMaskPoint.backgroundColor       = [UIColor whiteColor];
+    self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
+    self.moveImg.backgroundColor            = [UIColor yellowColor];
+    self.isMove = YES;
 }
 
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -200,8 +252,23 @@
     int y = point.y;
     NSLog(@"touch ended (x, y) is (%d, %d)", x, y);
     [self addPoint2Array:point];
+   
+    if(self.isMove == NO){
+        if(self.isDelete == NO){
+            if(self.isDraw == NO){
+                [self.b2opcv setCreatPoint:self.pointArray andLineWidth:10];
+            }
+            else{
+                [self.b2opcv setDrawPoint:self.pointArray andLineWidth:10];
+            }
+        }
+        else
+        {
+            [self.b2opcv setDeletePoint:self.pointArray andLineWidth:10];
+        }
+    }
     
-    UIImage *imgSend = self.appImageView.image;
+    //UIImage *imgSend = self.appImageView.image;
 }
 
 -(void)takePictureClick:(id)sender
@@ -225,6 +292,7 @@
 {
     //加载图片
     self.appImageView.image = image;
+    [self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
     //每次打开时，将appImageView归到初始位置
     self.appImageView.frame = self.orgRect;
 //    [self creatPan];

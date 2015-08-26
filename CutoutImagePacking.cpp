@@ -46,7 +46,7 @@ void CutoutImagePacking::setMaskColor(cv::Scalar inputMaskColor)
 void CutoutImagePacking::drawMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult )
 {
     cv::Mat sendSeedStoreMat = CutoutImagePacking::seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
-    cv::imshow("sendSeedStoreMatA", sendSeedStoreMat);
+//    cv::imshow("sendSeedStoreMatA", sendSeedStoreMat);
     cutoutImage->processImageAddMask( selectPoint, sendSeedStoreMat, seedStoreMat, lineWidth, srcColorImg);
     drawResult = cutoutImage->getMergeResult();
     cv::Mat matWillSave = seedStoreMat.clone();     //clone 一下后续存入 vector
@@ -75,7 +75,7 @@ void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int line
 {
     if((int)seedMatVector.size() != 0){ //为0是最开始
         cv::Mat sendSeedStoreMat = seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
-        cv::imshow("sendSeedStoreMatC", sendSeedStoreMat);
+ //       cv::imshow("sendSeedStoreMatC", sendSeedStoreMat);
         cutoutImage->processImageCreatMask( selectPoint, srcColorImg, sendSeedStoreMat, lineWidth,10 );
         drawResult = cutoutImage->getMergeResult();
         seedStoreMat = sendSeedStoreMat;

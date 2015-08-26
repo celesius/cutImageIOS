@@ -92,7 +92,7 @@ void CutoutImage::processImageCreatMask( std::vector<cv::Point> mouseSlideRegion
             msssMatLineData[x] = ssMatLineData[lx + x];
         }
     }
-    cv::imshow("mouseSlideSeedStoreMat", mouseSlideSeedStoreMat);
+    //cv::imshow("mouseSlideSeedStoreMat", mouseSlideSeedStoreMat);
     
     cv::Mat bitMat;
     int blockSize = 25;
@@ -153,7 +153,7 @@ void CutoutImage::point2LineMat( const cv::Mat drawMat, std::vector<cv::Point> i
         cv::line(drawLineMat, inPoint[0], inPoint[0], cv::Scalar(255),lineWide);
     }
     dstMat = drawLineMat;
-    cv::imshow( "drawLineMat", drawLineMat );
+//    cv::imshow( "drawLineMat", drawLineMat );
 }
 
 bool CutoutImage::regionGrowClover( const cv::Mat srcMat ,cv::Mat &dstMat, int initSeedx, int initSeedy, int threshold) //4邻域生长灰度图生长,不传入已有种子点
@@ -235,7 +235,7 @@ bool CutoutImage::regionGrowClover( const cv::Mat srcMat ,cv::Mat &dstMat, int i
 
 bool CutoutImage::regionGrowClover( const cv::Mat srcMat, const cv::Mat seedStoreMat ,cv::Mat &dstMat, int initSeedx, int initSeedy, int threshold) //4邻域生长灰度图生长,传入已有种子点
 {
-    cv::imshow("srcMatregionGrowClover", srcMat);
+//    cv::imshow("srcMatregionGrowClover", srcMat);
     bool rState = false;
     std::vector<cv::Point> seedVector;
     cv::Point currentPoint = cv::Point(0,0);
@@ -539,12 +539,12 @@ void CutoutImage::rotateMat (const cv::Mat srcMat ,cv::Mat &dstMat,const cv::Mat
             cv::rectangle(showMat, tmp.boundingRect(), cv::Scalar(255,255,0),1,8);
             nailRect.push_back(tmp.boundingRect());
             cv::ellipse(showMat, tmp, cv::Scalar(255,255,255), 2, 8);
-            imshow("Ellipses", showMat);
+            //imshow("Ellipses", showMat);
             //cv::Mat rotMat = cv::Mat(2,3,CV_32FC1);
             cv::Mat rotMat =   cv::getRotationMatrix2D(tmp.center,rotAngle, 1);
             //cv::transform(srcMat, dstMat, rotMat);
             cv::warpAffine(colorMat, dstMat, rotMat, cv::Size(std::max(srcMat.rows,srcMat.cols),std::max(srcMat.rows,srcMat.cols)));
-            cv::imshow("RRRRRR", dstMat);
+            //cv::imshow("RRRRRR", dstMat);
             
         }
         else
@@ -650,7 +650,7 @@ void CutoutImage::colorDispResult(const cv::Mat picMat, cv::Mat cutPicBitMat, cv
         }
     }
   //  cv::imshow("colorCutPicRows", colorCutPic);
-    cv::imshow("showMatColor",showMat);
+  //  cv::imshow("showMatColor",showMat);
 }
 
 void CutoutImage::colorDispResultWithFullSeedMat(const cv::Mat picMat,const cv::Mat seedMat )
@@ -782,10 +782,10 @@ void CutoutImage::filterImageEdgeAndBlurMerge( const cv::Mat colorMat, const cv:
         }
     }
     
-    cv::imshow("cutBigColorMat", cutBigColorMat);
-    cv::imshow("cutBigColorMatFilter", cutBigColorMatFilter);
-    cv::imshow("fooRusultMat", fooRusultMat);
-    cv::imshow(" testEdgeData ", testEdgeData);
+//    cv::imshow("cutBigColorMat", cutBigColorMat);
+//    cv::imshow("cutBigColorMatFilter", cutBigColorMatFilter);
+//    cv::imshow("fooRusultMat", fooRusultMat);
+//    cv::imshow(" testEdgeData ", testEdgeData);
 }
 
 void CutoutImage::makeWhite2Black( const cv::Mat srcMat, cv::Mat &dstMat)
@@ -820,7 +820,7 @@ void  CutoutImage::smoothContours(const cv::Mat srcMat ,const cv::Mat cutMat, in
     cv::resize(whole_image,whole_image,img.size());
     img.convertTo(img,CV_32FC3,1.0/255.0);
     
-    cv::imshow("img",img);
+//    cv::imshow("img",img);
     cv::Mat bg=cv::Mat(img.size(),CV_32FC3);
     bg=cv::Scalar(1.0,1.0,1.0);
     
@@ -833,7 +833,7 @@ void  CutoutImage::smoothContours(const cv::Mat srcMat ,const cv::Mat cutMat, in
     
     cv::GaussianBlur(mask,mask,cv::Size(parameter,parameter),11.0);
     //cv::GaussianBlur(mask, mask, cv::Size(7,7), 11.0);
-    cv::imshow("mask",mask);
+//    cv::imshow("mask",mask);
     smoothMask = mask.clone();
     //cv::waitKey(0);
     
@@ -872,7 +872,7 @@ void  CutoutImage::smoothContoursAlphard(const cv::Mat srcMat ,const cv::Mat cut
     cv::resize(whole_image,whole_image,img.size());
     img.convertTo(img,CV_32FC4,1.0/255.0);
     
-    cv::imshow("img",img);
+//    cv::imshow("img",img);
     cv::Mat bg=cv::Mat(img.size(),CV_32FC4);
     bg=cv::Scalar(1.0,1.0,1.0,1.0);
    
@@ -886,7 +886,7 @@ void  CutoutImage::smoothContoursAlphard(const cv::Mat srcMat ,const cv::Mat cut
     
     cv::GaussianBlur(mask,mask,cv::Size(parameter,parameter),11.0);
     //cv::GaussianBlur(mask, mask, cv::Size(7,7), 11.0);
-    cv::imshow("mask",mask);
+//    cv::imshow("mask",mask);
     cv::waitKey(0);
     
     // Reget the image fragment with smoothed mask
@@ -906,7 +906,7 @@ void  CutoutImage::smoothContoursAlphard(const cv::Mat srcMat ,const cv::Mat cut
     cv::Mat bg8UC4;
     
     bg.convertTo(bg8UC4, CV_8UC4,255);
-    cv::imshow("bg8UC4", bg8UC4);
+//    cv::imshow("bg8UC4", bg8UC4);
    
     cv::Mat resultMat;
     CutoutImage::makeWhite2Black( res, resultMat );
@@ -1011,8 +1011,8 @@ void CutoutImage::cutImageByRect(const cv::Mat srcMat, cv::Rect cutRect,cv::Mat 
         }
     }
     
-    cv::imshow("cutedMat ", dst);
-    cv::imwrite("cutImg.png", dst);
+//    cv::imshow("cutedMat ", dst);
+//    cv::imwrite("cutImg.png", dst);
     
 
 }
