@@ -210,3 +210,14 @@ cv::Mat CutoutImagePacking::getFinalColorMergeImg()
     
     return dstMat;
 }
+
+cv::Mat CutoutImagePacking::getDebugMat()
+{
+    cutoutImage->getTestMat(getM1,getM2);
+    return getM1.clone();
+}
+
+cv::Mat CutoutImagePacking::getDebugMat2()
+{
+    return getM2.clone();
+}

@@ -252,7 +252,6 @@
     int y = point.y;
     NSLog(@"touch ended (x, y) is (%d, %d)", x, y);
     [self addPoint2Array:point];
-   
     if(self.isMove == NO){
         if(self.isDelete == NO){
             if(self.isDraw == NO){

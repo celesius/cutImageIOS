@@ -23,6 +23,8 @@ public:
     void rotateMat (const cv::Mat srcMat ,cv::Mat &dstMat,const cv::Mat colorMat);
     cv::Mat getMergeResult();
     void edgeBlur( const cv::Mat colorMat, const cv::Mat maskMat, int parameter, cv::Mat &dstMat ); //边缘模糊与融合算法
+   
+    void getTestMat(cv::Mat &testMat,cv::Mat &testMat2);
     
 public:
     cv::Mat classCutMat;
@@ -57,5 +59,8 @@ private:
     
     
     float angleBetween(const cv::Point v1, const cv::Point v2);
+    
+    cv::Mat cutMat1;
+    cv::Mat cutMat2;
 };
 #endif /* defined(__opencv_test__CutoutImage__) */

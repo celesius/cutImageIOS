@@ -99,6 +99,10 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
         [self.delegate resultImageReady:sendUIImage];
     }
+    cv::Mat debugMat = self.cutoutImagePacking->getDebugMat();
+    cv::Mat debugMat2 = self.cutoutImagePacking->getDebugMat2();
+    UIImage *debugImg = [self UIImageFromCVMat:debugMat];
+    UIImage *debugImg2 = [self UIImageFromCVMat:debugMat2];
 }
 
 -(void) setDeletePoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth

@@ -31,6 +31,10 @@ public:
     cv::Mat getCurrenrColorMergeImg();                                                  //输出当前的融合结果
     cv::Mat getFinalBitCutMask();
     cv::Mat getFinalColorMergeImg();
+    //Debug接口
+    cv::Mat getDebugMat();
+    cv::Mat getDebugMat2();
+    
 private:
     CutoutImage *cutoutImage;
     cv::Mat srcColorImg;
@@ -40,6 +44,8 @@ private:
     int selectSeedMat;
     int maxSelectSeedMat;
     cv::Scalar maskColor;
+    cv::Mat getM1;
+    cv::Mat getM2;
     
 };
 

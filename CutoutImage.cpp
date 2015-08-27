@@ -92,6 +92,7 @@ void CutoutImage::processImageCreatMask( std::vector<cv::Point> mouseSlideRegion
             msssMatLineData[x] = ssMatLineData[lx + x];
         }
     }
+    //cutMat = recMat.clone();
     //cv::imshow("mouseSlideSeedStoreMat", mouseSlideSeedStoreMat);
     
     cv::Mat bitMat;
@@ -114,6 +115,8 @@ void CutoutImage::processImageCreatMask( std::vector<cv::Point> mouseSlideRegion
     cv::Mat colorMergeMat;
     CutoutImage::colorDispResultWithFullSeedMat(showMergeColorImg,seedStoreMat);
 }
+
+
 
 void CutoutImage::processImageAddMask(std::vector<cv::Point> mouseSlideRegionDiscrete , const cv::Mat srcMat, cv::Mat &dstMat , int lineWidth, const cv::Mat colorMatForShow )
 {
@@ -380,9 +383,12 @@ void CutoutImage::mergeProcess(const cv::Mat srcImg,cv::Mat &dstImg)
     cv::findContours(a_mat, contours, CV_RETR_EXTERNAL , CV_CHAIN_APPROX_NONE);
     cv::drawContours(showContours, contours, -1, cv::Scalar(255),CV_FILLED);
     //cv::imshow("contours", showContours);
+    cutMat1 = showContours.clone();
     cv::Mat closeMat;
+//  cv::morphologyEx(showContours, closeMat, cv::MORPH_CLOSE, cv::Mat(11,11,CV_8U),cv::Point(-1,-1),1);
     cv::morphologyEx(showContours, closeMat, cv::MORPH_CLOSE, cv::Mat(11,11,CV_8U),cv::Point(-1,-1),1);
-   // cv::imshow("closeMat", closeMat);
+    cutMat2 = closeMat.clone();
+    // cv::imshow("closeMat", closeMat);
     //cv::medianBlur(closeMat, closeMat,5);
     //因为膨胀和腐蚀带来了一些"孤岛"(断裂的色块)，所以要再做一次背景块去除
     cv::Mat dbCloseMat;
@@ -1013,6 +1019,10 @@ void CutoutImage::cutImageByRect(const cv::Mat srcMat, cv::Rect cutRect,cv::Mat 
     
 //    cv::imshow("cutedMat ", dst);
 //    cv::imwrite("cutImg.png", dst);
-    
+}
 
+void CutoutImage::getTestMat(cv::Mat & dstMat1, cv::Mat &dstMat2 )
+{
+    dstMat1 = cutMat1;
+    dstMat2 = cutMat2;
 }
