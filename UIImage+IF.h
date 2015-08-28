@@ -19,4 +19,6 @@
      interpolationQuality:(CGInterpolationQuality)quality;
 - (CGAffineTransform)transformForOrientation:(CGSize)newSize;
 
++ (UIImage *)imageWithColor:(UIColor *)color andRect:(CGRect)setRect;
+
 @end

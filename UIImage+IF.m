@@ -164,5 +164,22 @@ CGFloat RadiansOfDegrees(CGFloat degrees) {return degrees * M_PI / 180;};
     return newImage;
     
 }
+
++ (UIImage *)imageWithColor:(UIColor *)color andRect:(CGRect)setRect
+{
+    //    CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
+    CGRect rect = setRect;
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return image;
+}
+
 @end
 

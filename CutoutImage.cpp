@@ -386,7 +386,7 @@ void CutoutImage::mergeProcess(const cv::Mat srcImg,cv::Mat &dstImg)
     cutMat1 = showContours.clone();
     cv::Mat closeMat;
 //  cv::morphologyEx(showContours, closeMat, cv::MORPH_CLOSE, cv::Mat(11,11,CV_8U),cv::Point(-1,-1),1);
-    cv::morphologyEx(showContours, closeMat, cv::MORPH_CLOSE, cv::Mat(11,11,CV_8U),cv::Point(-1,-1),1);
+    cv::morphologyEx(showContours, closeMat, cv::MORPH_CLOSE, cv::Mat(11,11,CV_8U,cv::Scalar(1)));
     cutMat2 = closeMat.clone();
     // cv::imshow("closeMat", closeMat);
     //cv::medianBlur(closeMat, closeMat,5);
@@ -457,7 +457,7 @@ void CutoutImage::rectRegionGrow( std::vector<cv::Point> seedVector, cv::Point r
     for(int i = 0;i<seedVector.size();i++){
         int seedx = seedVector[i].x - rectMatOrg.x;
         int seedy = seedVector[i].y - rectMatOrg.y;
-        regionGrowClover(srcMat, seedStoreMat, dstMat, seedx, seedy, 8);
+        regionGrowClover(srcMat, seedStoreMat, dstMat, seedx, seedy, 5);
     }
 }
 

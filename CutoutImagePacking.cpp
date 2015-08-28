@@ -7,8 +7,9 @@
 //
 
 #include "CutoutImagePacking.h"
-
-
+/**
+ *  类构造函数
+ */
 CutoutImagePacking::CutoutImagePacking()
 {
     CutoutImagePacking::cutoutImage = new CutoutImage;
@@ -23,9 +24,10 @@ CutoutImagePacking::~CutoutImagePacking()
 }
 /*
  设置要计算的彩色图,这里要重置seedMat,因为一个seedMat对应一个srcImg
-*/
+ */
 void CutoutImagePacking::setColorImage( cv::Mat srcMat, int maxSeedMatNum )
 {
+    CutoutImagePacking::selectSeedMat = 0;
     srcColorImg = srcMat;
     cv::cvtColor(srcColorImg, srcGrayImg, CV_BGR2BGRA);
     CutoutImagePacking::seedMatVector.clear();
@@ -40,13 +42,13 @@ void CutoutImagePacking::setColorImage( cv::Mat srcMat, int maxSeedMatNum )
 void CutoutImagePacking::setMaskColor(cv::Scalar inputMaskColor)
 {
     CutoutImagePacking::maskColor = inputMaskColor;
-
-}//设置输出观测mask的颜色
     
+}//设置输出观测mask的颜色
+
 void CutoutImagePacking::drawMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult )
 {
     cv::Mat sendSeedStoreMat = CutoutImagePacking::seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
-//    cv::imshow("sendSeedStoreMatA", sendSeedStoreMat);
+    //    cv::imshow("sendSeedStoreMatA", sendSeedStoreMat);
     cutoutImage->processImageAddMask( selectPoint, sendSeedStoreMat, seedStoreMat, lineWidth, srcColorImg);
     drawResult = cutoutImage->getMergeResult();
     cv::Mat matWillSave = seedStoreMat.clone();     //clone 一下后续存入 vector
@@ -75,7 +77,7 @@ void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int line
 {
     if((int)seedMatVector.size() != 0){ //为0是最开始
         cv::Mat sendSeedStoreMat = seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
- //       cv::imshow("sendSeedStoreMatC", sendSeedStoreMat);
+        //       cv::imshow("sendSeedStoreMatC", sendSeedStoreMat);
         cutoutImage->processImageCreatMask( selectPoint, srcColorImg, sendSeedStoreMat, lineWidth,10 );
         drawResult = cutoutImage->getMergeResult();
         seedStoreMat = sendSeedStoreMat;

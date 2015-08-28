@@ -30,7 +30,13 @@
     }
     return self;
 }
-
+/**
+ *  带有待计算图像的初始化程序
+ *
+ *  @param setImage 要传入的图像
+ *
+ *  @return self指针
+ */
 -(id)initWithImage:(UIImage *)setImage
 {
     if(self = [super init])
@@ -47,7 +53,13 @@
     }
     return self;
 }
-
+/**
+ *  设置待计算的图像，重置内部的所有计算用容器与状态，
+ *  此函数被调用意味着1、输入了新图像 2、重置操作
+ *
+ *  @param setImage 图像输入
+ *  @param winSize  外部显示view的窗口大小，用于输入坐标点与图像坐标点的转换
+ */
 -(void) setCalculateImage:(UIImage *)setImage andWindowSize:(CGSize)winSize
 {
     cv::Mat sendImageRGBA = [self CVMat:setImage];
@@ -59,7 +71,12 @@
     self.xScale = sendImageBGR.cols/winSize.width;
     self.yScale = sendImageBGR.rows/winSize.height;
 }
-
+/**
+ *  将输入点直接转换成Mask点，其中没有图像算法
+ *
+ *  @param selectPoint 输入的Mask点坐标
+ *  @param lineWidth   要花的线的线宽
+ */
 -(void) setDrawPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth
 {
     //存储类型转换，nsmutablearray转换为 std::vector
@@ -80,7 +97,12 @@
         [self.delegate resultImageReady:sendUIImage];
     }
 }
-
+/**
+ *  整体生长算法程序入口
+ *
+ *  @param selectPoint 外部传入的容器，其中包含生长点。
+ *  @param lineWidth   线段宽度
+ */
 -(void) setCreatPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth
 {
     std::vector<cv::Point> sendPoint;
@@ -104,7 +126,12 @@
     UIImage *debugImg = [self UIImageFromCVMat:debugMat];
     UIImage *debugImg2 = [self UIImageFromCVMat:debugMat2];
 }
-
+/**
+ *  按滑动位置删除扣取区域的程序入口
+ *
+ *  @param selectPoint 划屏点容器，待删除点
+ *  @param lineWidth   删除线的线段宽度
+ */
 -(void) setDeletePoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth
 {
     std::vector<cv::Point> sendPoint;
@@ -124,16 +151,60 @@
         [self.delegate resultImageReady:sendUIImage];
     }
 }
-//UIImage转mat，注意。uiimage转换为的cvMat可能是rgba的，所以需要再次修改
+/**
+ *  重置所有生成的mask
+ */
+-(void) resetAllMask
+{
+    cv::Mat getMat;
+    self.cutoutImagePacking->resetMask(getMat);
+    cv::cvtColor(getMat, getMat, CV_BGR2RGB);
+    UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
+        [self.delegate resultImageReady:sendUIImage];
+    }
+}
+/**
+ *  回退操作
+ */
+-(void) redoPoint
+{
+    cv::Mat getMat;
+    self.cutoutImagePacking->redo(getMat);
+    cv::cvtColor(getMat, getMat, CV_BGR2RGB);
+    UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
+        [self.delegate resultImageReady:sendUIImage];
+    }
+}
+/**
+ *  前进操作
+ */
+-(void) undoPoint
+{
+    cv::Mat getMat;
+    self.cutoutImagePacking->undo(getMat);
+    cv::cvtColor(getMat, getMat, CV_BGR2RGB);
+    UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
+        [self.delegate resultImageReady:sendUIImage];
+    }
+}
+
+/**
+ *  UIImage转mat，注意。uiimage转换为的cvMat可能是rgba的，所以需要再次修改
+ *
+ *  @param uiiameg 输入的UIImage
+ *
+ *  @return 返回的cv::Mat
+ */
 -(cv::Mat)CVMat:( UIImage *)uiiameg
 {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(uiiameg.CGImage);
     CGFloat cols = uiiameg.size.width;
     CGFloat
     rows = uiiameg.size.height;
-    
     cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
-    
     CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to backing data
                                                     cols,                      // Width of bitmap
                                                     rows,                     // Height of bitmap
@@ -153,7 +224,6 @@
 {
     NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize()*cvMat.total()];
     CGColorSpaceRef colorSpace;
-    
     if (cvMat.elemSize() == 1) {
         colorSpace = CGColorSpaceCreateDeviceGray();
     } else {

@@ -20,6 +20,9 @@
 -(void) setDrawPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
 -(void) setCreatPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
 -(void) setDeletePoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
+-(void) resetAllMask;
+-(void) redoPoint;
+-(void) undoPoint;
 
 @property (nonatomic,weak) id<Bridge2OpenCVDelegate> delegate;
 

@@ -8,6 +8,9 @@
 
 #import "ViewController.h"
 #import <Foundation/Foundation.h>
+#import "UIImage+IF.h"
+#define LINESTEP 5
+#define DEFLINEWIDTH 10
 
 @interface ViewController ()
 
@@ -19,12 +22,15 @@
 @property (nonatomic, strong) UIButton *addMaskPoint;
 @property (nonatomic, strong) UIButton *deleteMaskPoint;
 @property (nonatomic, strong) UIButton *moveImg;
-@property (nonatomic, strong) UIButton *undoButton; //返回
-@property (nonatomic, strong) UIButton *redoButton; //前进
-@property (nonatomic) int lineWidth;
+@property (nonatomic, strong) UIButton *undoButton; //前进
+@property (nonatomic, strong) UIButton *redoButton; //返回
+@property (nonatomic, strong) UIButton *addLineWidth;
+@property (nonatomic, strong) UIButton *subtractLineWidth;
+
 
 @property (nonatomic, strong) NSMutableArray *pointArray;  //同时发送的只能有一组array, 删除，添加，选取都是这一个array
 @property (nonatomic, strong) UIButton *sysTestButton;
+@property (nonatomic, strong) UIButton *resetDrawButton;
 @property (nonatomic) CGRect orgRect;
 @property (nonatomic, strong) Bridge2OpenCV *b2opcv;
 @property (nonatomic) CGSize imgWindowSize;
@@ -32,6 +38,8 @@
 @property (nonatomic) BOOL isMove; //移动时最好禁用其他操作
 @property (nonatomic) BOOL isDraw; //YES是直接画mark NO是添加生长点
 @property (nonatomic) BOOL isDelete; //YES则调用删除点，NO是再判断上面的Draw
+
+@property (nonatomic) int setLineWidth;
 
 @end
 
@@ -42,7 +50,7 @@
     
     float smallButtonWidth = 50;
     float bigButtonWidth = 100;
-    
+    self.setLineWidth = DEFLINEWIDTH;              //线宽默认是10
     CGRect mainScreen = [[UIScreen mainScreen] applicationFrame];
     NSLog(@" mainScreen.size.height = %f  mainScreen.size.width = %f ",mainScreen.size.height, mainScreen.size.width);
     NSLog(@" mainScreen.origin.x    = %f  mainScreen.origin.y   = %f  ",mainScreen.origin.x,mainScreen.origin.y);
@@ -62,9 +70,12 @@
     self.appImageView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
     self.orgRect = self.appImageView.frame;
     self.appImageView.backgroundColor = [UIColor greenColor];
-   
+    
+    UIImage *imageInit =  [UIImage imageWithColor:self.appImageView.backgroundColor andRect:CGRectMake(0, 0, self.appImageView.frame.size.width, self.appImageView.frame.size.width)]; // [self.appImageView image];
     self.imgWindowSize = CGSizeMake(self.appImageView.frame.size.width, self.appImageView.frame.size.height);
     self.orgTrf = self.appImageView.transform;
+
+    [self.b2opcv setCalculateImage:imageInit andWindowSize:self.imgWindowSize];
     
     [self creatPan];
     //生成一个遮挡平面，这样可以得到小图的剪切
@@ -90,10 +101,21 @@
     self.sysTestButton.frame =CGRectMake(0, mainScreen.size.height - 30, 100, 50);
     self.sysTestButton.backgroundColor = [UIColor whiteColor];
     [self.sysTestButton.layer setCornerRadius:5];
-    [self.sysTestButton setTitle:@"复位" forState:UIControlStateNormal];
+    [self.sysTestButton setTitle:@"重置位置" forState:UIControlStateNormal];
     [self.sysTestButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.sysTestButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.sysTestButton addTarget:self action:@selector(resetPosion:) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     *  重画按键，点击后消除所有当前图像所有Mask
+     */
+    self.resetDrawButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.resetDrawButton.frame = CGRectMake(110, mainScreen.size.height - 30, 100, 50);
+    self.resetDrawButton.backgroundColor = [UIColor whiteColor];
+    [self.resetDrawButton.layer setCornerRadius:5];
+    [self.resetDrawButton setTitle:@"重置绘制" forState:UIControlStateNormal];
+    [self.resetDrawButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.resetDrawButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.resetDrawButton addTarget:self action:@selector(resetDraw:) forControlEvents:UIControlEventTouchUpInside];
     
     //添加计算点按键
     self.addCalculatePoint = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -135,6 +157,54 @@
     [self.deleteMaskPoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.deleteMaskPoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.deleteMaskPoint addTarget:self action:@selector(deleteMaskPointFoo:) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     *  增加回退按钮
+     */
+    self.redoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.redoButton.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width , smallButtonWidth, 50);
+    self.redoButton.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y + 60);
+    self.redoButton.backgroundColor = [UIColor whiteColor];
+    [self.redoButton.layer setCornerRadius:5];
+    [self.redoButton  setTitle:@"返回" forState:UIControlStateNormal];
+    [self.redoButton  setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.redoButton  setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.redoButton  addTarget:self action:@selector(redoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     *  增加前进按钮
+     */
+    self.undoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.undoButton.frame = CGRectMake(mainScreen.size.width - smallButtonWidth, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth , 50);
+    self.undoButton.center = CGPointMake(mainScreen.size.width/5*4,self.moveImg.center.y + 60);
+    self.undoButton.backgroundColor = [UIColor whiteColor];
+    [self.undoButton.layer setCornerRadius:5];
+    [self.undoButton setTitle:@"前进" forState:UIControlStateNormal];
+    [self.undoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.undoButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.undoButton addTarget:self action:@selector(undoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     *  增加线宽按钮
+     */
+    self.addLineWidth = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.addLineWidth.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth, 50);
+    self.addLineWidth.center = CGPointMake(mainScreen.size.width/5*2, self.addMaskPoint.center.y + 60);
+    self.addLineWidth.backgroundColor = [UIColor whiteColor];
+    [self.addLineWidth.layer setCornerRadius:5];
+    [self.addLineWidth setTitle:@"+" forState:UIControlStateNormal];
+    [self.addLineWidth setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.addLineWidth setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.addLineWidth addTarget:self action:@selector(addLineWidthFoo) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     *  减少线宽
+     */
+    self.subtractLineWidth = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.subtractLineWidth .frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth, 50);
+    self.subtractLineWidth.center = CGPointMake(mainScreen.size.width/5*3, self.deleteMaskPoint.center.y + 60);
+    self.subtractLineWidth.backgroundColor = [UIColor whiteColor];
+    [self.subtractLineWidth.layer setCornerRadius:5];
+    [self.subtractLineWidth setTitle:@"-" forState:UIControlStateNormal];
+    [self.subtractLineWidth setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.subtractLineWidth setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.subtractLineWidth addTarget:self action:@selector(subtractLineWidthFoo) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
@@ -146,7 +216,11 @@
     [self.view addSubview:self.addMaskPoint];
     [self.view addSubview:self.deleteMaskPoint];
     [self.view addSubview:self.moveImg];
-    
+    [self.view addSubview:self.resetDrawButton];
+    [self.view addSubview:self.redoButton];
+    [self.view addSubview:self.undoButton];
+    [self.view addSubview:self.addLineWidth];
+    [self.view addSubview:self.subtractLineWidth];
     self.view.backgroundColor = [UIColor grayColor];
     
     self.isMove = NO;
@@ -170,6 +244,48 @@
 {
     self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
     self.appImageView.frame = self.orgRect;
+}
+/**
+ *  重置所有绘制
+ *
+ *  @param sender <#sender description#>
+ */
+-(void) resetDraw:(id)sender
+{
+    self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
+    self.appImageView.frame = self.orgRect;
+    self.setLineWidth = DEFLINEWIDTH;
+    [self.b2opcv resetAllMask];
+}
+/**
+ *  回退操作
+ */
+-(void) redoButtonFoo
+{
+    [self.b2opcv redoPoint];
+}
+/**
+ *  前进操作
+ */
+-(void) undoButtonFoo
+{
+    [self.b2opcv undoPoint];
+}
+/**
+ *  加线宽
+ */
+-(void) addLineWidthFoo
+{
+    self.setLineWidth = self.setLineWidth + LINESTEP;
+}
+/**
+ *  减线宽
+ */
+-(void) subtractLineWidthFoo
+{
+    if( self.setLineWidth - LINESTEP > 0  ){
+        self.setLineWidth = self.setLineWidth - LINESTEP;
+    }
 }
 
 -(void) cutImageCut:(id)sender
@@ -255,18 +371,17 @@
     if(self.isMove == NO){
         if(self.isDelete == NO){
             if(self.isDraw == NO){
-                [self.b2opcv setCreatPoint:self.pointArray andLineWidth:10];
+                [self.b2opcv setCreatPoint:self.pointArray andLineWidth:self.setLineWidth];
             }
             else{
-                [self.b2opcv setDrawPoint:self.pointArray andLineWidth:10];
+                [self.b2opcv setDrawPoint:self.pointArray andLineWidth:self.setLineWidth];
             }
         }
         else
         {
-            [self.b2opcv setDeletePoint:self.pointArray andLineWidth:10];
+            [self.b2opcv setDeletePoint:self.pointArray andLineWidth:self.setLineWidth];
         }
     }
-    
     //UIImage *imgSend = self.appImageView.image;
 }
 
@@ -292,6 +407,8 @@
     //加载图片
     self.appImageView.image = image;
     [self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
+    //重置绘制线宽
+    self.setLineWidth = DEFLINEWIDTH;
     //每次打开时，将appImageView归到初始位置
     self.appImageView.frame = self.orgRect;
 //    [self creatPan];
@@ -309,7 +426,6 @@
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
                                                     initWithTarget:self
                                                     action:@selector(handlePan:)];
-    
     panGestureRecognizer.delegate = self;
     [self.appImageView  addGestureRecognizer:panGestureRecognizer];
     
@@ -364,5 +480,7 @@
     [self.pointArray addObject: [NSValue valueWithCGPoint:aPoint]];
     }
 }
+
+
 
 @end
