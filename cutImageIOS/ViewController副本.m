@@ -9,18 +9,14 @@
 #import "ViewController.h"
 #import <Foundation/Foundation.h>
 #import "UIImage+IF.h"
-//#import "ImageShowView.h"
-#import "ImageEditView.h"
 #define LINESTEP 5
 #define DEFLINEWIDTH 10
 
 @interface ViewController ()
 
 @property (nonatomic, strong) UIImage* photoImg;
-//@property (nonatomic, strong) UIImageView *appImageView;
-//@property (nonatomic, strong) ImageShowView *appImageView;
-@property (nonatomic, strong) ImageEditView  *appImageView;
-//@property (nonatomic, strong) UIImageView *showImgView;
+@property (nonatomic, strong) UIImageView *appImageView;
+@property (nonatomic, strong) UIImageView *showImgView;
 @property (nonatomic, strong) UIButton *openPhotoAlbum;
 @property (nonatomic, strong) UIButton *addCalculatePoint;
 @property (nonatomic, strong) UIButton *addMaskPoint;
@@ -36,7 +32,7 @@
 @property (nonatomic, strong) UIButton *sysTestButton;
 @property (nonatomic, strong) UIButton *resetDrawButton;
 @property (nonatomic) CGRect orgRect;
-//@property (nonatomic, strong) Bridge2OpenCV *b2opcv;
+@property (nonatomic, strong) Bridge2OpenCV *b2opcv;
 @property (nonatomic) CGSize imgWindowSize;
 @property (nonatomic) CGAffineTransform orgTrf;
 @property (nonatomic) BOOL isMove; //移动时最好禁用其他操作
@@ -44,8 +40,6 @@
 @property (nonatomic) BOOL isDelete; //YES则调用删除点，NO是再判断上面的Draw
 
 @property (nonatomic) int setLineWidth;
-@property (nonatomic, strong) UIGestureRecognizer *panGestureRecognizer;
-@property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
 
 /**
  *  画图测试
@@ -68,42 +62,34 @@
     NSLog(@" mainScreen.origin.x    = %f  mainScreen.origin.y   = %f  ",mainScreen.origin.x,mainScreen.origin.y);
     CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20);
     self.pointArray = [[NSMutableArray alloc]init];
-   // self.b2opcv = [[Bridge2OpenCV alloc]init];
-   // self.b2opcv.delegate = self;
+    self.b2opcv = [[Bridge2OpenCV alloc]init];
+    self.b2opcv.delegate = self;
     
     //上半部分遮挡view
     
     //
-    //self.showImgView= [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-    //self.showImgView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
-    //self.showImgView.backgroundColor = [UIColor whiteColor];
+    self.showImgView= [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
+    self.showImgView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
+    self.showImgView.backgroundColor = [UIColor whiteColor];
     //
-//    self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-
-    self.appImageView.bounds =CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width);
-   
+    self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
     self.appImageView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
-   
-    NSLog(@"self.appImageView.frame.size.width  = %f",self.appImageView.frame.size.width);
-    NSLog(@"self.appImageView.frame.size.height = %f",self.appImageView.frame.size.height);
-    
     self.orgRect = self.appImageView.frame;
-    //self.appImageView.backgroundColor = [UIColor clearColor];
+    self.appImageView.backgroundColor = [UIColor greenColor];
     
     UIImage *imageInit =  [UIImage imageWithColor:self.appImageView.backgroundColor andRect:CGRectMake(0, 0, self.appImageView.frame.size.width, self.appImageView.frame.size.width)]; // [self.appImageView image];
     self.imgWindowSize = CGSizeMake(self.appImageView.frame.size.width, self.appImageView.frame.size.height);
     self.orgTrf = self.appImageView.transform;
-    //[self.b2opcv setCalculateImage:imageInit andWindowSize:self.imgWindowSize];
+
+    [self.b2opcv setCalculateImage:imageInit andWindowSize:self.imgWindowSize];
     
     [self creatPan];
     //生成一个遮挡平面，这样可以得到小图的剪切
-    //float tmpHeight =   self.showImgView.frame.origin.y;
-    float tmpHeight =   self.appImageView.frame.origin.y;
+    float tmpHeight =   self.showImgView.frame.origin.y;
     UIImageView *upKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, tmpHeight)];
     upKeepOutView.backgroundColor = [UIColor grayColor];
     //[upKeepOutView.layer setCornerRadius:5];
-    UIImageView *bottomKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, tmpHeight + self.appImageView.frame.size.height, mainScreen.size.width, mainScreen.size.height - tmpHeight - self.appImageView.frame.size.height + 20)];
+    UIImageView *bottomKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, tmpHeight + self.showImgView.frame.size.height, mainScreen.size.width, mainScreen.size.height - tmpHeight - self.showImgView.frame.size.height + 20)];
     bottomKeepOutView.backgroundColor = [UIColor grayColor];
     //[bottomKeepOutView.layer setCornerRadius:5];
     
@@ -226,7 +212,7 @@
     [self.subtractLineWidth setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.subtractLineWidth addTarget:self action:@selector(subtractLineWidthFoo) forControlEvents:UIControlEventTouchUpInside];
     
-    //[self.view addSubview:self.showImgView];
+    [self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
     [self.view addSubview:upKeepOutView];
     [self.view addSubview:bottomKeepOutView];
@@ -245,7 +231,7 @@
     
     self.isMove = NO;
     self.isDraw = NO;       //默认是添加
-    self.isDelete  = NO;
+    self.isDelete   = NO;
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -255,26 +241,15 @@
         //耗时处理
         dispatch_async( dispatch_get_main_queue(), ^{
             //同步显示
-            //self.appImageView.image = sendImage;
-            //self.appImageView.layer.contents = sendImage;
-            [self.appImageView setPicture:sendImage];
-            //self.showImgView.image = sendImage;
+            self.appImageView.image = sendImage;
         });
     });
 }
-/**
- *  将试图恢复到初始位置,并且添加动画
- *
- *  @param sender 按键sender
- */
+
 -(void) resetPosion:(id)sender
 {
-    //     self.appImageView.transform=CGAffineTransformIdentity;//取消一切形变
-    //self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
-    [UIView animateWithDuration:.5 animations:^{
-        self.appImageView.transform = CGAffineTransformMake(1, 0.0, 0.0, 1, 0, 0);
-        self.appImageView.frame = self.orgRect;
-    }];
+    self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
+    self.appImageView.frame = self.orgRect;
 }
 /**
  *  重置所有绘制
@@ -286,21 +261,21 @@
     self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
     self.appImageView.frame = self.orgRect;
     self.setLineWidth = DEFLINEWIDTH;
-    [self.appImageView resetAllMask];
+    [self.b2opcv resetAllMask];
 }
 /**
  *  回退操作
  */
 -(void) redoButtonFoo
 {
-    [self.appImageView redo];
+    [self.b2opcv redoPoint];
 }
 /**
  *  前进操作
  */
 -(void) undoButtonFoo
 {
-    [self.appImageView undo];
+    [self.b2opcv undoPoint];
 }
 /**
  *  加线宽
@@ -321,8 +296,7 @@
 
 -(void) cutImageCut:(id)sender
 {
-    [self.appImageView setMove:NO];
-    [self.appImageView setUserInteractionEnabled:YES];
+    [self.appImageView setUserInteractionEnabled:NO];
     self.addCalculatePoint.backgroundColor  = [UIColor yellowColor];
     self.addMaskPoint.backgroundColor  = [UIColor whiteColor];
     self.deleteMaskPoint.backgroundColor  = [UIColor whiteColor];
@@ -330,14 +304,11 @@
     self.isDraw = NO;
     self.isMove = NO;
     self.isDelete= NO;
-    [self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) addMaskPointFoo:(id)sender          //直接添加种子点
 {
-    [self.appImageView setMove:NO];
-    [self.appImageView setUserInteractionEnabled:YES];
+    [self.appImageView setUserInteractionEnabled:NO];
     self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
     self.addMaskPoint.backgroundColor       = [UIColor yellowColor];
     self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
@@ -345,40 +316,29 @@
     self.isDraw = YES;
     self.isMove = NO;
     self.isDelete= NO;
-    [self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) deleteMaskPointFoo:(id)sender
 {
-    [self.appImageView setMove:NO];
-    [self.appImageView setUserInteractionEnabled:YES];
+    [self.appImageView setUserInteractionEnabled:NO];
     self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
     self.addMaskPoint.backgroundColor       = [UIColor whiteColor];
     self.deleteMaskPoint.backgroundColor    = [UIColor yellowColor];
     self.moveImg.backgroundColor            = [UIColor whiteColor];
     self.isDelete = YES;
     self.isMove = NO;
-    [self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) enableMoveImg:(id)sender
 {
-    [self.appImageView setMove:YES];
     [self.appImageView setUserInteractionEnabled:YES];
     self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
     self.addMaskPoint.backgroundColor       = [UIColor whiteColor];
     self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
     self.moveImg.backgroundColor            = [UIColor yellowColor];
     self.isMove = YES;
-   
-    [self.appImageView addGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
-
-/*
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
@@ -430,7 +390,7 @@
     }
     //UIImage *imgSend = self.appImageView.image;
 }
-*/
+
 -(void)takePictureClick:(id)sender
 {
     /*注：使用，需要实现以下协议：UIImagePickerControllerDelegate,
@@ -451,102 +411,68 @@
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
 {
     //加载图片
-//    self.appImageView.image = image;
-//    self.appImageView.layer.contents = image;
-    [self.appImageView  setPicture:image];
-    //self.showImgView.image = image;
-    //[self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
+    self.appImageView.image = image;
+    [self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
     //重置绘制线宽
     self.setLineWidth = DEFLINEWIDTH;
     //每次打开时，将appImageView归到初始位置
-//    self.appImageView.frame = self.orgRect;
+    self.appImageView.frame = self.orgRect;
 //    [self creatPan];
     //选择框消失
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 //取消选择图片
-
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-/**
- *  初始化手势动作，其中不添加
- */
+
 -(void) creatPan
 {
-    self.panGestureRecognizer = [[UIPanGestureRecognizer alloc]
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc]
                                                     initWithTarget:self
                                                     action:@selector(handlePan:)];
-    self.panGestureRecognizer.delegate = self;
-    self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
+    panGestureRecognizer.delegate = self;
+    [self.appImageView  addGestureRecognizer:panGestureRecognizer];
+    
+    UIPinchGestureRecognizer *pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                                         initWithTarget:self
                                                         action:@selector(handlePinch:)];
-    self.pinchGestureRecognizer.delegate = self;
+    pinchGestureRecognizer.delegate = self;
+    [self.appImageView  addGestureRecognizer:pinchGestureRecognizer];
+    [self.appImageView setUserInteractionEnabled:NO];
+    //[self.view setBackgroundColor:[UIColor whiteColor]];
+    //[self.view addSubview:snakeImageView];
 }
 
 - (void) handlePan:(UIPanGestureRecognizer*) recognizer
 {
-    if(self.isMove){
-        if (recognizer.state==UIGestureRecognizerStateChanged) {
-            CGPoint translation = [recognizer translationInView:self.view];
-            recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-                                                 recognizer.view.center.y + translation.y);
-            [recognizer setTranslation:CGPointZero inView:self.view];
-        }
-        else if(recognizer.state == UIGestureRecognizerStateEnded){
-            CGAffineTransform show =  recognizer.view.transform;
-            CGAffineTransform show2 =  self.orgTrf;
-        }
-    }
+    CGPoint translation = [recognizer translationInView:self.view];
+    recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+                                         recognizer.view.center.y + translation.y);
+    [recognizer setTranslation:CGPointZero inView:self.view];
+    
+//    NSLog(@"x = %f",self.appImageView.frame.origin.x);
+//    NSLog(@"y = %f",self.appImageView.frame.origin.y);
+    
 }
-
 - (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
 {
-    if(self.isMove){
-        if (recognizer.state==UIGestureRecognizerStateChanged) {
-            recognizer.view.transform=CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-            recognizer.scale = 1; //不重置为1则变化会太快
-        }
-        else if(recognizer.state == UIGestureRecognizerStateEnded){
-            [self.appImageView setLineScale:recognizer.view.transform.a];
-            CGAffineTransform show =  recognizer.view.transform;
-            CGAffineTransform show2 =  self.orgTrf;
-        }
-        /*
-        else if(recognizer.state==UIGestureRecognizerStateEnded){//结束后恢复
-            [UIView animateWithDuration:.5 animations:^{
-                recognizer.view.transform=CGAffineTransformIdentity;//取消一切形变
-            }];
-        }
-         //这段被注释的代码用于当点击的时候改变，结束的时候取消所有改变
-         if (recognizer.state==UIGestureRecognizerStateChanged) {
-         recognizer.view.transform=CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
-         }
-         else if(recognizer.state==UIGestureRecognizerStateEnded){//结束后恢复
-         [UIView animateWithDuration:.5 animations:^{
-         recognizer.view.transform=CGAffineTransformIdentity;//取消一切形变
-         }];
-         }
-         */
-        // recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-        // NSLog(@"recognizer.scale = %f",recognizer.scale);
-        // recognizer.scale = 1; //不重置为1则变化会太快
-        
+    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+    NSLog(@"recognizer.scale = %f",recognizer.scale);
+    recognizer.scale = 1; //不重置为1则变化会太快
+   
+    if(self.appImageView.frame.size.width < 320.0)
+    {
+        CGPoint tmpp = self.appImageView.frame.origin;
+        self.appImageView.frame = CGRectMake(tmpp.x, tmpp.y, 320, 320);
     }
-    /*
-     if(self.appImageView.frame.size.width < 320.0)
-     {
-     CGPoint tmpp = self.appImageView.frame.origin;
-     self.appImageView.frame = CGRectMake(tmpp.x, tmpp.y, 320, 320);
-     }
-     
-     NSLog(@"scale Width = %f",self.appImageView.frame.size.width);
-     NSLog(@"scale Height= %f",self.appImageView.frame.size.height);
-     */
     
-    //    NSLog(@" width  = %f",self.appImageView.frame.size.width) ;
-    //    NSLog(@" height = %f",self.appImageView.frame.size.height);
+    NSLog(@"scale Width = %f",self.appImageView.frame.size.width);
+    NSLog(@"scale Height= %f",self.appImageView.frame.size.height);
+    
+//    NSLog(@" width  = %f",self.appImageView.frame.size.width) ;
+//    NSLog(@" height = %f",self.appImageView.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {
