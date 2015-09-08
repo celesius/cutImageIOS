@@ -107,9 +107,19 @@
 
 -(void) setPointArray:(NSMutableArray *) pointArray andLineWide:(float) linaWidth;
 {
-//    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
     dispatch_async(self.imageProcessQueue, ^{
-        [self.b2opcv setCreatPoint:pointArray andLineWidth:linaWidth];
+        if(self.isDelete){
+            [self.b2opcv setDeletePoint:pointArray andLineWidth:linaWidth*2];
+        }
+        else{
+            if (self.isDraw) {
+                [self.b2opcv setDrawPoint:pointArray andLineWidth:linaWidth*2];
+            }
+            else{
+                [self.b2opcv setCreatPoint:pointArray andLineWidth:linaWidth*2];
+            }
+        }
     });
 }
 

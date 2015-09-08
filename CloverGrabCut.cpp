@@ -128,8 +128,10 @@ cv::Mat  CloverGrabCut::filterMaskAndMergeMat(cv::Mat srcMat, cv::Mat matStore, 
         cv::Rect rectDraw = cv::Rect(lx,ty,rx-lx+1,by-ty+1);
         
         if(contours.size() == 1){
-            //drawContours( aMatStore, contours, i, Scalar(255), CV_FILLED);
-            resultMat = mergeMat( srcMat, aMatStore, rectDraw ); //若只有一个contur则直接返回
+            printf("!!!!!mergeMat( srcMat, aMatStore, rectDraw )!!!!!!\n");
+            drawContours( contoursMat, contours, i, cv::Scalar(255), CV_FILLED);
+//            resultMat = mergeMat( srcMat, aMatStore, rectDraw ); //若只有一个contur则直接返回
+            resultMat = mergeMat( contoursMat, aMatStore, rectDraw ); //若只有一个contur则直接返回
         }
         else{
             if( diffRect(rectDraw,filterRect) )

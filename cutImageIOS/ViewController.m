@@ -323,6 +323,8 @@
 {
     [self.appImageView setMove:NO];
     [self.appImageView setUserInteractionEnabled:YES];
+    self.appImageView.isDraw = NO;
+    self.appImageView.isDelete = NO;
     self.addCalculatePoint.backgroundColor  = [UIColor yellowColor];
     self.addMaskPoint.backgroundColor  = [UIColor whiteColor];
     self.deleteMaskPoint.backgroundColor  = [UIColor whiteColor];
@@ -338,6 +340,8 @@
 {
     [self.appImageView setMove:NO];
     [self.appImageView setUserInteractionEnabled:YES];
+    self.appImageView.isDraw = YES;
+    self.appImageView.isDelete = NO;
     self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
     self.addMaskPoint.backgroundColor       = [UIColor yellowColor];
     self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
@@ -353,6 +357,8 @@
 {
     [self.appImageView setMove:NO];
     [self.appImageView setUserInteractionEnabled:YES];
+    self.appImageView.isDraw = NO;
+    self.appImageView.isDelete = YES;
     self.addCalculatePoint.backgroundColor  = [UIColor whiteColor];
     self.addMaskPoint.backgroundColor       = [UIColor whiteColor];
     self.deleteMaskPoint.backgroundColor    = [UIColor yellowColor];

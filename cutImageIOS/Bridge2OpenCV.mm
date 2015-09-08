@@ -80,6 +80,7 @@
 -(void) setDrawPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth
 {
     //存储类型转换，nsmutablearray转换为 std::vector
+    printf("lineWidth = %d\n",lineWidth);
     std::vector<cv::Point> sendPoint;
     for(int i =0;i<[selectPoint count];i++){
         NSValue *pv = [selectPoint objectAtIndex:i];
