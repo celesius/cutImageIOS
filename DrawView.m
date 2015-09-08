@@ -109,8 +109,22 @@
 }
 */
 
+-(void) resetDraw
+{
+    if(self.pathArray != nil){
+        [self.pathArray removeAllObjects];
+        [self setNeedsDisplay];
+    }
+    self.lineScale = 1.0;
+}
+
 -(void) setPhotoImage:(UIImage *)setImage
 {
+    if(self.pathArray != nil){
+        [self.pathArray removeAllObjects];
+        [self setNeedsDisplay];
+    }
+    self.lineScale = 1.0;
     //self.setView.image = setImage;
     //self.image = setImage;
 }
@@ -154,6 +168,7 @@
         _isHavePath = YES;
         CGPathMoveToPoint(_path, NULL, location.x, location.y);
         
+        [self.pointArray removeAllObjects];
         [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
         
         //NSLog(@"touch began (x, y) is (%f, %f)", location.x, location.y);
@@ -183,8 +198,20 @@
         UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:_path];
         DrawViewModel *myViewModel = [DrawViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth*self.lineScale];
         [_pathArray addObject:myViewModel];
+        
+        NSLog(@"_pathArray.count = %d",_pathArray.count);
+        if(_pathArray.count == 20){
+            [_pathArray removeObjectAtIndex:0];
+        }
+        NSLog(@"_pathArray.count = %d",_pathArray.count);
+        
         CGPathRelease(_path);
         _isHavePath = NO;
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(setPointArray:andLineWide:)]){
+            [self.delegate setPointArray:self.pointArray andLineWide:_lineWidth*self.lineScale];
+        }
+        
        /*
         if(self.isMove == NO){
             if(self.isDelete == NO){

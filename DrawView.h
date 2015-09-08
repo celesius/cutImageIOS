@@ -21,6 +21,7 @@
 -(void) setMove:(BOOL) isMove;
 -(void) redo;
 -(void) undo;
+-(void) resetDraw;
 //-(void) setLineScale:(float) scale;
 /**
  *  设置的线宽和颜色

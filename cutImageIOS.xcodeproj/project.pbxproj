@@ -13,6 +13,7 @@
 		541382881B86E07600478FE6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 541382871B86E07600478FE6 /* Images.xcassets */; };
 		541382971B86E07600478FE6 /* cutImageIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382961B86E07600478FE6 /* cutImageIOSTests.m */; };
 		541382A41B870A4D00478FE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541382A21B870A2D00478FE6 /* UIKit.framework */; };
+		54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */; };
 		545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */ = {isa = PBXBuildFile; fileRef = 545346711B8D5ADC00F86C35 /* UIImage+IF.m */; };
 		5467C2641B96EBA300B0FB6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5467C2621B96EB9000B0FB6F /* CoreMotion.framework */; };
 		54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816D71B8B18F40002061D /* CutoutImage.cpp */; };
@@ -65,6 +66,8 @@
 		541382951B86E07600478FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		541382961B86E07600478FE6 /* cutImageIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cutImageIOSTests.m; sourceTree = "<group>"; };
 		541382A21B870A2D00478FE6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloverGrabCut.cpp; sourceTree = "<group>"; };
+		54318C741B9D7AF400A16E21 /* CloverGrabCut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverGrabCut.h; sourceTree = "<group>"; };
 		545346701B8D5ADC00F86C35 /* UIImage+IF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+IF.h"; path = "../UIImage+IF.h"; sourceTree = "<group>"; };
 		545346711B8D5ADC00F86C35 /* UIImage+IF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+IF.m"; path = "../UIImage+IF.m"; sourceTree = "<group>"; };
 		5467C2621B96EB9000B0FB6F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -184,6 +187,8 @@
 				54D816D81B8B18F40002061D /* CutoutImage.h */,
 				54D816DD1B8B254E0002061D /* Bridge2OpenCV.h */,
 				54D816DE1B8B254E0002061D /* Bridge2OpenCV.mm */,
+				54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */,
+				54318C741B9D7AF400A16E21 /* CloverGrabCut.h */,
 			);
 			name = openCVSource;
 			sourceTree = "<group>";
@@ -249,7 +254,6 @@
 				TargetAttributes = {
 					541382761B86E07600478FE6 = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 78L6UCY98A;
 					};
 					5413828F1B86E07600478FE6 = {
 						CreatedOnToolsVersion = 6.4;
@@ -304,6 +308,7 @@
 				541382831B86E07600478FE6 /* ViewController.m in Sources */,
 				54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */,
 				54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */,
+				54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */,
 				54EF674C1B947723007E7A3C /* DrawView.m in Sources */,
 				54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */,
 				545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */,
@@ -446,6 +451,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cutImageIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -464,6 +470,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cutImageIOS/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -509,7 +509,19 @@
             recognizer.scale = 1; //不重置为1则变化会太快
         }
         else if(recognizer.state == UIGestureRecognizerStateEnded){
+            if(recognizer.view.transform.a > 2.0){
+                [UIView animateWithDuration:.25 animations:^{
+                    recognizer.view.transform= CGAffineTransformMake(2.0, 0.0, 0.0, 2.0, 0, 0) ;//取消一切形变
+                }];
+            }
+            else if( recognizer.view.transform.a < 0.6 ){
+                [UIView animateWithDuration:.25 animations:^{
+                    recognizer.view.transform= CGAffineTransformMake(0.6, 0.0, 0.0, 0.6, 0, 0) ;//取消一切形变
+                }];
+            }
+            
             [self.appImageView setLineScale:recognizer.view.transform.a];
+            NSLog(@"view.transform.a = %f",recognizer.view.transform.a);
             CGAffineTransform show =  recognizer.view.transform;
             CGAffineTransform show2 =  self.orgTrf;
         }

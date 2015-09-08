@@ -123,8 +123,8 @@
     }
     cv::Mat debugMat = self.cutoutImagePacking->getDebugMat();
     cv::Mat debugMat2 = self.cutoutImagePacking->getDebugMat2();
-    UIImage *debugImg = [self UIImageFromCVMat:debugMat];
-    UIImage *debugImg2 = [self UIImageFromCVMat:debugMat2];
+    //UIImage *debugImg = [self UIImageFromCVMat:debugMat];
+    //UIImage *debugImg2 = [self UIImageFromCVMat:debugMat2];
 }
 /**
  *  按滑动位置删除扣取区域的程序入口

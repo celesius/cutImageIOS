@@ -11,14 +11,31 @@
 CutoutImage::CutoutImage()
 {
     CutoutImage::classCutMat = *new cv::Mat;
-
+    _cloverGrabCut = new CloverGrabCut;
 }
 
 CutoutImage::~CutoutImage()
 {
 
 }
+void CutoutImage::setColorImg(cv::Mat colorImg)
+{
+    _cloverGrabCut->setImage(colorImg);
+}
 
+void CutoutImage::processImageCreatMaskByGrabcut(std::vector<cv::Point> mouseSlideRegionDiscrete , const cv::Mat srcMat, cv::Mat &dstMat , int lineWidth)
+{
+    mouseSlideRegion.clear();
+    cv::Size matSize = cv::Size(srcMat.cols, srcMat.rows);
+    cv::Mat resultColorMat;
+    cv::Mat showMergeColorImg = srcMat.clone();
+    printf("lineWidth = %d\n",lineWidth);
+    _cloverGrabCut->processGrabCut(mouseSlideRegionDiscrete, lineWidth, dstMat, resultColorMat);
+    CutoutImage::colorDispResultWithFullSeedMat(showMergeColorImg,dstMat);
+    //cv::imshow("dstMat", dstMat);
+    //CutoutImage::drawLineAndMakePointSet(mouseSlideRegionDiscrete,matSize,lineWidth,mouseSlideRegion);
+
+}
 void CutoutImage::processImageCreatMask( std::vector<cv::Point> mouseSlideRegionDiscrete , const cv::Mat srcMat, cv::Mat &dstMat, int lineWidth, int expandWidth )
 {
     cv::Mat showMat;// = srcMat.clone();

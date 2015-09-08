@@ -37,6 +37,7 @@ void CutoutImagePacking::setColorImage( cv::Mat srcMat, int maxSeedMatNum )
     cv::Mat zero = seedStoreMat.clone();
     CutoutImagePacking::seedMatVector.push_back(zero);
     maxSelectSeedMat = maxSeedMatNum;
+    cutoutImage->setColorImg(srcMat);
 }
 
 void CutoutImagePacking::setMaskColor(cv::Scalar inputMaskColor)
@@ -78,7 +79,12 @@ void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int line
     if((int)seedMatVector.size() != 0){ //为0是最开始
         cv::Mat sendSeedStoreMat = seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
         //       cv::imshow("sendSeedStoreMatC", sendSeedStoreMat);
-        cutoutImage->processImageCreatMask( selectPoint, srcColorImg, sendSeedStoreMat, lineWidth,10 );
+        //cutoutImage->processImageCreatMask( selectPoint, srcColorImg, sendSeedStoreMat, lineWidth,10 );
+        double t = (double)cvGetTickCount();
+        cutoutImage->processImageCreatMaskByGrabcut(selectPoint, srcColorImg, sendSeedStoreMat, lineWidth);
+        t = (double)cvGetTickCount() - t;
+        printf( "run time = %gms\n", t/(cvGetTickFrequency()*1000) );
+        
         drawResult = cutoutImage->getMergeResult();
         seedStoreMat = sendSeedStoreMat;
     }

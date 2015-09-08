@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DrawView.h"
 #import "Bridge2OpenCV.h"
 
-@interface ImageEditView : UIView<Bridge2OpenCVDelegate>
+@interface ImageEditView : UIView<Bridge2OpenCVDelegate,DrawViewDelegate>
 
 -(id)initWithFrame:(CGRect)frame;
 -(void)setPicture:(UIImage *)setImage;
