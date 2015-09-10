@@ -14,6 +14,7 @@
 		541382971B86E07600478FE6 /* cutImageIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382961B86E07600478FE6 /* cutImageIOSTests.m */; };
 		541382A41B870A4D00478FE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541382A21B870A2D00478FE6 /* UIKit.framework */; };
 		54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */; };
+		54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */; };
 		545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */ = {isa = PBXBuildFile; fileRef = 545346711B8D5ADC00F86C35 /* UIImage+IF.m */; };
 		5467C2641B96EBA300B0FB6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5467C2621B96EB9000B0FB6F /* CoreMotion.framework */; };
 		54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816D71B8B18F40002061D /* CutoutImage.cpp */; };
@@ -68,6 +69,8 @@
 		541382A21B870A2D00478FE6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloverGrabCut.cpp; sourceTree = "<group>"; };
 		54318C741B9D7AF400A16E21 /* CloverGrabCut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverGrabCut.h; sourceTree = "<group>"; };
+		54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateCutImageViewController.h; sourceTree = "<group>"; };
+		54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateCutImageViewController.m; sourceTree = "<group>"; };
 		545346701B8D5ADC00F86C35 /* UIImage+IF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+IF.h"; path = "../UIImage+IF.h"; sourceTree = "<group>"; };
 		545346711B8D5ADC00F86C35 /* UIImage+IF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+IF.m"; path = "../UIImage+IF.m"; sourceTree = "<group>"; };
 		5467C2621B96EB9000B0FB6F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -112,6 +115,8 @@
 		5413826E1B86E07600478FE6 = {
 			isa = PBXGroup;
 			children = (
+				54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */,
+				54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */,
 				54EF67531B95861F007E7A3C /* ImageEditView.h */,
 				54EF67541B95861F007E7A3C /* ImageEditView.m */,
 				54EF674A1B947723007E7A3C /* DrawView.h */,
@@ -311,6 +316,7 @@
 				54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */,
 				54EF674C1B947723007E7A3C /* DrawView.m in Sources */,
 				54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */,
+				54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */,
 				545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */,
 				541382801B86E07600478FE6 /* AppDelegate.m in Sources */,
 				54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */,

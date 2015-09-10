@@ -20,6 +20,8 @@
 -(void) setDrawPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
 -(void) setCreatPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
 -(void) setDeletePoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
+-(UIImage *) getCutResult;
+-(NSMutableArray *) getMutableCutResult;
 -(void) resetAllMask;
 -(void) redoPoint;
 -(void) undoPoint;

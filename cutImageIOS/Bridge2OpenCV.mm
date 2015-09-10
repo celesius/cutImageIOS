@@ -191,6 +191,17 @@
         [self.delegate resultImageReady:sendUIImage];
     }
 }
+/**
+ *  得到最终的分割结果
+ *
+ *  @return 输出分割的UIImage
+ */
+-(UIImage *) getCutResult
+{
+    cv::Mat cutResultMat = self.cutoutImagePacking->getFinalColorMergeImg();
+    UIImage *cutResultUIImage = [self UIImageFromCVMat:cutResultMat];
+    return cutResultUIImage;
+}
 
 /**
  *  UIImage转mat，注意。uiimage转换为的cvMat可能是rgba的，所以需要再次修改

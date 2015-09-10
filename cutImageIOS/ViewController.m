@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import <Foundation/Foundation.h>
 #import "UIImage+IF.h"
+#import "RotateCutImageViewController.h"
 //#import "ImageShowView.h"
 #import "ImageEditView.h"
 #define LINESTEP 5
@@ -30,6 +31,7 @@
 @property (nonatomic, strong) UIButton *redoButton; //返回
 @property (nonatomic, strong) UIButton *addLineWidth;
 @property (nonatomic, strong) UIButton *subtractLineWidth;
+@property (nonatomic, strong) UIButton *nextStep;
 
 
 @property (nonatomic, strong) NSMutableArray *pointArray;  //同时发送的只能有一组array, 删除，添加，选取都是这一个array
@@ -47,6 +49,8 @@
 @property (nonatomic, strong) UIGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
 
+@property (nonatomic, strong)  RotateCutImageViewController *rotateCutImageViewController;
+
 /**
  *  画图测试
  */
@@ -59,6 +63,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+//    [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve ];
+   
+    self.rotateCutImageViewController = [[RotateCutImageViewController alloc]init];
     
     float smallButtonWidth = 50;
     float bigButtonWidth = 100;
@@ -225,7 +233,20 @@
     [self.subtractLineWidth setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.subtractLineWidth setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.subtractLineWidth addTarget:self action:@selector(subtractLineWidthFoo) forControlEvents:UIControlEventTouchUpInside];
+  
     
+    //CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
+    self.nextStep = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.nextStep.frame = CGRectMake( mainScreen.size.width - 100, self.orgRect.origin.y - 50, 100, 50);
+    self.nextStep.backgroundColor = [UIColor whiteColor];
+    [self.nextStep.layer setCornerRadius:5];
+    [self.nextStep setTitle:@"下一步 >" forState:UIControlStateNormal];
+    [self.nextStep setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.nextStep addTarget:self action:@selector(nextStepFoo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    //
     //[self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
     [self.view addSubview:upKeepOutView];
@@ -241,6 +262,8 @@
     [self.view addSubview:self.undoButton];
     [self.view addSubview:self.addLineWidth];
     [self.view addSubview:self.subtractLineWidth];
+    [self.view addSubview:self.nextStep];
+    
     self.view.backgroundColor = [UIColor grayColor];
     
     self.isMove = NO;
@@ -383,6 +406,17 @@
     [self.appImageView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
+-(void) nextStepFoo:(id) sender
+{
+    RotateCutImageViewController *aa = [[RotateCutImageViewController alloc]init];
+//    [self.navigationController pushViewController:self.rotateCutImageViewController animated:YES];
+    //[self.navigationController pushViewController:aa animated:YES];
+    [self.rotateCutImageViewController setImageRect:self.orgRect];
+    
+    
+    [self presentViewController:self.rotateCutImageViewController animated:YES completion:nil];
+}
+
 
 /*
 -(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -454,11 +488,14 @@
 }
 
 //完成选择图片
--(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+-(void)imagePickerController:(UIImagePickerController *)picker  didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //加载图片
 //    self.appImageView.image = image;
 //    self.appImageView.layer.contents = image;
+   // UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
     [self.appImageView  setPicture:image];
     //self.showImgView.image = image;
     //[self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
