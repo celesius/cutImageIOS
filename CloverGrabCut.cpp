@@ -22,6 +22,9 @@ CloverGrabCut::~CloverGrabCut()
 void CloverGrabCut::setImage(cv::Mat imgMat)
 {
     _srcImgMat = imgMat.clone();
+    printf("RRR imgMat.rows = %d\n",imgMat.rows);
+    printf("RRR imgMat.cols = %d\n",imgMat.cols);
+    
     //_maskStoreMat  = cv::Mat(imgMat.size(), CV_8UC1, cv::Scalar(0));
 }
 
@@ -29,6 +32,8 @@ cv::Mat CloverGrabCut::getFGByMask(cv::Mat mask)
 {
     cv::Mat fg = cv::Mat::zeros(_srcImgMat.size(), _srcImgMat.type());
     //Mat aMask = mask;
+    
+    printf("fg.cols = %d, fg.rows = %d\n",fg.cols, fg.rows);
     printf("mask.cols = %d, mask.rows = %d\n",mask.cols, mask.rows);
     _srcImgMat.copyTo(fg, mask);
     return fg;
@@ -83,7 +88,8 @@ cv::Rect CloverGrabCut::getMaskRct( cv::Mat maskMat )
 
 cv::Mat  CloverGrabCut::filterMaskAndMergeMat(cv::Mat srcMat, cv::Mat matStore, cv::Mat filterRuleMat)
 {
-    cv::Mat resultMat = cv::Mat(srcMat.size(),CV_8UC1,cv::Scalar(0));
+    cv::Mat resultMat = matStore.clone();//cv::Mat(srcMat.size(),CV_8UC1,cv::Scalar(0));
+    printf(" channels = %d\n ",resultMat.channels());
     
     cv::Mat aMatStore = matStore.clone();
     if (srcMat.channels() != 1){
@@ -107,6 +113,7 @@ cv::Mat  CloverGrabCut::filterMaskAndMergeMat(cv::Mat srcMat, cv::Mat matStore, 
      *  计算每个contour的rect,同时与画线的rect比较
      *  若符合要求则留下，否则剔除
      */
+    
     for(int i = 0;i<contours.size();i++){
         lx = rows;
         rx = 0;
@@ -142,8 +149,13 @@ cv::Mat  CloverGrabCut::filterMaskAndMergeMat(cv::Mat srcMat, cv::Mat matStore, 
                 cv::drawContours( contoursMat, contours, i, cv::Scalar(255), CV_FILLED);
                 resultMat = mergeMat(contoursMat, aMatStore, rectDraw);
             }
+            else{
+                printf("?????\n");
+            }
         }
     }
+    printf("resultMat.rows = %d\n",resultMat.rows);
+    printf("resultMat.cols = %d\n",resultMat.cols);
     printf("filter end\n");
     return resultMat;
 }
@@ -235,6 +247,8 @@ void CloverGrabCut::grabcutByMergeToMatAndMskMat(const cv::Mat mergeToMat ,const
 {
     cv::Mat srcImage = _srcImgMat;
     cv::Mat aGcut = msk.clone();
+    cv::Size orgSize = msk.size();
+    
     cv::Mat mskClone = msk.clone();
     cv::Mat aBgd;
     cv::Mat aFgd;
@@ -253,7 +267,9 @@ void CloverGrabCut::grabcutByMergeToMatAndMskMat(const cv::Mat mergeToMat ,const
     else
         printf("!!!!!!!!!!!!!!!!!!!!!!!\n");
     scaleImg(aGcutScale, 4, aGcut);
+    cv::resize(aGcut, aGcut, orgSize);
     cv::Mat bitMask = getBinMaskByMask(aGcut);
+    
     deleteBlackIsland(bitMask, bitMask);
     filterImage(bitMask, bitMask);
     cv::threshold(bitMask, bitMask, 150, 255, CV_THRESH_BINARY);

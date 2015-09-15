@@ -104,6 +104,7 @@
         CGContextDrawPath(context, kCGPathStroke);
     }
     else{//将路径绘制为透明，为了消除路径图像
+        NSLog(@"in drawView:(CGContextRef)context ");
         self.lineColor = [UIColor  colorWithRed:1.0 green: (204.0/255.0) blue:(204.0/255.0) alpha:0.0];  //[UIColor redColor];
 //        self.lineColor = [UIColor  colorWithRed:0.0 green:0 blue:1.0 alpha:0.0];  //[UIColor redColor];
         CGContextAddPath(context, _path);
