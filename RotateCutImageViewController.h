@@ -10,6 +10,6 @@
 
 @interface RotateCutImageViewController : UIViewController
 
--(void) setImageRect:(CGRect) setRect;
+-(void) setImageRect:(CGRect) setRect andImage:(UIImage *)setImage;
 
 @end

@@ -212,10 +212,9 @@ cv::Mat CutoutImagePacking::getFinalColorMergeImg()
     cv::Mat dstMat;
     cv::Mat blobMat = seedMatVector[selectSeedMat];
     cv::Mat edgeBlurResult;
-    cutoutImage->edgeBlur( srcColorImg, blobMat, 21, edgeBlurResult);  //dstMat就是扣取结果，还要对结果进行椭圆拟合和旋转
+    cutoutImage->edgeBlur( srcColorImg, blobMat, 1, edgeBlurResult);  //dstMat就是扣取结果，还要对结果进行椭圆拟合和旋转
     cutoutImage->rotateMat(cutoutImage->classCutMat, dstMat, edgeBlurResult);
-    
-    
+    dstMat = cutoutImage->scaleFCMI2InputColorImageSize(dstMat);
     return dstMat;
 }
 

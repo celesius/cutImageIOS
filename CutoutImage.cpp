@@ -21,6 +21,7 @@ CutoutImage::~CutoutImage()
 void CutoutImage::setColorImg(cv::Mat colorImg)
 {
     _cloverGrabCut->setImage(colorImg);
+    inputColorImageSize = colorImg.size();
 }
 
 void CutoutImage::processImageCreatMaskByGrabcut(std::vector<cv::Point> mouseSlideRegionDiscrete , const cv::Mat srcMat, cv::Mat &dstMat , int lineWidth)
@@ -1042,4 +1043,27 @@ void CutoutImage::getTestMat(cv::Mat & dstMat1, cv::Mat &dstMat2 )
 {
     dstMat1 = cutMat1;
     dstMat2 = cutMat2;
+}
+
+cv::Mat CutoutImage::scaleFCMI2InputColorImageSize( const cv::Mat srcMat )
+{
+    cv::Mat aMat;// = cv::Mat(inputColorImageSize, srcMat.channels());
+    cv::Mat rMat = cv::Mat(inputColorImageSize, CV_8UC4, cv::Scalar(0,0,0,0));  //cv::Mat(inputColorImageSize, srcMat.channels());
+    if(srcMat.rows >= srcMat.cols)  //最终图像是竖直的
+    {
+        int scaleToHeight = inputColorImageSize.height;
+        int scaleToWidth = (int)(((float)srcMat.cols/(float)srcMat.rows)*(float)inputColorImageSize.height);
+        cv::resize(srcMat, aMat, cv::Size(scaleToWidth,scaleToHeight));
+        cv::Rect copyRect = cv::Rect( (inputColorImageSize.width - scaleToWidth)/2,0,scaleToWidth,scaleToHeight );
+        aMat.copyTo(rMat(copyRect));
+    }
+    else                            //最终图像是横向的
+    {
+        int scaleToHeight = int(((float)srcMat.rows/(float)srcMat.cols)*(float)inputColorImageSize.width);
+        int scaleToWidth =  inputColorImageSize.width;// (int)(((float)srcMat.cols/(float)srcMat.rows)*(float)inputColorImageSize.height);
+        cv::resize(srcMat, aMat, cv::Size(scaleToWidth,scaleToHeight));
+        cv::Rect copyRect = cv::Rect( (inputColorImageSize.width - scaleToWidth)/2,0,scaleToWidth,scaleToHeight );
+        aMat.copyTo(rMat(copyRect));
+    }
+    return rMat;
 }

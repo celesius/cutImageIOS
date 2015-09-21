@@ -11,7 +11,7 @@
 @interface RotateCutImageViewController ()
 
 @property (nonatomic, strong) UIButton *backStep;
-@property (nonatomic, strong) UIView *showImgView;
+@property (nonatomic, strong) UIImageView *showImgView;
 @property (nonatomic, assign) CGRect showImgViewRect;
 
 @end
@@ -36,7 +36,7 @@
     [self.backStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.backStep addTarget:self action:@selector(backStepFoo:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.showImgView = [[UIView alloc]init];
+    self.showImgView = [[UIImageView alloc]init];
     self.showImgView.backgroundColor = [UIColor greenColor];
     
     [self.view addSubview:self.backStep];
@@ -56,14 +56,17 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)setImageRect:(CGRect)setRect
+-(void) setImageRect:(CGRect) setRect andImage:(UIImage *)setImage;
 {
-    self.showImgViewRect = setRect;
+    self.showImgView.frame = setRect;
+    
+    dispatch_async( dispatch_get_main_queue() , ^{
+        self.showImgView.image = setImage;
+    });
 }
 
 -(void) viewWillAppear:(BOOL)animated
 {
-    self.showImgView.frame = self.showImgViewRect;
 }
 
 /*

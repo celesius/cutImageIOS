@@ -19,6 +19,7 @@
 -(void) undo;
 -(void) setLineScale:(float) scale;
 -(void) resetAllMask;
+-(UIImage *)getReusltImage;
 
 
 

@@ -51,6 +51,8 @@
 
 @property (nonatomic, strong)  RotateCutImageViewController *rotateCutImageViewController;
 
+@property (nonatomic, strong) dispatch_queue_t getFinnalImageQueue;
+
 /**
  *  画图测试
  */
@@ -269,6 +271,17 @@
     self.isMove = NO;
     self.isDraw = NO;       //默认是添加
     self.isDelete  = NO;
+    
+    /**
+     *  得到最终的剪切图的线程建立
+     *
+     *  @param "com.clover.cutImageIOS" <#"com.clover.cutImageIOS" description#>
+     *  @param NULL                     <#NULL description#>
+     *
+     *  @return <#return value description#>
+     */
+    self.getFinnalImageQueue = dispatch_queue_create("com.clover.cutImageIOS", NULL);
+    
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -409,10 +422,12 @@
 -(void) nextStepFoo:(id) sender
 {
     RotateCutImageViewController *aa = [[RotateCutImageViewController alloc]init];
-//    [self.navigationController pushViewController:self.rotateCutImageViewController animated:YES];
-    //[self.navigationController pushViewController:aa animated:YES];
-    [self.rotateCutImageViewController setImageRect:self.orgRect];
-    
+//    [self.rotateCutImageViewController setImageRect:self.orgRect];
+   
+    dispatch_async(self.getFinnalImageQueue, ^{
+        UIImage *setImage = [self.appImageView getReusltImage];
+        [self.rotateCutImageViewController setImageRect:self.orgRect andImage:setImage];
+    });
     
     [self presentViewController:self.rotateCutImageViewController animated:YES completion:nil];
 }

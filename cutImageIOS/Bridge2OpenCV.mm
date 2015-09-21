@@ -199,6 +199,7 @@
 -(UIImage *) getCutResult
 {
     cv::Mat cutResultMat = self.cutoutImagePacking->getFinalColorMergeImg();
+    cv::cvtColor(cutResultMat, cutResultMat, CV_BGR2RGB);
     UIImage *cutResultUIImage = [self UIImageFromCVMat:cutResultMat];
     return cutResultUIImage;
 }

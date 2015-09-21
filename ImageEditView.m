@@ -105,6 +105,13 @@
     });
 }
 
+-(UIImage *)getReusltImage
+{
+    UIImage * resultImg = [self.b2opcv getCutResult];
+    return resultImg;
+}
+
+
 -(void) setPointArray:(NSMutableArray *) pointArray andLineWide:(float) linaWidth;
 {
     //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
