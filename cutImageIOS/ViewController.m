@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "UIImage+IF.h"
 #import "RotateCutImageViewController.h"
+#import "CustomPopAnimation.h"
 //#import "ImageShowView.h"
 #import "ImageEditView.h"
 #define LINESTEP 5
@@ -53,6 +54,9 @@
 
 @property (nonatomic, strong) dispatch_queue_t getFinnalImageQueue;
 
+@property (nonatomic, strong) UIButton *popViewCtrlButton;
+@property (nonatomic, strong) CustomPopAnimation *custompopanimation;
+
 /**
  *  画图测试
  */
@@ -65,6 +69,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationController.delegate = self;
+    self.navigationController.navigationBar.translucent = YES;
+    self.custompopanimation = [[CustomPopAnimation alloc]init];
 //    [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 //    [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve ];
    
@@ -90,9 +97,7 @@
     //
 //    self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
     self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-
     self.appImageView.bounds =CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width);
-   
     self.appImageView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
    
     NSLog(@"self.appImageView.frame.size.width  = %f",self.appImageView.frame.size.width);
@@ -246,8 +251,15 @@
     [self.nextStep setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.nextStep addTarget:self action:@selector(nextStepFoo:) forControlEvents:UIControlEventTouchUpInside];
-    
-    
+   
+    self.popViewCtrlButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.popViewCtrlButton.frame = CGRectMake( 0, self.orgRect.origin.y - 50, 50, 50);
+    self.popViewCtrlButton.backgroundColor = [UIColor clearColor];
+    [self.popViewCtrlButton.layer setCornerRadius:5];
+    [self.popViewCtrlButton setTitle:@"X " forState:UIControlStateNormal];
+    [self.popViewCtrlButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.popViewCtrlButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.popViewCtrlButton addTarget:self action:@selector(goback:) forControlEvents:UIControlEventTouchUpInside];
     //
     //[self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
@@ -265,6 +277,7 @@
     [self.view addSubview:self.addLineWidth];
     [self.view addSubview:self.subtractLineWidth];
     [self.view addSubview:self.nextStep];
+    [self.view addSubview:self.popViewCtrlButton];
     
     self.view.backgroundColor = [UIColor grayColor];
     
@@ -283,6 +296,41 @@
     self.getFinnalImageQueue = dispatch_queue_create("com.clover.cutImageIOS", NULL);
     
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                animationControllerForOperation :(UINavigationControllerOperation) operation
+                                              fromViewController:(UIViewController *)fromVC
+                                                toViewController:(UIViewController *) toVC
+{
+    /**
+     *  typedef NS_ENUM(NSInteger, UINavigationControllerOperation) {
+     *     UINavigationControllerOperationNone,
+     *     UINavigationControllerOperationPush,
+     *     UINavigationControllerOperationPop,
+     *  };
+     */
+    //push的时候用我们自己定义的customPush
+    if ( operation == UINavigationControllerOperationPop ) {
+        return self.custompopanimation;//customPush ;
+    } else {
+        return nil ;
+    }
+}
+
+-(void)goback:(id)sender{
+    /*
+    CATransition *transition = [CATransition animation];
+    transition.duration =0.4;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromBottom;
+    transition.delegate = self;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+     */
+   
+    [self.custompopanimation setEndPoint:self.returnPoint];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void) resultImageReady:(UIImage *)sendImage
@@ -630,6 +678,13 @@
     [self.pointArray addObject: [NSValue valueWithCGPoint:aPoint]];
     }
 }
+
+/*
+-(void) setReturnPoint:(CGPoint)setPoint
+{
+    self.rurnPoint = setPoint;
+}
+ */
 
 /**
  *  画图测试

@@ -704,7 +704,7 @@ void CutoutImage::colorDispResultWithFullSeedMat(const cv::Mat picMat,const cv::
                 showPicLineData[x] = 255;
                 showPicLineData[x + 1] =  showPicLineData[x + 1]/2;
                 showPicLineData[x + 2] =  showPicLineData[x + 2]/2;
-                showPicLineData[x + 3] =  100;
+                showPicLineData[x + 3] =  255;
             }
         }
     }
@@ -1065,5 +1065,17 @@ cv::Mat CutoutImage::scaleFCMI2InputColorImageSize( const cv::Mat srcMat )
         cv::Rect copyRect = cv::Rect( (inputColorImageSize.width - scaleToWidth)/2,0,scaleToWidth,scaleToHeight );
         aMat.copyTo(rMat(copyRect));
     }
+    
+    int rows = rMat.rows;
+    int cols = rMat.cols;
+    
+    for(int y=0; y<rows; y++){
+        uchar *rowsData = rMat.ptr<uchar>(y);
+        for (int x = 0; x<cols*4; x = x+4) {
+            //rowsData[x] = 0;
+            rowsData[x + 3] = 0;
+        }
+    }
+    
     return rMat;
 }

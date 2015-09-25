@@ -16,7 +16,7 @@
 
 
 @interface DrawView: UIView
--(id) initWithFrame:(CGRect)frame;
+-(id) initWithFrame:(CGRect)frame andIsCutImage:(BOOL)isCutImage;
 -(void) setPhotoImage:(UIImage *)setImage;
 -(void) setMove:(BOOL) isMove;
 -(void) redo;
@@ -29,6 +29,5 @@
 @property (assign, nonatomic) CGFloat lineWidth;
 @property (strong, nonatomic) UIColor *lineColor;
 @property (nonatomic, assign) float lineScale;
-
 @property (nonatomic, weak) id<DrawViewDelegate> delegate;
 @end

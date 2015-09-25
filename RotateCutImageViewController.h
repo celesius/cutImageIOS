@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RotateCutImageViewController : UIViewController
+@interface RotateCutImageViewController : UIViewController <UIGestureRecognizerDelegate>
 
 -(void) setImageRect:(CGRect) setRect andImage:(UIImage *)setImage;
 

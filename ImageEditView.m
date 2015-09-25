@@ -35,7 +35,7 @@
 {
     if(self = [super initWithFrame:frame])
     {
-        self.drawView = [[DrawView alloc]initWithFrame:frame];
+        self.drawView = [[DrawView alloc]initWithFrame:frame andIsCutImage:YES];
         self.pictureImage = [[UIImageView alloc]initWithFrame:frame];
         
         self.pictureImage.backgroundColor = [UIColor blackColor];
@@ -77,13 +77,13 @@
 -(void) redo
 {
     [self.b2opcv redoPoint];
-    [self.drawView redo];
+//    [self.drawView redo];
 }
 
 -(void) undo
 {
     [self.b2opcv undoPoint];
-    [self.drawView undo];
+//    [self.drawView undo];
 }
 
 -(void) setLineScale:(float) scale
@@ -95,7 +95,7 @@
 -(void) resetAllMask
 {
     [self.b2opcv resetAllMask];
-    [self.drawView resetDraw];
+//    [self.drawView resetDraw];
 }
 
 -(void) resultImageReady:(UIImage *)sendImage

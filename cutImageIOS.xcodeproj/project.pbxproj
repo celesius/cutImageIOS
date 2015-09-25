@@ -17,6 +17,11 @@
 		54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */; };
 		545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */ = {isa = PBXBuildFile; fileRef = 545346711B8D5ADC00F86C35 /* UIImage+IF.m */; };
 		5467C2641B96EBA300B0FB6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5467C2621B96EB9000B0FB6F /* CoreMotion.framework */; };
+		547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
+		547094BB1BB1731C00E20453 /* YZSwipeBetweenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094BA1BB1731C00E20453 /* YZSwipeBetweenViewController.m */; settings = {ASSET_TAGS = (); }; };
+		547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C01BB247DD00E20453 /* CreatNailRootViewController.m */; settings = {ASSET_TAGS = (); }; };
+		547094C41BB28C5200E20453 /* DesignNailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C31BB28C5200E20453 /* DesignNailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C71BB29F8100E20453 /* CustomPushAnimation.m */; settings = {ASSET_TAGS = (); }; };
 		54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816D71B8B18F40002061D /* CutoutImage.cpp */; };
 		54D816DC1B8B220E0002061D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D816DA1B8B22010002061D /* Foundation.framework */; };
 		54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54D816DE1B8B254E0002061D /* Bridge2OpenCV.mm */; };
@@ -24,6 +29,10 @@
 		54D816E51B8B2DF00002061D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 541382841B86E07600478FE6 /* Main.storyboard */; };
 		54D816E61B8B2DF00002061D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541382891B86E07600478FE6 /* LaunchScreen.xib */; };
 		54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */; };
+		54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */; settings = {ASSET_TAGS = (); }; };
+		54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */; settings = {ASSET_TAGS = (); }; };
+		54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */; settings = {ASSET_TAGS = (); }; };
+		54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */; settings = {ASSET_TAGS = (); }; };
 		54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF67481B947641007E7A3C /* DrawViewModel.m */; };
 		54EF674C1B947723007E7A3C /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF674B1B947723007E7A3C /* DrawView.m */; };
 		54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF67541B95861F007E7A3C /* ImageEditView.m */; };
@@ -69,11 +78,21 @@
 		541382A21B870A2D00478FE6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloverGrabCut.cpp; sourceTree = "<group>"; };
 		54318C741B9D7AF400A16E21 /* CloverGrabCut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverGrabCut.h; sourceTree = "<group>"; };
-		54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RotateCutImageViewController.h; sourceTree = "<group>"; };
-		54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RotateCutImageViewController.m; sourceTree = "<group>"; };
+		54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateCutImageViewController.h; path = ../RotateCutImageViewController.h; sourceTree = "<group>"; };
+		54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RotateCutImageViewController.m; path = ../RotateCutImageViewController.m; sourceTree = "<group>"; };
 		545346701B8D5ADC00F86C35 /* UIImage+IF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+IF.h"; path = "../UIImage+IF.h"; sourceTree = "<group>"; };
 		545346711B8D5ADC00F86C35 /* UIImage+IF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+IF.m"; path = "../UIImage+IF.m"; sourceTree = "<group>"; };
 		5467C2621B96EB9000B0FB6F /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		547094B61BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KTOneFingerRotationGestureRecognizer.h; sourceTree = "<group>"; };
+		547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTOneFingerRotationGestureRecognizer.m; sourceTree = "<group>"; };
+		547094B91BB1731C00E20453 /* YZSwipeBetweenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YZSwipeBetweenViewController.h; sourceTree = "<group>"; };
+		547094BA1BB1731C00E20453 /* YZSwipeBetweenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YZSwipeBetweenViewController.m; sourceTree = "<group>"; };
+		547094BF1BB247DD00E20453 /* CreatNailRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatNailRootViewController.h; sourceTree = "<group>"; };
+		547094C01BB247DD00E20453 /* CreatNailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatNailRootViewController.m; sourceTree = "<group>"; };
+		547094C21BB28C5200E20453 /* DesignNailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignNailViewController.h; sourceTree = "<group>"; };
+		547094C31BB28C5200E20453 /* DesignNailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignNailViewController.m; sourceTree = "<group>"; };
+		547094C61BB29F8100E20453 /* CustomPushAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPushAnimation.h; sourceTree = "<group>"; };
+		547094C71BB29F8100E20453 /* CustomPushAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPushAnimation.m; sourceTree = "<group>"; };
 		54D816D71B8B18F40002061D /* CutoutImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImage.cpp; sourceTree = "<group>"; };
 		54D816D81B8B18F40002061D /* CutoutImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImage.h; sourceTree = "<group>"; };
 		54D816DA1B8B22010002061D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -82,12 +101,20 @@
 		54D816E31B8B28C10002061D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImagePacking.cpp; sourceTree = "<group>"; };
 		54D816EB1B8C777C0002061D /* CutoutImagePacking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImagePacking.h; sourceTree = "<group>"; };
+		54E3E6C51BB2ADB900FD1206 /* CustomPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopAnimation.h; sourceTree = "<group>"; };
+		54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopAnimation.m; sourceTree = "<group>"; };
+		54E3E6C91BB3D74500FD1206 /* LineWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineWidthView.h; sourceTree = "<group>"; };
+		54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineWidthView.m; sourceTree = "<group>"; };
+		54E3E6CC1BB3FDA400FD1206 /* DynamicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicView.h; sourceTree = "<group>"; };
+		54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicView.m; sourceTree = "<group>"; };
+		54E3E6CF1BB40A1500FD1206 /* ColorBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBoardView.h; sourceTree = "<group>"; };
+		54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBoardView.m; sourceTree = "<group>"; };
 		54EF67471B947641007E7A3C /* DrawViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawViewModel.h; sourceTree = "<group>"; };
 		54EF67481B947641007E7A3C /* DrawViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawViewModel.m; sourceTree = "<group>"; };
-		54EF674A1B947723007E7A3C /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawView.h; sourceTree = "<group>"; };
-		54EF674B1B947723007E7A3C /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawView.m; sourceTree = "<group>"; };
-		54EF67531B95861F007E7A3C /* ImageEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageEditView.h; sourceTree = "<group>"; };
-		54EF67541B95861F007E7A3C /* ImageEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageEditView.m; sourceTree = "<group>"; };
+		54EF674A1B947723007E7A3C /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawView.h; path = ../DrawView.h; sourceTree = "<group>"; };
+		54EF674B1B947723007E7A3C /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawView.m; path = ../DrawView.m; sourceTree = "<group>"; };
+		54EF67531B95861F007E7A3C /* ImageEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageEditView.h; path = ../ImageEditView.h; sourceTree = "<group>"; };
+		54EF67541B95861F007E7A3C /* ImageEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageEditView.m; path = ../ImageEditView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,12 +142,7 @@
 		5413826E1B86E07600478FE6 = {
 			isa = PBXGroup;
 			children = (
-				54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */,
-				54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */,
-				54EF67531B95861F007E7A3C /* ImageEditView.h */,
-				54EF67541B95861F007E7A3C /* ImageEditView.m */,
-				54EF674A1B947723007E7A3C /* DrawView.h */,
-				54EF674B1B947723007E7A3C /* DrawView.m */,
+				547094C51BB29F3900E20453 /* Animation */,
 				541382A11B870A1300478FE6 /* Framework */,
 				541382A01B87079900478FE6 /* openCVSource */,
 				541382791B86E07600478FE6 /* cutImageIOS */,
@@ -141,12 +163,25 @@
 		541382791B86E07600478FE6 /* cutImageIOS */ = {
 			isa = PBXGroup;
 			children = (
+				54E3E6C81BB3D67800FD1206 /* DesignNailView */,
+				54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */,
+				54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */,
+				54EF67531B95861F007E7A3C /* ImageEditView.h */,
+				54EF67541B95861F007E7A3C /* ImageEditView.m */,
+				54EF674A1B947723007E7A3C /* DrawView.h */,
+				54EF674B1B947723007E7A3C /* DrawView.m */,
+				547094B91BB1731C00E20453 /* YZSwipeBetweenViewController.h */,
+				547094BA1BB1731C00E20453 /* YZSwipeBetweenViewController.m */,
+				547094B61BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.h */,
+				547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */,
 				54EF67471B947641007E7A3C /* DrawViewModel.h */,
 				54EF67481B947641007E7A3C /* DrawViewModel.m */,
 				545346701B8D5ADC00F86C35 /* UIImage+IF.h */,
 				545346711B8D5ADC00F86C35 /* UIImage+IF.m */,
 				5413827E1B86E07600478FE6 /* AppDelegate.h */,
 				5413827F1B86E07600478FE6 /* AppDelegate.m */,
+				547094BF1BB247DD00E20453 /* CreatNailRootViewController.h */,
+				547094C01BB247DD00E20453 /* CreatNailRootViewController.m */,
 				541382811B86E07600478FE6 /* ViewController.h */,
 				541382821B86E07600478FE6 /* ViewController.m */,
 				541382841B86E07600478FE6 /* Main.storyboard */,
@@ -207,6 +242,32 @@
 				541382A21B870A2D00478FE6 /* UIKit.framework */,
 			);
 			name = Framework;
+			sourceTree = "<group>";
+		};
+		547094C51BB29F3900E20453 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				547094C61BB29F8100E20453 /* CustomPushAnimation.h */,
+				547094C71BB29F8100E20453 /* CustomPushAnimation.m */,
+				54E3E6C51BB2ADB900FD1206 /* CustomPopAnimation.h */,
+				54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */,
+			);
+			name = Animation;
+			sourceTree = "<group>";
+		};
+		54E3E6C81BB3D67800FD1206 /* DesignNailView */ = {
+			isa = PBXGroup;
+			children = (
+				547094C21BB28C5200E20453 /* DesignNailViewController.h */,
+				547094C31BB28C5200E20453 /* DesignNailViewController.m */,
+				54E3E6C91BB3D74500FD1206 /* LineWidthView.h */,
+				54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */,
+				54E3E6CC1BB3FDA400FD1206 /* DynamicView.h */,
+				54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */,
+				54E3E6CF1BB40A1500FD1206 /* ColorBoardView.h */,
+				54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */,
+			);
+			name = DesignNailView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -310,18 +371,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */,
 				541382831B86E07600478FE6 /* ViewController.m in Sources */,
+				547094BB1BB1731C00E20453 /* YZSwipeBetweenViewController.m in Sources */,
+				547094C41BB28C5200E20453 /* DesignNailViewController.m in Sources */,
 				54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */,
+				547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */,
 				54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */,
 				54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */,
 				54EF674C1B947723007E7A3C /* DrawView.m in Sources */,
+				547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */,
 				54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */,
 				54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */,
 				545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */,
+				54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */,
 				541382801B86E07600478FE6 /* AppDelegate.m in Sources */,
 				54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */,
+				54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */,
 				5413827D1B86E07600478FE6 /* main.m in Sources */,
+				54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */,
 				54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */,
+				547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

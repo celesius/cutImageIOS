@@ -11,6 +11,7 @@
 
 @interface ViewController : UIViewController<UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 
+@property (nonatomic, assign) CGPoint  returnPoint;
 
 @end
 

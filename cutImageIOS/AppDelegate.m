@@ -7,9 +7,12 @@
 //
 
 #import "AppDelegate.h"
+#import "YZSwipeBetweenViewController.h"
+#import "CreatNailRootViewController.h"
 
 @interface AppDelegate ()
 
+@property (strong) YZSwipeBetweenViewController *swipeBetweenVC;
 @end
 
 @implementation AppDelegate
@@ -17,6 +20,16 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor blackColor];
+    
+    self.swipeBetweenVC = [YZSwipeBetweenViewController new];
+    [self setupRootViewControllerForWindow];
+    self.window.rootViewController = self.swipeBetweenVC;
+    
+    [self.window makeKeyAndVisible];
+    
+    
     return YES;
 }
 
@@ -41,5 +54,26 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (void)setupRootViewControllerForWindow{
+    
+    UIViewController *vc1 = [CreatNailRootViewController new];
+        UINavigationController *navCon1 =  [[UINavigationController alloc]initWithRootViewController:vc1];
+        
+    //    UIViewController *vc2 = [ViewController new];
+//    UINavigationController *navCon2 =
+//    [[UINavigationController alloc] initWithRootViewController:vc2];
+//    
+//    UIViewController *vc3 = [ViewController new];
+//    UINavigationController *navCon3 =
+//    [[UINavigationController alloc] initWithRootViewController:vc3];
+    
+   // self.swipeBetweenVC.viewControllers = @[navCon1, navCon2, navCon3];
+    self.swipeBetweenVC.viewControllers = @[navCon1];
+    self.swipeBetweenVC.initialViewControllerIndex = self.swipeBetweenVC.viewControllers.count/2;
+    
+}
+
+
 
 @end

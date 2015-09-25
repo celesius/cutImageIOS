@@ -7,12 +7,15 @@
 //
 
 #import "RotateCutImageViewController.h"
+#import "KTOneFingerRotationGestureRecognizer.h"
 
 @interface RotateCutImageViewController ()
 
 @property (nonatomic, strong) UIButton *backStep;
 @property (nonatomic, strong) UIImageView *showImgView;
 @property (nonatomic, assign) CGRect showImgViewRect;
+@property (nonatomic, strong) UIRotationGestureRecognizer *rotationGestureRecognizer;
+@property (nonatomic) CGAffineTransform orgShowImgViewTransform;
 
 @end
 
@@ -37,7 +40,15 @@
     [self.backStep addTarget:self action:@selector(backStepFoo:) forControlEvents:UIControlEventTouchUpInside];
     
     self.showImgView = [[UIImageView alloc]init];
+    self.orgShowImgViewTransform = self.showImgView.transform;
     self.showImgView.backgroundColor = [UIColor greenColor];
+  //  self.showImgView.backgroundColor = [UIColor clearColor];
+   
+    //[self creatPan];
+    [self.showImgView setUserInteractionEnabled:YES];
+    [self addRotationGestureToView:self.showImgView];
+    [self addTapGestureToView:self.showImgView numberOfTaps:1];
+    
     
     [self.view addSubview:self.backStep];
     [self.view addSubview:self.showImgView];
@@ -59,7 +70,6 @@
 -(void) setImageRect:(CGRect) setRect andImage:(UIImage *)setImage;
 {
     self.showImgView.frame = setRect;
-    
     dispatch_async( dispatch_get_main_queue() , ^{
         self.showImgView.image = setImage;
     });
@@ -67,6 +77,53 @@
 
 -(void) viewWillAppear:(BOOL)animated
 {
+    self.showImgView.transform = self.orgShowImgViewTransform;
+}
+
+-(void) creatPan
+{
+    self.rotationGestureRecognizer  = [[UIRotationGestureRecognizer alloc]
+                                                    initWithTarget:self
+                                                    action:@selector(handleRotation:)];
+    self.rotationGestureRecognizer.delegate = self;
+    
+    [self.view addGestureRecognizer:self.rotationGestureRecognizer];
+}
+
+- (void) handleRotation:(UIPanGestureRecognizer*) recognizer
+{
+    NSLog(@"rotationGestureRecognizer");
+}
+
+- (void)addRotationGestureToView:(UIView *)view
+{
+   KTOneFingerRotationGestureRecognizer *rotation = [[KTOneFingerRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotating:)];
+   [view addGestureRecognizer:rotation];
+//   [rotation release];
+}
+
+- (void)addTapGestureToView:(UIView *)view numberOfTaps:(NSInteger)numberOfTaps
+{
+   UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
+   [tap setNumberOfTapsRequired:numberOfTaps];
+   [view addGestureRecognizer:tap];
+//   [tap release];
+}
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+{
+   return (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+}
+
+- (void)rotating:(KTOneFingerRotationGestureRecognizer *)recognizer
+{
+   UIView *view = [recognizer view];
+   [view setTransform:CGAffineTransformRotate([view transform], [recognizer rotation])];
+}
+
+- (void)tapped:(UITapGestureRecognizer *)recognizer
+{
+   UIView *view = [recognizer view];
+   [view setTransform:CGAffineTransformMakeRotation(0)];
 }
 
 /*
