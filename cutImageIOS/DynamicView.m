@@ -64,6 +64,7 @@
                              completion:^( BOOL finished ){
                                  self.animationLock = NO;
                                  self.isShow = YES;
+                                 [self openAnimateFinished];
                              }];
         }
         else{
@@ -77,9 +78,20 @@
                                  self.animationLock = NO;
                                  self.isShow = NO;
                                  self.hidden = YES;
+                                 [self closeAnimateFinished];
                              }];
         }
     }
+}
+
+
+-(void) openAnimateFinished
+{
+    
+}
+-(void) closeAnimateFinished
+{
+    
 }
 
 @end

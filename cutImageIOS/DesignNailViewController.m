@@ -83,10 +83,10 @@
     [self.setLineColor addTarget:self action:@selector(setLineColorFoo:) forControlEvents:UIControlEventTouchUpInside];
     
     [self greatDeleteLineButton:mainScreen];
+    [self greatUndoButton:mainScreen];
+    [self greatRedoButton:mainScreen];
     
-    
-    
-    CGRect lwViewRect = CGRectMake( (mainScreen.size.width/2) - 100 , self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height - 75, 200, 50);
+    CGRect lwViewRect = CGRectMake( (mainScreen.size.width/2) - 150 , self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height - 75, 300, 50);
     self.lwView = [[LineWidthView alloc]initWithRect:lwViewRect andHiddenPoint:self.setLineWidth.center andAnimateDuration:0.5];
     self.lwView.backgroundColor = [UIColor greenColor];
    
@@ -104,12 +104,30 @@
     [self.view addSubview:self.setLineWidth];
     [self.view addSubview:self.setLineColor];
     [self.view addSubview:self.deleteLine];
+    [self.view addSubview:self.redo];
+    [self.view addSubview:self.undo];
     [self.view addSubview:self.lwView];
     [self.view addSubview:self.cbView];
     
     [self buttonAction:self.deleteLine andInitAction:NO andView:self.view];
     
+    /**
+     *  注册观察者
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(drawViewLineWidth:)
+                                                 name:@"cutImageSetLineWidth"
+                                               object:nil];
+    
     // Do any additional setup after loading the view.
+}
+
+-(void)drawViewLineWidth:(NSNotification *)notification{
+    NSValue *outV = [notification object];
+    float lineW;
+    [outV getValue:&lineW];
+    NSLog(@"%f",lineW);
+    self.drawNailView.lineWidth = lineW;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -160,6 +178,14 @@
     act = !act;
 }
 
+-(void) undoFoo:(id)sender{
+    [self.drawNailView undo];
+}
+
+-(void) redoFoo:(id)sender{
+    [self.drawNailView redo];
+}
+
 -(void) buttonAction:(UIButton *)aButton andInitAction:(BOOL)action andView:(UIView *)currentView{
     //BOOL thisButtonAction = NO;
     float aButtonW = aButton.frame.size.width;
@@ -200,7 +226,6 @@
         self.actionViewL1.hidden = YES;
         self.actionViewL2.hidden = YES;
     }
-    
 }
 
 -(void) greatDeleteLineButton:(CGRect)mainS{
@@ -214,6 +239,33 @@
     [self.deleteLine setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.deleteLine addTarget:self action:@selector(deleteLineFoo:) forControlEvents:UIControlEventTouchUpInside];
 }
+
+-(void) greatRedoButton:(CGRect)mainS{
+    self.redo = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.redo.frame = CGRectMake(0, 0, 50, 50);
+    self.redo.center = CGPointMake(mainS.size.width/3, (self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height) + (self.setLineWidth.frame.size.height/2) + 50);
+    self.redo.backgroundColor = [UIColor whiteColor];
+    [self.redo.layer setCornerRadius:25];
+    [self.redo setTitle:@"<<" forState:UIControlStateNormal];
+    [self.redo setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.redo setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.redo  addTarget:self action:@selector(redoFoo:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void) greatUndoButton:(CGRect)mainS{
+    self.undo = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.undo.frame = CGRectMake(0, 0, 50, 50);
+    self.undo.center = CGPointMake(mainS.size.width*2/3, (self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height) + (self.setLineWidth.frame.size.height/2) + 50);
+    self.undo.backgroundColor = [UIColor whiteColor];
+    [self.undo.layer setCornerRadius:25];
+    [self.undo setTitle:@">>" forState:UIControlStateNormal];
+    [self.undo setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.undo setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.undo   addTarget:self action:@selector(undoFoo:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+
+
 
 /*
 #pragma mark - Navigation

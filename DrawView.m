@@ -24,6 +24,10 @@
 //@property (nonatomic) float
 @property (nonatomic, strong) NSMutableArray *pointArray;  //同时发送的只能有一组array, 删除，添加，选取都是这一个array
 @property (nonatomic, assign) BOOL IsCutImage;
+@property (nonatomic, assign) BOOL isDot;
+@property (nonatomic, assign) CGPoint startPoint;
+
+
 @end
 
 @implementation DrawView
@@ -79,20 +83,34 @@
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
     [self drawView:context];
+    //[self drawCircle:context];
+}
+
+-(void) drawCircle:(CGContextRef)context andPoint:(CGPoint) location
+{
+  //  CGContextSetRGBStrokeColor(context, self.lineColor);
+  //  CGContextSetRGBFillColor(context, 255, 100, 100, 0.5);
+    [_lineColor set];
+    CGContextSetLineWidth(context, 5.0);
+    CGContextAddEllipseInRect(context, CGRectMake(location.x, location.y, 5, 5));//在这个框中画圆
+    CGContextStrokePath(context);
+    
 }
 
 - (void)drawView:(CGContextRef)context
 {
     for (DrawViewModel *myViewModel in _pathArray) {
         CGContextAddPath(context, myViewModel.path.CGPath);
+       
         [myViewModel.color set];
         CGContextSetLineWidth(context, myViewModel.width);
         CGContextSetLineCap(context, kCGLineCapRound);
         CGContextDrawPath(context, kCGPathStroke);
+        //CGContextStrokePath(context);
     }
     if (_isHavePath) {
         if(self.IsCutImage){
-        self.lineColor = [UIColor  colorWithRed:1.0 green: (204.0/255.0) blue:(204.0/255.0) alpha:0.5];  //[UIColor redColor];
+            self.lineColor = [UIColor  colorWithRed:1.0 green: (204.0/255.0) blue:(204.0/255.0) alpha:0.5];  //[UIColor redColor];
         }
         //        self.lineColor = [UIColor  colorWithRed:0.0 green:0 blue:1.0 alpha:0.5];  //[UIColor redColor];
         CGContextAddPath(context, _path);
@@ -125,16 +143,17 @@
 {
     if(!self.moveAction){
         [self.removePathArray removeAllObjects];
+        [self.pointArray removeAllObjects];
         UITouch *touch = [touches anyObject];
         CGPoint location =[touch locationInView:self];
         _path = CGPathCreateMutable();
         _isHavePath = YES;
         CGPathMoveToPoint(_path, NULL, location.x, location.y);
-        
-        [self.pointArray removeAllObjects];
+       
         [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
-        
-        //NSLog(@"touch began (x, y) is (%f, %f)", location.x, location.y);
+        self.isDot = YES;
+        self.startPoint = location;
+        NSLog(@"touch began (x, y) is (%f, %f)", location.x, location.y);
     }
 }
 
@@ -144,9 +163,11 @@
         UITouch *touch = [touches anyObject];
         CGPoint location = [touch locationInView:self];
         CGPathAddLineToPoint(_path, NULL, location.x, location.y);
+        
         [self setNeedsDisplay];
         [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
-        //NSLog(@"touch move (x, y) is (%f, %f)", location.x, location.y);
+        self.isDot = NO;
+        NSLog(@"iamMoving");
     }
 }
 
@@ -158,16 +179,19 @@
         }
         UITouch *touch = [touches anyObject];
         CGPoint location = [touch locationInView:self];
+        CGPathAddLineToPoint(_path, NULL, location.x, location.y);
+//        CGPathMoveToPoint(_path, NULL, location.x, location.y);   //用add代替，用于制作双点线段和点
         [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
         if(!self.IsCutImage){
             UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:_path];
+//            DrawViewModel *myViewModel = [DrawViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth*self.lineScale StartPoint:self.startPoint EndPoint:location IsDot:self.isDot];
             DrawViewModel *myViewModel = [DrawViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth*self.lineScale];
             [_pathArray addObject:myViewModel];
-            NSLog(@"_pathArray.count = %d",_pathArray.count);
-            if(_pathArray.count == 20){
+            if(_pathArray.count == 9000){
                 [_pathArray removeObjectAtIndex:0];
             }
-            //NSLog(@"_pathArray.count = %d",_pathArray.count);
+            [self setNeedsDisplay]; //刷新显示
+            NSLog(@"touch end (x, y) is (%f, %f)", location.x, location.y);
         }
         
         _isHavePath = NO;
@@ -183,35 +207,31 @@
 
 -(void) redo
 {
-    /*
-     if(self.pathArray != nil){
-     NSLog(@"length = %lu",(unsigned long)self.pathArray.count);
-     int sizeOfPathArray = (int)[self.pathArray count];
-     if(sizeOfPathArray != 0){
-     DrawViewModel *viewModelWillSave = self.pathArray[sizeOfPathArray - 1];
-     [self.removePathArray addObject:viewModelWillSave];
-     [self.pathArray removeLastObject];
-     [self setNeedsDisplay];
-     }
-     }
-     */
+    if(self.pathArray != nil){
+        NSLog(@"length = %lu",(unsigned long)self.pathArray.count);
+        int sizeOfPathArray = (int)[self.pathArray count];
+        if(sizeOfPathArray != 0){
+            DrawViewModel *viewModelWillSave = self.pathArray[sizeOfPathArray - 1];
+            [self.removePathArray addObject:viewModelWillSave];
+            [self.pathArray removeLastObject];
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 -(void) undo
 {
-    /*
-     if(self.pathArray != nil){
-     NSLog(@"length = %lu",(unsigned long)self.pathArray.count);
-     if(self.removePathArray.count != 0) //非0时进行后续计算
-     {
-     int sizeOfRemovePathArray = (int)[self.removePathArray count];
-     DrawViewModel *viewModelWillSave = self.removePathArray[sizeOfRemovePathArray - 1];
-     [self.pathArray addObject:viewModelWillSave];
-     [self.removePathArray removeLastObject];
-     [self setNeedsDisplay];
-     }
-     }
-     */
+    if(self.pathArray != nil){
+        NSLog(@"length = %lu",(unsigned long)self.pathArray.count);
+        if(self.removePathArray.count != 0) //非0时进行后续计算
+        {
+            int sizeOfRemovePathArray = (int)[self.removePathArray count];
+            DrawViewModel *viewModelWillSave = self.removePathArray[sizeOfRemovePathArray - 1];
+            [self.pathArray addObject:viewModelWillSave];
+            [self.removePathArray removeLastObject];
+            [self setNeedsDisplay];
+        }
+    }
 }
 
 /*

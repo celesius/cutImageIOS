@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DynamicView.h"
 
-@interface LineWidthView : DynamicView
+@interface LineWidthView : DynamicView 
 
 -(id)initWithRect:(CGRect) viewRect andHiddenPoint:(CGPoint) hiddenPoint andAnimateDuration:(NSTimeInterval)times;
 

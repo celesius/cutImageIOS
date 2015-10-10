@@ -19,8 +19,6 @@
 @interface ViewController ()
 
 @property (nonatomic, strong) UIImage* photoImg;
-//@property (nonatomic, strong) UIImageView *appImageView;
-//@property (nonatomic, strong) ImageShowView *appImageView;
 @property (nonatomic, strong) ImageEditView  *appImageView;
 //@property (nonatomic, strong) UIImageView *showImgView;
 @property (nonatomic, strong) UIButton *openPhotoAlbum;
@@ -480,60 +478,11 @@
     [self presentViewController:self.rotateCutImageViewController animated:YES completion:nil];
 }
 
-
-/*
--(void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
-    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
-    CGPoint point = [touch locationInView:self.appImageView]; //返回触摸点在视图中的当前坐标
-    int x = point.x;
-    int y = point.y;
-   // if(x >= 0 && x<= self.orgRect.size.width)
-    NSLog(@"touch moved (x, y) is (%d, %d)", x, y);
-    [self addPoint2Array:point];
-}
-
--(void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    
-    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
-    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
-    CGPoint point = [touch locationInView:self.appImageView]; //返回触摸点在视图中的当前坐标
-    int x = point.x;
-    int y = point.y;
-    NSLog(@" ");
-    NSLog(@"touch began (x, y) is (%d, %d)", x, y);
-    [self.pointArray removeAllObjects];
-    [self addPoint2Array:point];
-}
-
--(void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    NSSet *allTouches = [event allTouches];    //返回与当前接收者有关的所有的触摸对象
-    UITouch *touch = [allTouches anyObject];   //视图中的所有对象
-    CGPoint point = [touch locationInView:self.appImageView]; //返回触摸点在视图中的当前坐标
-    int x = point.x;
-    int y = point.y;
-    NSLog(@"touch ended (x, y) is (%d, %d)", x, y);
-    [self addPoint2Array:point];
-    if(self.isMove == NO){
-        if(self.isDelete == NO){
-            if(self.isDraw == NO){
-                [self.b2opcv setCreatPoint:self.pointArray andLineWidth:self.setLineWidth];
-            }
-            else{
-                [self.b2opcv setDrawPoint:self.pointArray andLineWidth:self.setLineWidth];
-            }
-        }
-        else
-        {
-            [self.b2opcv setDeletePoint:self.pointArray andLineWidth:self.setLineWidth];
-        }
-    }
-    //UIImage *imgSend = self.appImageView.image;
-}
-*/
+/**
+ *  开打相册功能函数
+ *
+ *  @param sender <#sender description#>
+ */
 -(void)takePictureClick:(id)sender
 {
     /*注：使用，需要实现以下协议：UIImagePickerControllerDelegate,

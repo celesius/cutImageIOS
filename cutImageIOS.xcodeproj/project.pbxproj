@@ -29,6 +29,8 @@
 		54D816E51B8B2DF00002061D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 541382841B86E07600478FE6 /* Main.storyboard */; };
 		54D816E61B8B2DF00002061D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541382891B86E07600478FE6 /* LaunchScreen.xib */; };
 		54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */; };
+		54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375A1BB8DD4E00467518 /* DotButton.m */; settings = {ASSET_TAGS = (); }; };
+		54E1375F1BB8E9C700467518 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375E1BB8E9C700467518 /* FXBlurView.m */; settings = {ASSET_TAGS = (); }; };
 		54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */; settings = {ASSET_TAGS = (); }; };
 		54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */; settings = {ASSET_TAGS = (); }; };
 		54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */; settings = {ASSET_TAGS = (); }; };
@@ -101,6 +103,10 @@
 		54D816E31B8B28C10002061D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImagePacking.cpp; sourceTree = "<group>"; };
 		54D816EB1B8C777C0002061D /* CutoutImagePacking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImagePacking.h; sourceTree = "<group>"; };
+		54E137591BB8DD4E00467518 /* DotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotButton.h; sourceTree = "<group>"; };
+		54E1375A1BB8DD4E00467518 /* DotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DotButton.m; sourceTree = "<group>"; };
+		54E1375D1BB8E9C700467518 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
+		54E1375E1BB8E9C700467518 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		54E3E6C51BB2ADB900FD1206 /* CustomPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopAnimation.h; sourceTree = "<group>"; };
 		54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopAnimation.m; sourceTree = "<group>"; };
 		54E3E6C91BB3D74500FD1206 /* LineWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineWidthView.h; sourceTree = "<group>"; };
@@ -163,6 +169,7 @@
 		541382791B86E07600478FE6 /* cutImageIOS */ = {
 			isa = PBXGroup;
 			children = (
+				54E1375C1BB8E9C700467518 /* FXBlurView */,
 				54E3E6C81BB3D67800FD1206 /* DesignNailView */,
 				54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */,
 				54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */,
@@ -255,6 +262,15 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
+		54E1375C1BB8E9C700467518 /* FXBlurView */ = {
+			isa = PBXGroup;
+			children = (
+				54E1375D1BB8E9C700467518 /* FXBlurView.h */,
+				54E1375E1BB8E9C700467518 /* FXBlurView.m */,
+			);
+			path = FXBlurView;
+			sourceTree = "<group>";
+		};
 		54E3E6C81BB3D67800FD1206 /* DesignNailView */ = {
 			isa = PBXGroup;
 			children = (
@@ -266,6 +282,8 @@
 				54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */,
 				54E3E6CF1BB40A1500FD1206 /* ColorBoardView.h */,
 				54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */,
+				54E137591BB8DD4E00467518 /* DotButton.h */,
+				54E1375A1BB8DD4E00467518 /* DotButton.m */,
 			);
 			name = DesignNailView;
 			sourceTree = "<group>";
@@ -379,6 +397,7 @@
 				547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */,
 				54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */,
 				54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */,
+				54E1375F1BB8E9C700467518 /* FXBlurView.m in Sources */,
 				54EF674C1B947723007E7A3C /* DrawView.m in Sources */,
 				547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */,
 				54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */,
@@ -386,6 +405,7 @@
 				545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */,
 				54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */,
 				541382801B86E07600478FE6 /* AppDelegate.m in Sources */,
+				54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */,
 				54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */,
 				54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */,
 				5413827D1B86E07600478FE6 /* main.m in Sources */,
