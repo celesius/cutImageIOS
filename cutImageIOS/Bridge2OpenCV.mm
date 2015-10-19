@@ -91,11 +91,12 @@
         sendPoint.push_back(cvp);
     }
     cv::Mat getMat;
-    self.cutoutImagePacking->drawMask(sendPoint, lineWidth, getMat);
+    bool haveResultMat;
+    self.cutoutImagePacking->drawMask(sendPoint, lineWidth, getMat, haveResultMat);
     cv::cvtColor(getMat, getMat, CV_BGR2RGB);
     UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
-        [self.delegate resultImageReady:sendUIImage];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:andHaveMaskMat:)]){
+        [self.delegate resultImageReady:sendUIImage andHaveMaskMat:haveResultMat];
     }
 }
 /**
@@ -116,11 +117,12 @@
         sendPoint.push_back(cvp);
     }
     cv::Mat getMat;
-    self.cutoutImagePacking->creatMask(sendPoint, lineWidth, getMat);
+    bool haveResultMat;
+    self.cutoutImagePacking->creatMask(sendPoint, lineWidth, getMat, haveResultMat);
     cv::cvtColor(getMat, getMat, CV_BGR2RGB);
     UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
-        [self.delegate resultImageReady:sendUIImage];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:andHaveMaskMat:)]){
+        [self.delegate resultImageReady:sendUIImage andHaveMaskMat:haveResultMat];
     }
     cv::Mat debugMat = self.cutoutImagePacking->getDebugMat();
     cv::Mat debugMat2 = self.cutoutImagePacking->getDebugMat2();
@@ -145,11 +147,12 @@
         sendPoint.push_back(cvp);
     }
     cv::Mat getMat;
-    self.cutoutImagePacking->deleteMask(sendPoint, lineWidth, getMat);
+    bool haveResultMat;
+    self.cutoutImagePacking->deleteMask(sendPoint, lineWidth, getMat, haveResultMat);
     cv::cvtColor(getMat, getMat, CV_BGR2RGB);
     UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
-        [self.delegate resultImageReady:sendUIImage];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:andHaveMaskMat:)]){
+        [self.delegate resultImageReady:sendUIImage andHaveMaskMat:haveResultMat];
     }
 }
 /**
@@ -161,8 +164,8 @@
     self.cutoutImagePacking->resetMask(getMat);
     cv::cvtColor(getMat, getMat, CV_BGR2RGB);
     UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
-        [self.delegate resultImageReady:sendUIImage];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:andHaveMaskMat:)]){
+        [self.delegate resultImageReady:sendUIImage andHaveMaskMat:false];
     }
 }
 /**
@@ -171,11 +174,12 @@
 -(void) redoPoint
 {
     cv::Mat getMat;
-    self.cutoutImagePacking->redo(getMat);
+    bool haveResultMat;
+    self.cutoutImagePacking->redo(getMat, haveResultMat);
     cv::cvtColor(getMat, getMat, CV_BGR2RGB);
     UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
-        [self.delegate resultImageReady:sendUIImage];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:andHaveMaskMat:)]){
+        [self.delegate resultImageReady:sendUIImage andHaveMaskMat:haveResultMat];
     }
 }
 /**
@@ -184,11 +188,12 @@
 -(void) undoPoint
 {
     cv::Mat getMat;
-    self.cutoutImagePacking->undo(getMat);
+    bool haveResultMat;
+    self.cutoutImagePacking->undo(getMat,haveResultMat);
     cv::cvtColor(getMat, getMat, CV_BGR2RGB);
     UIImage *sendUIImage = [self UIImageFromCVMat:getMat];
-    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:)]){
-        [self.delegate resultImageReady:sendUIImage];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(resultImageReady:andHaveMaskMat:)]){
+        [self.delegate resultImageReady:sendUIImage andHaveMaskMat:haveResultMat];
     }
 }
 /**

@@ -10,6 +10,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CustomPushAnimation : NSObject <UIViewControllerAnimatedTransitioning>
--(id)init;
+-(id)initWithIsFromViewHiddenStatusBar:(BOOL)isHave;
 -(void) setStartPoint:(CGPoint) point;
 @end

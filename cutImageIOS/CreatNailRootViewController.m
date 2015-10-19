@@ -7,9 +7,10 @@
 //
 
 #import "CreatNailRootViewController.h"
-#import "ViewController.h"
+//#import "ViewController.h"
 #import "DesignNailViewController.h"
 #import "CustomPushAnimation.h"
+#import "TWPhotoPickerController.h"
 
 @interface CreatNailRootViewController ()
 
@@ -37,7 +38,8 @@
     [self.cutNailButton setTitle:@"剪切甲型" forState:UIControlStateNormal];
     [self.cutNailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.cutNailButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.cutNailButton addTarget:self action:@selector(cutNailButtonFoo:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.cutNailButton addTarget:self action:@selector(cutNailButtonFoo:) forControlEvents:UIControlEventTouchUpInside];
+    [self.cutNailButton addTarget:self action:@selector(openPhotoAlbum:) forControlEvents:UIControlEventTouchUpInside];
    
     self.drawNailButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.drawNailButton.frame = CGRectMake(0, 0, mainScreen.size.width/4, mainScreen.size.width/4);
@@ -48,10 +50,13 @@
     [self.drawNailButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.drawNailButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.drawNailButton addTarget:self action:@selector(drawNailButtonFoo:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.customPushAnimation = [[CustomPushAnimation alloc]init];
+   
+    self.customPushAnimation = [[CustomPushAnimation alloc]initWithIsFromViewHiddenStatusBar:[self prefersStatusBarHidden]];
     [self.view addSubview:self.cutNailButton];
     [self.view addSubview:self.drawNailButton];
+    
+    self.rotateVCBackPoint = CGPointMake(CGRectGetMidX(mainScreen), CGRectGetMidY(mainScreen));
+    
     // Do any additional setup after loading the view.
 }
 
@@ -59,7 +64,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation :(UINavigationControllerOperation) operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *) toVC
 {
@@ -78,6 +82,7 @@
     }
 }
 
+#if 0
 -(void)cutNailButtonFoo:(id)sender{
     ViewController *cutNailViewC = [[ViewController alloc]init];
     [cutNailViewC setReturnPoint:self.cutNailButton.center];
@@ -91,16 +96,29 @@
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
     self.navigationController.navigationBarHidden = YES;
     */
-  
     //[self.navigationController.view an]
     //if(self.navigationController.delegate == nil){
         self.navigationController.delegate = self;
     //}
    
-    [self.customPushAnimation setStartPoint:self.cutNailButton.frame.origin];
+    [self.customPushAnimation setStartPoint:.]
     
     [self.navigationController pushViewController:cutNailViewC animated:YES];
+}
+#endif
 
+- (void)openPhotoAlbum:(id)sender{
+    TWPhotoPickerController *twppc = [[ TWPhotoPickerController alloc ]init];
+    self.navigationController.delegate = self;
+    [twppc setReturnPoint:self.cutNailButton.center];
+    [twppc setCreatNailRootVC:self];
+    twppc.cropBlock = ^(UIImage *image) {
+        NSLog(@"Image");
+    };
+    [self.customPushAnimation setStartPoint:self.cutNailButton.center];
+    [self.navigationController pushViewController:twppc animated:YES];
+    //[self presentViewController:twppc animated:YES completion:nil];
+    
 }
 
 -(void)drawNailButtonFoo:(id)sender{

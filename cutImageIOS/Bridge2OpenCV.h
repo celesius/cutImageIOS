@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 
 @protocol Bridge2OpenCVDelegate  <NSObject>
--(void) resultImageReady:(UIImage *) sendImage;
+-(void) resultImageReady:(UIImage *) sendImage andHaveMaskMat:(bool) have;
 @end
 
 @interface Bridge2OpenCV : NSObject

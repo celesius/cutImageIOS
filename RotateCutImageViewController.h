@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CreatNailRootViewController.h"
 
-@interface RotateCutImageViewController : UIViewController <UIGestureRecognizerDelegate>
+@interface RotateCutImageViewController : UIViewController <UIGestureRecognizerDelegate, UINavigationControllerDelegate>
 
 -(void) setImageRect:(CGRect) setRect andImage:(UIImage *)setImage;
+@property (nonatomic, strong) CreatNailRootViewController *creatNailRootVC;
 
 @end

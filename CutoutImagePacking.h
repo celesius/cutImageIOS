@@ -20,11 +20,11 @@ public:
     void setColorImage(cv::Mat srcImg, int maxSeedMatNum);                                                 //设置要计算的彩色图
     void setMaskColor(cv::Scalar maskColor);                                            //设置输出观测mask的颜色
     
-    void drawMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult );          //直接添加mask不带任何分割算法
-    void creatMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult );         //设置需要区域分割的点，输出计算后的融合结果
-    void deleteMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult );        //在mask中删除添加选择点，输出计算后的融合结果
-    void redo( cv::Mat & dstMat );
-    void undo( cv::Mat & dtsMat );
+    void drawMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult, bool &haveCutMat);          //直接添加mask不带任何分割算法
+    void creatMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult, bool &haveCutMat);         //设置需要区域分割的点，输出计算后的融合结果
+    void deleteMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult, bool & haveCutMat);        //在mask中删除添加选择点，输出计算后的融合结果
+    void redo( cv::Mat & dstMat, bool & haveCutMat );
+    void undo( cv::Mat & dtsMat, bool & haveCutMat );
     void resetMask( cv::Mat &dstMat );                                                                   //回复原始状态
     
     cv::Mat getCurrentBitMask();                                                        //输出当前的结果的mask 输出的是8uc1的灰度图，255 有 mask 0 无mask

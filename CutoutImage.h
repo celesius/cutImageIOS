@@ -30,10 +30,14 @@ public:
     void setColorImg(cv::Mat colorImg);
     cv::Mat scaleFCMI2InputColorImageSize( const cv::Mat srcImg );
     
+    bool matHaveMask(cv::Mat inputMat);
+    
+    
 public:
     cv::Mat classCutMat;
     cv::Mat classMergeMat;
     cv::Size inputColorImageSize;
+    bool matHaveMaskBool;
     
 private:
     std::vector<cv::Point> mouseSlideRegion; //鼠标按下滑动区域

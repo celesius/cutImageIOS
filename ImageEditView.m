@@ -31,12 +31,12 @@
 
 @implementation ImageEditView
 
--(id)initWithFrame:(CGRect)frame
+-(id)initWithFrame:(CGRect)frame andEditImage:(UIImage *)editImage;
 {
     if(self = [super initWithFrame:frame])
     {
-        self.drawView = [[DrawView alloc]initWithFrame:frame andIsCutImage:YES];
-        self.pictureImage = [[UIImageView alloc]initWithFrame:frame];
+        self.drawView = [[DrawView alloc]initWithFrame:self.bounds andIsCutImage:YES];
+        self.pictureImage = [[UIImageView alloc]initWithFrame:self.bounds];
         
         self.pictureImage.backgroundColor = [UIColor blackColor];
         self.drawView.backgroundColor = [UIColor clearColor];
@@ -45,8 +45,9 @@
         self.b2opcv.delegate = self;
         self.drawView.delegate = self;
         
-        UIImage *imageInit =  [UIImage imageWithColor:self.pictureImage.backgroundColor andRect:CGRectMake(0, 0, self.pictureImage.frame.size.width, self.pictureImage.frame.size.width)];
-        [self.b2opcv setCalculateImage:imageInit andWindowSize:self.frame.size];
+        //UIImage *imageInit =  [UIImage imageWithColor:self.pictureImage.backgroundColor andRect:CGRectMake(0, 0, self.pictureImage.frame.size.width, self.pictureImage.frame.size.width)];
+        //[self.b2opcv setCalculateImage:editImage andWindowSize:self.frame.size];
+        [self setPicture:editImage];
         
         self.isMove = NO;
         self.isDraw = NO;       //默认是添加
@@ -98,10 +99,13 @@
 //    [self.drawView resetDraw];
 }
 
--(void) resultImageReady:(UIImage *)sendImage
+-(void) resultImageReady:(UIImage *)sendImage andHaveMaskMat:(bool)have
 {
+    NSValue *sendV = [NSValue value:&have withObjCType:@encode(BOOL) ];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         self.pictureImage.image = sendImage;
+       [[NSNotificationCenter defaultCenter]postNotificationName:@"com.clover.cutImageGetResultImage" object:sendV];
     });
 }
 

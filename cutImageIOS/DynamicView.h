@@ -22,5 +22,7 @@
 -(void) openAnimateFinished;
 -(void) closeAnimateFinished;
 
+-(void) closeView;
+
 @property (nonatomic, weak) id<DynamicViewDelegate> delegate;
 @end

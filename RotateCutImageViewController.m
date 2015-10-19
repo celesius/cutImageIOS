@@ -8,14 +8,18 @@
 
 #import "RotateCutImageViewController.h"
 #import "KTOneFingerRotationGestureRecognizer.h"
+#import "CustomPopAnimation.h"
 
 @interface RotateCutImageViewController ()
 
 @property (nonatomic, strong) UIButton *backStep;
+@property (nonatomic, strong) UIButton *finishButton;
 @property (nonatomic, strong) UIImageView *showImgView;
 @property (nonatomic, assign) CGRect showImgViewRect;
 @property (nonatomic, strong) UIRotationGestureRecognizer *rotationGestureRecognizer;
 @property (nonatomic) CGAffineTransform orgShowImgViewTransform;
+@property (nonatomic, assign) BOOL popVCbyFinishOperation;
+@property (nonatomic, strong) CustomPopAnimation *customPopAnimation;
 
 @end
 
@@ -25,6 +29,9 @@
     [super viewDidLoad];
     [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
 
+    self.navigationController.delegate = self;
+    self.customPopAnimation = [[CustomPopAnimation alloc]init];
+    
     self.view.backgroundColor = [UIColor grayColor];
     [self.view.layer setCornerRadius:5.0];
     
@@ -38,6 +45,16 @@
     [self.backStep setTitleColor:[UIColor colorWithRed:25.0/255.0 green:25.0/255.0 blue:112.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.backStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.backStep addTarget:self action:@selector(backStepFoo:) forControlEvents:UIControlEventTouchUpInside];
+  
+    self.finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.finishButton.frame = CGRectMake( CGRectGetWidth(mainScreen) - 100 , mainScreen.origin.y, 100, 50);
+    self.finishButton.backgroundColor = [UIColor clearColor];
+    [self.finishButton.layer setCornerRadius:5];
+    [self.finishButton setTitle:@"完成" forState:UIControlStateNormal];
+    [self.finishButton setTitleColor:[UIColor colorWithRed:25.0/255.0 green:25.0/255.0 blue:112.0/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [self.finishButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.finishButton addTarget:self action:@selector(finishButtonFoo:) forControlEvents:UIControlEventTouchUpInside];
+   
     
     self.showImgView = [[UIImageView alloc]init];
     self.orgShowImgViewTransform = self.showImgView.transform;
@@ -51,7 +68,10 @@
     
     
     [self.view addSubview:self.backStep];
+    [self.view addSubview:self.finishButton];
     [self.view addSubview:self.showImgView];
+    
+    self.popVCbyFinishOperation = NO;
     //[self setModalTransitionStyle:UIModalTransitionStylePartialCurl];
     // Do any additional setup after loading the view.
 }
@@ -61,10 +81,49 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)backStepFoo:(id)sender
+-(void)backStepFoo:(id)sender{
+    [self backPopVCAnimationWithTimeDuration:0.5];
+    [self.navigationController popViewControllerAnimated:YES];
+   // [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void) backPopVCAnimationWithTimeDuration:(float)duration{
+    self.popVCbyFinishOperation = NO;
+    CATransition *transition = [CATransition animation];
+    transition.duration = duration;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = @"oglFlip";
+    transition.subtype = kCATransitionFromRight;
+    transition.delegate = self;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                animationControllerForOperation :(UINavigationControllerOperation) operation
+                                              fromViewController:(UIViewController *)fromVC
+                                                toViewController:(UIViewController *) toVC
 {
- //   [self.navigationController popViewControllerAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+    /**
+     *  typedef NS_ENUM(NSInteger, UINavigationControllerOperation) {
+     *     UINavigationControllerOperationNone,
+     *     UINavigationControllerOperationPush,
+     *     UINavigationControllerOperationPop,
+     *  };
+     */
+    //push的时候用我们自己定义的customPush
+    if ( operation == UINavigationControllerOperationPop  && self.popVCbyFinishOperation) {
+        return self.customPopAnimation ;//customPush ;
+    } else {
+        return nil ;
+    }
+}
+
+
+- (void)finishButtonFoo:(id)sender{
+    self.popVCbyFinishOperation = YES;
+    [self.customPopAnimation setEndPoint:self.creatNailRootVC.rotateVCBackPoint];
+    //self.navigationController = self.creatNailRootVC.navigationController;
+    [self.navigationController popToViewController:self.creatNailRootVC animated:YES];
 }
 
 -(void) setImageRect:(CGRect) setRect andImage:(UIImage *)setImage;

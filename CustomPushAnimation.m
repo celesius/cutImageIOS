@@ -11,15 +11,21 @@
 
 @property (nonatomic, assign) CGPoint animationStartPoint;
 @property (nonatomic, assign) CGRect mainScreenRect;
+@property (nonatomic, assign) float toViewOffset;
 
 @end
 
 @implementation CustomPushAnimation
 
--(id)init{
+-(id)initWithIsFromViewHiddenStatusBar:(BOOL)isHave{
     if(self = [super init]){
         self.animationStartPoint = CGPointMake(0, 0);
         self.mainScreenRect = [[UIScreen mainScreen]applicationFrame];
+        if(isHave)
+            self.toViewOffset = 0;
+        else
+            self.toViewOffset = 10;
+        
     }
     return self;
 }
@@ -44,9 +50,10 @@
         //fromViewController.view.transform = CGAffineTransformMakeTranslation ( - 320 , - 568 ) ;
         [fromViewController.view setAlpha:0];
         toViewController.view.transform = CGAffineTransformMake(1, 0, 0, 1, 0, 1);  //CGAffineTransformIdentity ;
-        toViewController.view.center = CGPointMake(self.mainScreenRect.size.width/2, (self.mainScreenRect.size.height/2)+10) ;
+        toViewController.view.center = CGPointMake(self.mainScreenRect.size.width/2, (self.mainScreenRect.size.height/2 + self.toViewOffset)) ;
     } completion : ^ ( BOOL finished ) {
         [fromViewController.view setAlpha:1];
+        [toViewController setNeedsStatusBarAppearanceUpdate];
         //fromViewController . view . transform = CGAffineTransformIdentity ;
         // 声明过渡结束时调用 completeTransition: 这个方法
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]] ;

@@ -513,8 +513,7 @@ void CutoutImage::deleteMatCreat(std::vector<cv::Point> inPoint,cv::Size matSize
     //cv::imshow("DeleteDrawLineMat", drawLineMat);
 }
 
-void CutoutImage::deleteMask(const cv::Mat deleteMat,cv::Mat &seedMat)
-{
+void CutoutImage::deleteMask(const cv::Mat deleteMat,cv::Mat &seedMat) {
     cv::Mat deleteMatClone = deleteMat.clone();
     int rows = seedMat.rows;
     int cols = seedMat.cols;
@@ -681,8 +680,10 @@ void CutoutImage::colorDispResultWithFullSeedMat(const cv::Mat picMat,const cv::
 {
     cv::Mat showPic = picMat.clone();
     cv::Mat showSeed = seedMat.clone();
+ 
     
     CutoutImage::classCutMat = seedMat;
+    CutoutImage::matHaveMaskBool = false;
     
     if(showPic.channels() == 3)
         cv::cvtColor(showPic, showPic, CV_BGR2BGRA);
@@ -701,6 +702,7 @@ void CutoutImage::colorDispResultWithFullSeedMat(const cv::Mat picMat,const cv::
             uchar oneChannelData = showSeedLineData[x];
             if(oneChannelData == 255)
             {
+                CutoutImage::matHaveMaskBool = true;
                 showPicLineData[x] = 255;
                 showPicLineData[x + 1] =  showPicLineData[x + 1]/2;
                 showPicLineData[x + 2] =  showPicLineData[x + 2]/2;
@@ -708,9 +710,21 @@ void CutoutImage::colorDispResultWithFullSeedMat(const cv::Mat picMat,const cv::
             }
         }
     }
+    
+    printf("!!!!!!!!!!!!!! matHaveMask = %d  ",matHaveMaskBool);
+    
     //cv::imshow("showPic",showPic);
     //cv::imshow("orgGray", showPic);
     CutoutImage::classMergeMat = showPic.clone();
+}
+
+bool CutoutImage::matHaveMask(cv::Mat inputMat){
+    for(int y = 0; y < inputMat.rows; y++){
+        uchar *rowsData = inputMat.ptr<uchar>(y);
+        for (int x = 0; x< inputMat.cols; x++) {
+        }
+    }
+    return false;
 }
 
 cv::Mat CutoutImage::getMergeResult(){

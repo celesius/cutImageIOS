@@ -6,7 +6,7 @@
 //  Copyright (c) 2015年 quxiu8. All rights reserved.
 //  方形编辑区域
 
-#import "ViewController.h"
+#import "CutNailViewController.h"
 #import <Foundation/Foundation.h>
 #import "UIImage+IF.h"
 #import "RotateCutImageViewController.h"
@@ -16,9 +16,8 @@
 #define LINESTEP 5
 #define DEFLINEWIDTH 10
 
-@interface ViewController ()
+@interface CutNailViewController ()
 
-@property (nonatomic, strong) UIImage* photoImg;
 @property (nonatomic, strong) ImageEditView  *appImageView;
 //@property (nonatomic, strong) UIImageView *showImgView;
 @property (nonatomic, strong) UIButton *openPhotoAlbum;
@@ -40,12 +39,11 @@
 //@property (nonatomic, strong) Bridge2OpenCV *b2opcv;
 @property (nonatomic) CGSize imgWindowSize;
 @property (nonatomic) CGAffineTransform orgTrf;
-@property (nonatomic) BOOL isMove; //移动时最好禁用其他操作
 @property (nonatomic) BOOL isDraw; //YES是直接画mark NO是添加生长点
 @property (nonatomic) BOOL isDelete; //YES则调用删除点，NO是再判断上面的Draw
 
 @property (nonatomic) int setLineWidth;
-@property (nonatomic, strong) UIGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
 
 @property (nonatomic, strong)  RotateCutImageViewController *rotateCutImageViewController;
@@ -54,6 +52,7 @@
 
 @property (nonatomic, strong) UIButton *popViewCtrlButton;
 @property (nonatomic, strong) CustomPopAnimation *custompopanimation;
+@property (nonatomic, assign) BOOL lockNextStep;
 
 /**
  *  画图测试
@@ -63,62 +62,82 @@
 
 @end
 
-@implementation ViewController
+@implementation CutNailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.lockNextStep = YES;
+    //CGRect pointRect = self.view.frame;
+    //NSLog(@"pointRect = %@ ",NSStringFromCGRect(pointRect));
+    CGRect mainScreen = [[UIScreen mainScreen] bounds];
+    NSLog(@"mainScreen = %@ ", NSStringFromCGRect(mainScreen));
+    
+    CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20 );
+    
     self.navigationController.delegate = self;
     self.navigationController.navigationBar.translucent = YES;
     self.custompopanimation = [[CustomPopAnimation alloc]init];
-//    [self setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
-//    [self setModalTransitionStyle:UIModalTransitionStyleCrossDissolve ];
-   
     self.rotateCutImageViewController = [[RotateCutImageViewController alloc]init];
-    
-    float smallButtonWidth = 50;
-    float bigButtonWidth = 100;
     self.setLineWidth = DEFLINEWIDTH;              //线宽默认是10
-    CGRect mainScreen = [[UIScreen mainScreen] applicationFrame];
-    NSLog(@" mainScreen.size.height = %f  mainScreen.size.width = %f ",mainScreen.size.height, mainScreen.size.width);
-    NSLog(@" mainScreen.origin.x    = %f  mainScreen.origin.y   = %f  ",mainScreen.origin.x,mainScreen.origin.y);
-    CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20);
     self.pointArray = [[NSMutableArray alloc]init];
-   // self.b2opcv = [[Bridge2OpenCV alloc]init];
-   // self.b2opcv.delegate = self;
-    
-    //上半部分遮挡view
-    
-    //
-    //self.showImgView= [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-    //self.showImgView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
-    //self.showImgView.backgroundColor = [UIColor whiteColor];
-    //
-//    self.appImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width)];
-    self.appImageView.bounds =CGRectMake(0, 0, mainScreen.size.width, mainScreen.size.width);
-    self.appImageView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
+
+    //Init All View
+    UIImageView *upKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainScreen), 70)];
+    upKeepOutView.backgroundColor = [UIColor greenColor];
    
-    NSLog(@"self.appImageView.frame.size.width  = %f",self.appImageView.frame.size.width);
-    NSLog(@"self.appImageView.frame.size.height = %f",self.appImageView.frame.size.height);
-    
+    float appImageViewW = CGRectGetWidth(mainScreen)*(19.0/20.0);
+    float appImageViewH = appImageViewW*4.0/3.0;
+    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(upKeepOutView.frame), appImageViewW, appImageViewH ) andEditImage:self.editImage];
+    self.appImageView.center = CGPointMake(CGRectGetMidX(mainScreen), self.appImageView.center.y);
     self.orgRect = self.appImageView.frame;
-    //self.appImageView.backgroundColor = [UIColor clearColor];
-    
-    UIImage *imageInit =  [UIImage imageWithColor:self.appImageView.backgroundColor andRect:CGRectMake(0, 0, self.appImageView.frame.size.width, self.appImageView.frame.size.width)]; // [self.appImageView image];
-    self.imgWindowSize = CGSizeMake(self.appImageView.frame.size.width, self.appImageView.frame.size.height);
-    self.orgTrf = self.appImageView.transform;
-    //[self.b2opcv setCalculateImage:imageInit andWindowSize:self.imgWindowSize];
-    
+    /**
+     *  初始化手势
+     */
     [self creatPan];
-    //生成一个遮挡平面，这样可以得到小图的剪切
-    //float tmpHeight =   self.showImgView.frame.origin.y;
-    float tmpHeight =   self.appImageView.frame.origin.y;
-    UIImageView *upKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, mainScreen.size.width, tmpHeight)];
-    upKeepOutView.backgroundColor = [UIColor grayColor];
-    //[upKeepOutView.layer setCornerRadius:5];
-    UIImageView *bottomKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, tmpHeight + self.appImageView.frame.size.height, mainScreen.size.width, mainScreen.size.height - tmpHeight - self.appImageView.frame.size.height + 20)];
-    bottomKeepOutView.backgroundColor = [UIColor grayColor];
-    //[bottomKeepOutView.layer setCornerRadius:5];
+    //生成一个遮挡平面
+//    UIImageView *upKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainScreen), tmpHeight)];
+    
+    UIImageView *bottomKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.appImageView.frame), mainScreen.size.width, mainScreen.size.height - (CGRectGetHeight(upKeepOutView.frame) + CGRectGetHeight(self.appImageView.frame) ))];
+    bottomKeepOutView.backgroundColor = [UIColor redColor];
+  
+    //开始添加按键
+    /**
+     *  增加回退按钮
+     */
+    float smallButtonWidth = 50;
+    self.redoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    NSLog(@"midx = %f",CGRectGetMidX(mainScreen));
+    self.redoButton.frame = CGRectMake(CGRectGetMidX(mainScreen) - 60, CGRectGetMaxY(upKeepOutView.frame) - 50 , smallButtonWidth, 50);
+    //self.redoButton.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y + 60);
+    self.redoButton.backgroundColor = [UIColor whiteColor];
+    [self.redoButton.layer setCornerRadius:5];
+    [self.redoButton  setTitle:@"返回" forState:UIControlStateNormal];
+    [self.redoButton  setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.redoButton  setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.redoButton  addTarget:self action:@selector(redoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
+    /**
+     *  增加前进按钮
+     */
+    self.undoButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.undoButton.frame = CGRectMake(CGRectGetMidX(mainScreen) + 10  , CGRectGetMaxY(upKeepOutView.frame) - 50, smallButtonWidth , 50);
+    //self.undoButton.center = CGPointMake(mainScreen.size.width/5*4,self.moveImg.center.y + 60);
+    self.undoButton.backgroundColor = [UIColor whiteColor];
+    [self.undoButton.layer setCornerRadius:5];
+    [self.undoButton setTitle:@"前进" forState:UIControlStateNormal];
+    [self.undoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.undoButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.undoButton addTarget:self action:@selector(undoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
+    
+    
+    self.popViewCtrlButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.popViewCtrlButton.frame = CGRectMake( 0, CGRectGetMaxY(mainScreen) - 50, 50, 50);
+    self.popViewCtrlButton.backgroundColor = [UIColor clearColor];
+    [self.popViewCtrlButton.layer setCornerRadius:5];
+    [self.popViewCtrlButton setTitle:@"<-- " forState:UIControlStateNormal];
+    [self.popViewCtrlButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.popViewCtrlButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.popViewCtrlButton addTarget:self action:@selector(goback:) forControlEvents:UIControlEventTouchUpInside];
     
     //打开相册按键
     self.openPhotoAlbum = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -150,16 +169,7 @@
     [self.resetDrawButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.resetDrawButton addTarget:self action:@selector(resetDraw:) forControlEvents:UIControlEventTouchUpInside];
     
-    //添加计算点按键
-    self.addCalculatePoint = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addCalculatePoint.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width , smallButtonWidth, 50);
-    self.addCalculatePoint.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y);
-    self.addCalculatePoint.backgroundColor = [UIColor yellowColor];
-    [self.addCalculatePoint.layer setCornerRadius:5];
-    [self.addCalculatePoint setTitle:@"选取" forState:UIControlStateNormal];
-    [self.addCalculatePoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.addCalculatePoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.addCalculatePoint addTarget:self action:@selector(cutImageCut:) forControlEvents:UIControlEventTouchUpInside];
+
     //添加移动图片按键
     self.moveImg= [UIButton buttonWithType:UIButtonTypeCustom];
     self.moveImg.frame = CGRectMake(mainScreen.size.width - smallButtonWidth, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth , 50);
@@ -172,48 +182,36 @@
     [self.moveImg addTarget:self action:@selector(enableMoveImg:) forControlEvents:UIControlEventTouchUpInside];
     //添加单独添加Mask按键
     self.addMaskPoint = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addMaskPoint.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth, 50);
-    self.addMaskPoint.center = CGPointMake(mainScreen.size.width/5*2, self.addMaskPoint.center.y);
+    self.addMaskPoint.frame = CGRectMake(  CGRectGetMidX(mainScreen) - 25, CGRectGetMaxY(self.appImageView.frame) + 10, smallButtonWidth, 50);
+    //self.addMaskPoint.center = CGPointMake(mainScreen.size.width/5*2, self.addMaskPoint.center.y);
     self.addMaskPoint.backgroundColor = [UIColor whiteColor];
     [self.addMaskPoint.layer setCornerRadius:5];
-    [self.addMaskPoint setTitle:@"添加" forState:UIControlStateNormal];
+    [self.addMaskPoint setTitle:@"画笔" forState:UIControlStateNormal];
     [self.addMaskPoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.addMaskPoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.addMaskPoint addTarget:self action:@selector(addMaskPointFoo:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //添加计算点按键
+    self.addCalculatePoint = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.addCalculatePoint.frame = CGRectMake( CGRectGetMinX(self.addMaskPoint.frame) - (60 + 50) , CGRectGetMinY(self.addMaskPoint.frame) , smallButtonWidth, 50);
+   // self.addCalculatePoint.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y);
+    self.addCalculatePoint.backgroundColor = [UIColor yellowColor];
+    [self.addCalculatePoint.layer setCornerRadius:5];
+    [self.addCalculatePoint setTitle:@"魔棒" forState:UIControlStateNormal];
+    [self.addCalculatePoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.addCalculatePoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.addCalculatePoint addTarget:self action:@selector(cutImageCut:) forControlEvents:UIControlEventTouchUpInside];
+    
     //添加删除Mark的按键
     self.deleteMaskPoint = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.deleteMaskPoint.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth, 50);
-    self.deleteMaskPoint.center = CGPointMake(mainScreen.size.width/5*3, self.deleteMaskPoint.center.y);
+    self.deleteMaskPoint.frame = CGRectMake(CGRectGetMaxX(self.addMaskPoint.frame) + 60, CGRectGetMinY(self.addMaskPoint.frame), smallButtonWidth, 50);
+   // self.deleteMaskPoint.center = CGPointMake(mainScreen.size.width/5*3, self.deleteMaskPoint.center.y);
     self.deleteMaskPoint.backgroundColor = [UIColor whiteColor];
     [self.deleteMaskPoint.layer setCornerRadius:5];
     [self.deleteMaskPoint setTitle:@"删除" forState:UIControlStateNormal];
     [self.deleteMaskPoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.deleteMaskPoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.deleteMaskPoint addTarget:self action:@selector(deleteMaskPointFoo:) forControlEvents:UIControlEventTouchUpInside];
-    /**
-     *  增加回退按钮
-     */
-    self.redoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.redoButton.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width , smallButtonWidth, 50);
-    self.redoButton.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y + 60);
-    self.redoButton.backgroundColor = [UIColor whiteColor];
-    [self.redoButton.layer setCornerRadius:5];
-    [self.redoButton  setTitle:@"返回" forState:UIControlStateNormal];
-    [self.redoButton  setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.redoButton  setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.redoButton  addTarget:self action:@selector(redoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
-    /**
-     *  增加前进按钮
-     */
-    self.undoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.undoButton.frame = CGRectMake(mainScreen.size.width - smallButtonWidth, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth , 50);
-    self.undoButton.center = CGPointMake(mainScreen.size.width/5*4,self.moveImg.center.y + 60);
-    self.undoButton.backgroundColor = [UIColor whiteColor];
-    [self.undoButton.layer setCornerRadius:5];
-    [self.undoButton setTitle:@"前进" forState:UIControlStateNormal];
-    [self.undoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.undoButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.undoButton addTarget:self action:@selector(undoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
     /**
      *  增加线宽按钮
      */
@@ -242,44 +240,36 @@
     
     //CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
     self.nextStep = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.nextStep.frame = CGRectMake( mainScreen.size.width - 100, self.orgRect.origin.y - 50, 100, 50);
+    self.nextStep.frame = CGRectMake( CGRectGetMaxX(mainScreen) - 100, CGRectGetMaxY(mainScreen) - 50, 100, 50);
     self.nextStep.backgroundColor = [UIColor whiteColor];
     [self.nextStep.layer setCornerRadius:5];
     [self.nextStep setTitle:@"下一步 >" forState:UIControlStateNormal];
-    [self.nextStep setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+    [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    //[self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.nextStep addTarget:self action:@selector(nextStepFoo:) forControlEvents:UIControlEventTouchUpInside];
    
-    self.popViewCtrlButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.popViewCtrlButton.frame = CGRectMake( 0, self.orgRect.origin.y - 50, 50, 50);
-    self.popViewCtrlButton.backgroundColor = [UIColor clearColor];
-    [self.popViewCtrlButton.layer setCornerRadius:5];
-    [self.popViewCtrlButton setTitle:@"X " forState:UIControlStateNormal];
-    [self.popViewCtrlButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.popViewCtrlButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.popViewCtrlButton addTarget:self action:@selector(goback:) forControlEvents:UIControlEventTouchUpInside];
+
     //
     //[self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
     [self.view addSubview:upKeepOutView];
     [self.view addSubview:bottomKeepOutView];
-    [self.view addSubview:self.openPhotoAlbum];
-    [self.view addSubview:self.sysTestButton];
+    //[self.view addSubview:self.openPhotoAlbum];
+  //  [self.view addSubview:self.sysTestButton];
     [self.view addSubview:self.addCalculatePoint];
     [self.view addSubview:self.addMaskPoint];
     [self.view addSubview:self.deleteMaskPoint];
-    [self.view addSubview:self.moveImg];
-    [self.view addSubview:self.resetDrawButton];
+    //[self.view addSubview:self.moveImg];
+   // [self.view addSubview:self.resetDrawButton];
     [self.view addSubview:self.redoButton];
     [self.view addSubview:self.undoButton];
-    [self.view addSubview:self.addLineWidth];
-    [self.view addSubview:self.subtractLineWidth];
+  //  [self.view addSubview:self.addLineWidth];
+  //  [self.view addSubview:self.subtractLineWidth];
     [self.view addSubview:self.nextStep];
     [self.view addSubview:self.popViewCtrlButton];
     
     self.view.backgroundColor = [UIColor grayColor];
     
-    self.isMove = NO;
     self.isDraw = NO;       //默认是添加
     self.isDelete  = NO;
     
@@ -292,8 +282,47 @@
      *  @return <#return value description#>
      */
     self.getFinnalImageQueue = dispatch_queue_create("com.clover.cutImageIOS", NULL);
+   
     
+    /**
+     *  初始化观察者
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(haveMaskMatFoo:)
+                                                 name:@"com.clover.cutImageGetResultImage"
+                                               object:nil];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)haveMaskMatFoo:(NSNotification *)notification{
+    NSValue *haveMaskMat = [notification object];
+    BOOL hb;
+    [haveMaskMat getValue:&hb];
+    if(hb){
+        [self unLockNextStepButton];
+    }
+    else{
+        [self LockNextStepButton];
+    }
+}
+    
+- (void)unLockNextStepButton{
+    if(self.lockNextStep){
+        self.lockNextStep = !self.lockNextStep;
+        [self.nextStep setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+}
+
+- (void)LockNextStepButton{
+    if(!self.lockNextStep){
+        self.lockNextStep = !self.lockNextStep;
+        [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    }
+}
+
+
+- (BOOL)prefersStatusBarHidden{
+    return YES;
 }
 
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
@@ -330,7 +359,7 @@
     [self.custompopanimation setEndPoint:self.returnPoint];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+/*
 -(void) resultImageReady:(UIImage *)sendImage
 {
     dispatch_async(dispatch_get_global_queue(0,0), ^{
@@ -344,6 +373,7 @@
         });
     });
 }
+ */
 /**
  *  将试图恢复到初始位置,并且添加动画
  *
@@ -412,10 +442,9 @@
     self.deleteMaskPoint.backgroundColor  = [UIColor whiteColor];
     self.moveImg.backgroundColor  = [UIColor whiteColor];
     self.isDraw = NO;
-    self.isMove = NO;
     self.isDelete= NO;
-    [self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
+    //[self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
+    //[self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) addMaskPointFoo:(id)sender          //直接添加种子点
@@ -429,10 +458,9 @@
     self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
     self.moveImg.backgroundColor            = [UIColor whiteColor];
     self.isDraw = YES;
-    self.isMove = NO;
     self.isDelete= NO;
-    [self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
+    //[self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
+    //[self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) deleteMaskPointFoo:(id)sender
@@ -446,9 +474,8 @@
     self.deleteMaskPoint.backgroundColor    = [UIColor yellowColor];
     self.moveImg.backgroundColor            = [UIColor whiteColor];
     self.isDelete = YES;
-    self.isMove = NO;
-    [self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
+    //[self.appImageView removeGestureRecognizer:self.panGestureRecognizer];
+    //[self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) enableMoveImg:(id)sender
@@ -459,38 +486,58 @@
     self.addMaskPoint.backgroundColor       = [UIColor whiteColor];
     self.deleteMaskPoint.backgroundColor    = [UIColor whiteColor];
     self.moveImg.backgroundColor            = [UIColor yellowColor];
-    self.isMove = YES;
    
-    [self.appImageView addGestureRecognizer:self.panGestureRecognizer];
-    [self.appImageView addGestureRecognizer:self.pinchGestureRecognizer];
+    //[self.appImageView addGestureRecognizer:self.panGestureRecognizer];
+    //[self.appImageView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 -(void) nextStepFoo:(id) sender
 {
-    RotateCutImageViewController *aa = [[RotateCutImageViewController alloc]init];
-//    [self.rotateCutImageViewController setImageRect:self.orgRect];
-   
-    dispatch_async(self.getFinnalImageQueue, ^{
-        UIImage *setImage = [self.appImageView getReusltImage];
-        [self.rotateCutImageViewController setImageRect:self.orgRect andImage:setImage];
-    });
-    
-    [self presentViewController:self.rotateCutImageViewController animated:YES completion:nil];
+    if(!self.lockNextStep){
+        //    [self.rotateCutImageViewController setImageRect:self.orgRect];
+        
+        dispatch_async(self.getFinnalImageQueue, ^{
+            UIImage *setImage = [self.appImageView getReusltImage];
+            [self.rotateCutImageViewController setImageRect:self.orgRect andImage:setImage];
+            [self.rotateCutImageViewController setCreatNailRootVC:self.creatNailRootVC];
+        });
+        [self toRotateCutImageVCAnimationWithTimeDuration:0.5];
+        [self.navigationController pushViewController:self.rotateCutImageViewController animated:YES];
+    }
+}
+/**
+ *  利用系统现有的动画定义VCpush动画
+ *
+ *  @param duration <#duration description#>
+ */
+- (void) toRotateCutImageVCAnimationWithTimeDuration:(float)duration{
+    CATransition *transition = [CATransition animation];
+    transition.duration = duration;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = @"oglFlip";
+    transition.subtype = kCATransitionFromRight;
+    transition.delegate = self;
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
 }
 
 /**
  *  开打相册功能函数
  *
- *  @param sender <#sender description#>
+ *  @param sender
  */
 -(void)takePictureClick:(id)sender
 {
+    
     /*注：使用，需要实现以下协议：UIImagePickerControllerDelegate,
      UINavigationControllerDelegate
      */
+    
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+    
     //设置图片源(相簿)
-    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+//    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    //picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //设置代理
     picker.delegate = self;
     //设置可以编辑
@@ -508,6 +555,9 @@
 //    self.appImageView.layer.contents = image;
    // UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
+    
+    CGRect corpRect = [[info objectForKey:@"UIImagePickerControllerCropRect"]CGRectValue];
+    
     [self.appImageView  setPicture:image];
     //self.showImgView.image = image;
     //[self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
@@ -525,95 +575,66 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
 /**
- *  初始化手势动作，其中不添加
+ *  初始化手势动作相关接口
+ *  添加多点触摸支持
  */
 -(void) creatPan
 {
+    //self.appImageView.multipleTouchEnabled = YES;
     self.panGestureRecognizer = [[UIPanGestureRecognizer alloc]
                                                     initWithTarget:self
                                                     action:@selector(handlePan:)];
+    self.panGestureRecognizer.minimumNumberOfTouches = 2;
     self.panGestureRecognizer.delegate = self;
     self.pinchGestureRecognizer = [[UIPinchGestureRecognizer alloc]
                                                         initWithTarget:self
                                                         action:@selector(handlePinch:)];
     self.pinchGestureRecognizer.delegate = self;
+    [self.appImageView addGestureRecognizer:self.panGestureRecognizer];
+    [self.appImageView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
 - (void) handlePan:(UIPanGestureRecognizer*) recognizer
 {
-    if(self.isMove){
-        if (recognizer.state==UIGestureRecognizerStateChanged) {
-            CGPoint translation = [recognizer translationInView:self.view];
-            recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
-                                                 recognizer.view.center.y + translation.y);
-            [recognizer setTranslation:CGPointZero inView:self.view];
-        }
-        else if(recognizer.state == UIGestureRecognizerStateEnded){
-            CGAffineTransform show =  recognizer.view.transform;
-            CGAffineTransform show2 =  self.orgTrf;
-        }
+    
+    if (recognizer.state==UIGestureRecognizerStateChanged) {
+        //NSLog(@" UIGestureRecognizerStateChanged ");
+        CGPoint translation = [recognizer translationInView:self.view];
+        recognizer.view.center = CGPointMake(recognizer.view.center.x + translation.x,
+                                             recognizer.view.center.y + translation.y);
+        [recognizer setTranslation:CGPointZero inView:self.view];
+    }
+    else if(recognizer.state == UIGestureRecognizerStateEnded){
+        CGAffineTransform show =  recognizer.view.transform;
+        CGAffineTransform show2 =  self.orgTrf;
     }
 }
 
 - (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
 {
-    if(self.isMove){
-        if (recognizer.state==UIGestureRecognizerStateChanged) {
-            recognizer.view.transform=CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-            recognizer.scale = 1; //不重置为1则变化会太快
-        }
-        else if(recognizer.state == UIGestureRecognizerStateEnded){
-            if(recognizer.view.transform.a > 2.0){
-                [UIView animateWithDuration:.25 animations:^{
-                    recognizer.view.transform= CGAffineTransformMake(2.0, 0.0, 0.0, 2.0, 0, 0) ;//取消一切形变
-                }];
-            }
-            else if( recognizer.view.transform.a < 0.6 ){
-                [UIView animateWithDuration:.25 animations:^{
-                    recognizer.view.transform= CGAffineTransformMake(0.6, 0.0, 0.0, 0.6, 0, 0) ;//取消一切形变
-                }];
-            }
-            
-            [self.appImageView setLineScale:recognizer.view.transform.a];
-            NSLog(@"view.transform.a = %f",recognizer.view.transform.a);
-            CGAffineTransform show =  recognizer.view.transform;
-            CGAffineTransform show2 =  self.orgTrf;
-        }
-        /*
-        else if(recognizer.state==UIGestureRecognizerStateEnded){//结束后恢复
-            [UIView animateWithDuration:.5 animations:^{
-                recognizer.view.transform=CGAffineTransformIdentity;//取消一切形变
+    if (recognizer.state==UIGestureRecognizerStateChanged) {
+        recognizer.view.transform=CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+        recognizer.scale = 1; //不重置为1则变化会太快
+    }
+    else if(recognizer.state == UIGestureRecognizerStateEnded){
+        if(recognizer.view.transform.a > 2.0){
+            [UIView animateWithDuration:.25 animations:^{
+                recognizer.view.transform= CGAffineTransformMake(2.0, 0.0, 0.0, 2.0, 0, 0) ;//取消一切形变
             }];
         }
-         //这段被注释的代码用于当点击的时候改变，结束的时候取消所有改变
-         if (recognizer.state==UIGestureRecognizerStateChanged) {
-         recognizer.view.transform=CGAffineTransformMakeScale(recognizer.scale, recognizer.scale);
-         }
-         else if(recognizer.state==UIGestureRecognizerStateEnded){//结束后恢复
-         [UIView animateWithDuration:.5 animations:^{
-         recognizer.view.transform=CGAffineTransformIdentity;//取消一切形变
-         }];
-         }
-         */
-        // recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-        // NSLog(@"recognizer.scale = %f",recognizer.scale);
-        // recognizer.scale = 1; //不重置为1则变化会太快
+        else if( recognizer.view.transform.a < 0.6 ){
+            [UIView animateWithDuration:.25 animations:^{
+                recognizer.view.transform= CGAffineTransformMake(0.6, 0.0, 0.0, 0.6, 0, 0) ;//取消一切形变
+            }];
+        }
         
+        [self.appImageView setLineScale:recognizer.view.transform.a];
+        NSLog(@"view.transform.a = %f",recognizer.view.transform.a);
+        CGAffineTransform show =  recognizer.view.transform;
+        CGAffineTransform show2 =  self.orgTrf;
     }
-    /*
-     if(self.appImageView.frame.size.width < 320.0)
-     {
-     CGPoint tmpp = self.appImageView.frame.origin;
-     self.appImageView.frame = CGRectMake(tmpp.x, tmpp.y, 320, 320);
-     }
-     
-     NSLog(@"scale Width = %f",self.appImageView.frame.size.width);
-     NSLog(@"scale Height= %f",self.appImageView.frame.size.height);
-     */
-    
-    //    NSLog(@" width  = %f",self.appImageView.frame.size.width) ;
-    //    NSLog(@" height = %f",self.appImageView.frame.size.height);
 }
 
 - (void)didReceiveMemoryWarning {

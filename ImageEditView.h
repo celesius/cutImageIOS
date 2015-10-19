@@ -12,7 +12,7 @@
 
 @interface ImageEditView : UIView<Bridge2OpenCVDelegate,DrawViewDelegate>
 
--(id)initWithFrame:(CGRect)frame;
+-(id)initWithFrame:(CGRect)frame andEditImage:(UIImage *)editImage;
 -(void)setPicture:(UIImage *)setImage;
 -(void) setMove:(BOOL) isMove;
 -(void) redo;

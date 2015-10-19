@@ -29,6 +29,7 @@
 
 @property (nonatomic, strong) UIView *actionViewL1;
 @property (nonatomic, strong) UIView *actionViewL2;
+@property (nonatomic, strong) UIColor *beforDetelet;
 
 /**
  *  sub view
@@ -54,10 +55,11 @@
     self.drawBackboard.backgroundColor = [UIColor blackColor];
    
     self.popViewCtrlButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.popViewCtrlButton.frame = CGRectMake( 0, self.drawNailView.frame.origin.y - 50, 50, 50);
+//    self.popViewCtrlButton.frame = CGRectMake( 25, self.drawNailView.frame.origin.y - 50, 20, 20);
+    self.popViewCtrlButton.frame = CGRectMake( 0, CGRectGetHeight(mainScreen)  - 50 + CGRectGetMinY(mainScreen) , 50, 50);
     self.popViewCtrlButton.backgroundColor = [UIColor clearColor];
     [self.popViewCtrlButton.layer setCornerRadius:5];
-    [self.popViewCtrlButton setTitle:@"X" forState:UIControlStateNormal];
+    [self.popViewCtrlButton setTitle:@"<" forState:UIControlStateNormal];
     [self.popViewCtrlButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.popViewCtrlButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.popViewCtrlButton addTarget:self action:@selector(goback:) forControlEvents:UIControlEventTouchUpInside];
@@ -90,11 +92,12 @@
     self.lwView = [[LineWidthView alloc]initWithRect:lwViewRect andHiddenPoint:self.setLineWidth.center andAnimateDuration:0.5];
     self.lwView.backgroundColor = [UIColor greenColor];
    
-    float cbViewW = mainScreen.size.width*2/3;
-    float cbViewH = cbViewW*3/4;
-    CGRect cbViewRect = CGRectMake( (mainScreen.size.width/2) - (cbViewW/2), self.drawNailView.center.y - (cbViewH/2), cbViewW, cbViewH);
+    float cbViewW = mainScreen.size.width*9/10;
+    float cbViewH = mainScreen.size.height*8/9;
+//    CGRect cbViewRect = CGRectMake( (mainScreen.size.width/2) - (cbViewW/2), self.drawNailView.center.y - (cbViewH/2), cbViewW, cbViewH);
+    CGRect cbViewRect = CGRectMake( (mainScreen.size.width/2) - (cbViewW/2), (mainScreen.size.height/2) - (cbViewH/2), cbViewW, cbViewH);
     self.cbView = [[ColorBoardView alloc]initWithRect:cbViewRect andHiddenPoint:self.setLineColor.center andAnimateDuration:0.5];
-    self.cbView.backgroundColor = [UIColor redColor];
+    self.cbView.backgroundColor = [UIColor colorWithRed:255.0/255.0 green:255.0/248.0 blue:255.0/220.0 alpha:1.0];
     
     
     [self.view setBackgroundColor:[UIColor grayColor]];
@@ -174,6 +177,8 @@
 -(void) deleteLineFoo:(id)sender{
     static BOOL act = NO;
     [self buttonActionSet:act];
+    
+   
     //[self buttonAction:self.deleteLine andInitAction:act andView:self.view];
     act = !act;
 }
@@ -221,10 +226,13 @@
     if(action){
         self.actionViewL1.hidden = NO;
         self.actionViewL2.hidden = NO;
+        //self.beforDetelet = self.cbView.lineColor;
+        self.drawNailView.lineColor = [UIColor blackColor];
     }
     else{
         self.actionViewL1.hidden = YES;
         self.actionViewL2.hidden = YES;
+        self.drawNailView.lineColor = self.cbView.lineColor;
     }
 }
 

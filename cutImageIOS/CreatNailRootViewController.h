@@ -10,4 +10,6 @@
 
 @interface CreatNailRootViewController : UIViewController<UINavigationControllerDelegate>
 
+@property (assign, nonatomic) CGPoint rotateVCBackPoint;
+
 @end

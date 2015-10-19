@@ -46,12 +46,13 @@ void CutoutImagePacking::setMaskColor(cv::Scalar inputMaskColor)
     
 }//设置输出观测mask的颜色
 
-void CutoutImagePacking::drawMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult )
+void CutoutImagePacking::drawMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult, bool &haveCutMat)
 {
     cv::Mat sendSeedStoreMat = CutoutImagePacking::seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
     //    cv::imshow("sendSeedStoreMatA", sendSeedStoreMat);
     cutoutImage->processImageAddMask( selectPoint, sendSeedStoreMat, seedStoreMat, lineWidth, srcColorImg);
     drawResult = cutoutImage->getMergeResult();
+    haveCutMat = cutoutImage->matHaveMaskBool;
     cv::Mat matWillSave = seedStoreMat.clone();     //clone 一下后续存入 vector
     
     if((int)seedMatVector.size() != 0)
@@ -74,7 +75,7 @@ void CutoutImagePacking::drawMask( std::vector<cv::Point> selectPoint, int lineW
     selectSeedMat = (int)seedMatVector.size() - 1;
 }          //直接添加mask不带任何分割算法
 
-void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult )
+void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult , bool &haveCutMat)
 {
     if((int)seedMatVector.size() != 0){ //为0是最开始
         cv::Mat sendSeedStoreMat = seedMatVector[selectSeedMat].clone();  //这个一定要注意否则就把当前拿出的mat修改了
@@ -86,11 +87,13 @@ void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int line
         printf( "run time = %gms\n", t/(cvGetTickFrequency()*1000) );
         
         drawResult = cutoutImage->getMergeResult();
+        haveCutMat = cutoutImage->matHaveMaskBool;
         seedStoreMat = sendSeedStoreMat;
     }
     else{
         cutoutImage->processImageCreatMask( selectPoint, srcColorImg, seedStoreMat, lineWidth, 10 );
         drawResult = cutoutImage->getMergeResult();
+        haveCutMat = cutoutImage->matHaveMaskBool;
     }
     //这里要存储
     cv::Mat matWillSave = seedStoreMat.clone();
@@ -118,7 +121,7 @@ void CutoutImagePacking::creatMask( std::vector<cv::Point> selectPoint, int line
     std::cout<<" selectSeedMat =  " << selectSeedMat << std::endl;
 }//设置需要区域分割的点，输出计算后的融合结果
 
-void CutoutImagePacking::deleteMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult )
+void CutoutImagePacking::deleteMask( std::vector<cv::Point> selectPoint, int lineWidth, cv::Mat & drawResult, bool & haveCutMat)
 {
     if((int)seedMatVector.size() != 0){
         seedStoreMat = seedMatVector[selectSeedMat].clone();
@@ -130,6 +133,7 @@ void CutoutImagePacking::deleteMask( std::vector<cv::Point> selectPoint, int lin
     cv::Mat emptyMat;
     cutoutImage->processImageDeleteMask( selectPoint, seedStoreMat, srcColorImg, emptyMat, lineWidth );
     drawResult = cutoutImage->getMergeResult();
+    haveCutMat = cutoutImage->matHaveMaskBool;
     if((int)seedMatVector.size() != 0)  //若已经生成过计算结果
     {
         cv::Mat matWillBeStore = seedStoreMat.clone();
@@ -147,32 +151,36 @@ void CutoutImagePacking::deleteMask( std::vector<cv::Point> selectPoint, int lin
     std::cout<<" selectSeedMat =  " << selectSeedMat << std::endl;
 }//在mask中删除添加选择点，输出计算后的融合结果
 
-void CutoutImagePacking::redo( cv::Mat & dstMat)
+void CutoutImagePacking::redo( cv::Mat & dstMat , bool & haveCutMat)
 {
     if((int)seedMatVector.size() != 0 && selectSeedMat != 0)  //
     {
         selectSeedMat --;
         cutoutImage->colorDispResultWithFullSeedMat(srcColorImg, seedMatVector[selectSeedMat]);
         dstMat = cutoutImage->getMergeResult();
+        haveCutMat = cutoutImage->matHaveMaskBool;
     }
     else
     {
         cutoutImage->colorDispResultWithFullSeedMat(srcColorImg, seedMatVector[0]);
         dstMat = cutoutImage->getMergeResult();
+        haveCutMat = cutoutImage->matHaveMaskBool;
     }
 }
 
-void CutoutImagePacking::undo( cv::Mat & dstMat)
+void CutoutImagePacking::undo( cv::Mat & dstMat, bool & haveCutMat)
 {
     if( selectSeedMat !=  maxSelectSeedMat - 1 && selectSeedMat != seedMatVector.size() - 1 ){
         selectSeedMat ++;
         cutoutImage->colorDispResultWithFullSeedMat(srcColorImg, seedMatVector[selectSeedMat]);
         dstMat = cutoutImage->getMergeResult();
+        haveCutMat = cutoutImage->matHaveMaskBool;
     }
     else
     {
         cutoutImage->colorDispResultWithFullSeedMat(srcColorImg, seedMatVector[selectSeedMat]);
         dstMat = cutoutImage->getMergeResult();
+        haveCutMat = cutoutImage->matHaveMaskBool;
     }
 }
 

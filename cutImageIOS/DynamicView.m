@@ -84,6 +84,22 @@
     }
 }
 
+-(void)closeView
+{
+    [UIView animateWithDuration:self.animDuration animations:^{
+        self.transform = CGAffineTransformMake(0.1, 0, 0, 0.1, 0, 0);
+        self.center = self.hiddenViewPoint;
+        self.alpha = 0.01;
+    }
+                     completion:^( BOOL finished ){
+                         //  [self removeFromSuperview];
+                         self.animationLock = NO;
+                         self.isShow = NO;
+                         self.hidden = YES;
+                         [self closeAnimateFinished];
+                     }];
+}
+
 
 -(void) openAnimateFinished
 {

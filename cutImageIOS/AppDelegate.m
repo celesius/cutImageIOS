@@ -21,11 +21,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
      self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor blackColor];
+    self.window.backgroundColor = [UIColor clearColor];
+    CreatNailRootViewController *cnc = [[CreatNailRootViewController alloc]init];
+    UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:cnc];
+    self.window.rootViewController = nc;
     
-    self.swipeBetweenVC = [YZSwipeBetweenViewController new];
-    [self setupRootViewControllerForWindow];
-    self.window.rootViewController = self.swipeBetweenVC;
+    //self.swipeBetweenVC = [YZSwipeBetweenViewController new];
+    //[self setupRootViewControllerForWindow];
+    //self.window.rootViewController = self.swipeBetweenVC;
     
     [self.window makeKeyAndVisible];
     

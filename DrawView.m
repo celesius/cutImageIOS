@@ -24,9 +24,8 @@
 //@property (nonatomic) float
 @property (nonatomic, strong) NSMutableArray *pointArray;  //同时发送的只能有一组array, 删除，添加，选取都是这一个array
 @property (nonatomic, assign) BOOL IsCutImage;
-@property (nonatomic, assign) BOOL isDot;
 @property (nonatomic, assign) CGPoint startPoint;
-
+@property (nonatomic, assign) BOOL cancelDraw;
 
 @end
 
@@ -44,15 +43,35 @@
     if(self=[super initWithFrame:frame])
     {
         self.lineWidth = 10.0f;
-        self.lineColor = [UIColor  colorWithRed:1.0 green: (204.0/255.0) blue:(204.0/255.0) alpha:0.5];  //[UIColor redColor];
         self.moveAction = NO;
         self.removePathArray = [NSMutableArray array];
         self.pointArray = [NSMutableArray array];
         self.cmMotionManager = [[CMMotionManager alloc]init];
         self.lineScale = 1.0;
         self.IsCutImage = isCutImage;
+        
+        if(!isCutImage){
+            self.lineColor = [UIColor  whiteColor];  //[UIColor redColor];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(drawLineColorIS:)
+                                                         name:@"com.clover.cutImageColorIS"
+                                                       object:nil];
+
+        }
+        else{
+            self.lineColor = [UIColor  colorWithRed:1.0 green: (204.0/255.0) blue:(204.0/255.0) alpha:0.5];  //[UIColor redColor];
+        }
+        
+        self.multipleTouchEnabled = YES;
+        self.cancelDraw = NO;
+        
     }
     return self;
+}
+
+- (void) drawLineColorIS:(NSNotification *)nt{
+    UIColor *c = [nt object];
+    self.lineColor = c;
 }
 
 -(void) resetDraw
@@ -99,6 +118,7 @@
 
 - (void)drawView:(CGContextRef)context
 {
+    NSLog(@"drawView");
     for (DrawViewModel *myViewModel in _pathArray) {
         CGContextAddPath(context, myViewModel.path.CGPath);
        
@@ -141,7 +161,6 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if(!self.moveAction){
         [self.removePathArray removeAllObjects];
         [self.pointArray removeAllObjects];
         UITouch *touch = [touches anyObject];
@@ -151,29 +170,21 @@
         CGPathMoveToPoint(_path, NULL, location.x, location.y);
        
         [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
-        self.isDot = YES;
         self.startPoint = location;
-        NSLog(@"touch began (x, y) is (%f, %f)", location.x, location.y);
-    }
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if(!self.moveAction){
-        UITouch *touch = [touches anyObject];
-        CGPoint location = [touch locationInView:self];
-        CGPathAddLineToPoint(_path, NULL, location.x, location.y);
-        
-        [self setNeedsDisplay];
-        [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
-        self.isDot = NO;
-        NSLog(@"iamMoving");
-    }
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self];
+    CGPathAddLineToPoint(_path, NULL, location.x, location.y);
+    [self setNeedsDisplay];
+    [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if(!self.moveAction){
+    if(touches.count == 1){
         if (_pathArray == nil) {
             _pathArray = [NSMutableArray array];
         }
@@ -184,25 +195,36 @@
         [self.pointArray addObject: [NSValue valueWithCGPoint:location]];
         if(!self.IsCutImage){
             UIBezierPath *path = [UIBezierPath bezierPathWithCGPath:_path];
-//            DrawViewModel *myViewModel = [DrawViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth*self.lineScale StartPoint:self.startPoint EndPoint:location IsDot:self.isDot];
             DrawViewModel *myViewModel = [DrawViewModel viewModelWithColor:_lineColor Path:path Width:_lineWidth*self.lineScale];
             [_pathArray addObject:myViewModel];
             if(_pathArray.count == 9000){
                 [_pathArray removeObjectAtIndex:0];
             }
-            [self setNeedsDisplay]; //刷新显示
-            NSLog(@"touch end (x, y) is (%f, %f)", location.x, location.y);
+            //[self setNeedsDisplay]; //刷新显示
         }
         
-        _isHavePath = NO;
         if(self.IsCutImage){
-            [self setNeedsDisplay]; //让path全透明
+            //[self setNeedsDisplay]; //让path全透明
             if(self.delegate && [self.delegate respondsToSelector:@selector(setPointArray:andLineWide:)]){
                 [self.delegate setPointArray:self.pointArray andLineWide:_lineWidth*self.lineScale];
             }
         }
-        
     }
+    _isHavePath = NO;
+    [self setNeedsDisplay];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    _isHavePath = NO;
+    if (_pathArray == nil) {
+        _pathArray = [NSMutableArray array];
+    }
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInView:self];
+    CGPathAddLineToPoint(_path, NULL, location.x, location.y);
+    self.cancelDraw = YES;
+    [self setNeedsDisplay];
 }
 
 -(void) redo
