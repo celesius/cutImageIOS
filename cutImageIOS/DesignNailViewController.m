@@ -47,8 +47,9 @@
     self.navigationController.delegate = self;
     CGRect mainScreen = [[UIScreen mainScreen]applicationFrame];
     CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20);
+    //CGRect drawNailViewRect = CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
     self.drawNailView = [[DrawView alloc]initWithFrame:CGRectMake(mainScreen.origin.x, mainScreen.origin.y, mainScreen.size.width, mainScreen.size.width) andIsCutImage:NO];
-    self.drawNailView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
+    //self.drawNailView.center = CGPointMake( screenCenter.x, screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) );
     self.drawNailView.backgroundColor = [UIColor clearColor];
     
     self.drawBackboard = [[UIView alloc]initWithFrame:self.drawNailView.frame];
@@ -113,7 +114,6 @@
     [self.view addSubview:self.cbView];
     
     [self buttonAction:self.deleteLine andInitAction:NO andView:self.view];
-    
     /**
      *  注册观察者
      */
@@ -121,7 +121,6 @@
                                              selector:@selector(drawViewLineWidth:)
                                                  name:@"cutImageSetLineWidth"
                                                object:nil];
-    
     // Do any additional setup after loading the view.
 }
 

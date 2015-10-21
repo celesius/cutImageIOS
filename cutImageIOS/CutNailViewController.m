@@ -11,12 +11,14 @@
 #import "UIImage+IF.h"
 #import "RotateCutImageViewController.h"
 #import "CustomPopAnimation.h"
+#import "TopViewWithButton.h"
+#import "BottomViewWithButton.h"
 //#import "ImageShowView.h"
 #import "ImageEditView.h"
 #define LINESTEP 5
 #define DEFLINEWIDTH 10
 
-@interface CutNailViewController ()
+@interface CutNailViewController () <TopViewWithButtonDelegate, BottomViewWithButtonDelegate>
 
 @property (nonatomic, strong) ImageEditView  *appImageView;
 //@property (nonatomic, strong) UIImageView *showImgView;
@@ -25,8 +27,6 @@
 @property (nonatomic, strong) UIButton *addMaskPoint;
 @property (nonatomic, strong) UIButton *deleteMaskPoint;
 @property (nonatomic, strong) UIButton *moveImg;
-@property (nonatomic, strong) UIButton *undoButton; //前进
-@property (nonatomic, strong) UIButton *redoButton; //返回
 @property (nonatomic, strong) UIButton *addLineWidth;
 @property (nonatomic, strong) UIButton *subtractLineWidth;
 @property (nonatomic, strong) UIButton *nextStep;
@@ -50,14 +50,17 @@
 
 @property (nonatomic, strong) dispatch_queue_t getFinnalImageQueue;
 
-@property (nonatomic, strong) UIButton *popViewCtrlButton;
 @property (nonatomic, strong) CustomPopAnimation *custompopanimation;
 @property (nonatomic, assign) BOOL lockNextStep;
+@property (nonatomic, assign) CGRect topViewWillAppearAt;
+@property (nonatomic, assign) CGRect bottomViewWillAppearAt;
+@property (nonatomic, assign) CGPoint imgViewWillAppearAtCenter;
+@property (nonatomic, assign) CGSize imgViewWillAppearSize;
+@property (nonatomic, assign) CGAffineTransform imgViewOrgTransform;
+@property (nonatomic, assign) CGRect imgViewWillAppearAt;
 
-/**
- *  画图测试
- */
-
+@property (nonatomic, strong) TopViewWithButton *upKeepOutView;
+@property (nonatomic, strong) BottomViewWithButton *bottomKeepOutView;
 
 
 @end
@@ -83,62 +86,39 @@
     self.pointArray = [[NSMutableArray alloc]init];
 
     //Init All View
-    UIImageView *upKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainScreen), 70)];
-    upKeepOutView.backgroundColor = [UIColor greenColor];
+    self.upKeepOutView = [[TopViewWithButton alloc]initWithFrame:CGRectMake(0, -70, CGRectGetWidth(mainScreen), 70)];
+    self.upKeepOutView.backgroundColor = [UIColor greenColor];
+    self.upKeepOutView.delegate = self;
+    self.topViewWillAppearAt = CGRectMake( 0, 0, CGRectGetWidth(self.upKeepOutView.frame), CGRectGetHeight(self.upKeepOutView.frame) );
+    
    
     float appImageViewW = CGRectGetWidth(mainScreen)*(19.0/20.0);
     float appImageViewH = appImageViewW*4.0/3.0;
-    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(upKeepOutView.frame), appImageViewW, appImageViewH ) andEditImage:self.editImage];
-    self.appImageView.center = CGPointMake(CGRectGetMidX(mainScreen), self.appImageView.center.y);
-    self.orgRect = self.appImageView.frame;
+//    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake( 0, CGRectGetMaxY(self.upKeepOutView.frame), appImageViewW, appImageViewH ) andEditImage:self.editImage];
+//    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake( 0, CGRectGetMaxY(self.topViewWillAppearAt), appImageViewW, appImageViewH ) andEditImage:self.editImage];
+    self.appImageView = [[ImageEditView alloc]initWithFrame:self.receiveImgRect  andEditImage:self.editImage];
+    self.imgViewOrgTransform = self.appImageView.transform;
+
+    //self.appImageView.center = CGPointMake( CGRectGetMidX(mainScreen), self.appImageView.center.y );
+    self.imgViewWillAppearAt = CGRectMake( ( CGRectGetWidth(mainScreen) - appImageViewW )/2, CGRectGetHeight(self.upKeepOutView.frame) , appImageViewW, appImageViewH);
+    
+    self.imgViewWillAppearAtCenter = CGPointMake(CGRectGetMidX(mainScreen), CGRectGetMaxY(self.topViewWillAppearAt) + (appImageViewH/2) );
+    
+    
     /**
      *  初始化手势
      */
     [self creatPan];
     //生成一个遮挡平面
-//    UIImageView *upKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainScreen), tmpHeight)];
     
-    UIImageView *bottomKeepOutView = [[UIImageView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.appImageView.frame), mainScreen.size.width, mainScreen.size.height - (CGRectGetHeight(upKeepOutView.frame) + CGRectGetHeight(self.appImageView.frame) ))];
-    bottomKeepOutView.backgroundColor = [UIColor redColor];
-  
+    self.bottomKeepOutView = [[BottomViewWithButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(mainScreen), mainScreen.size.width, mainScreen.size.height - (CGRectGetHeight(self.upKeepOutView.frame) + appImageViewH ))];
+    self.bottomKeepOutView.backgroundColor = [UIColor redColor];
+    self.bottomKeepOutView.delegate = self;
+    self.bottomViewWillAppearAt = CGRectMake( 0, CGRectGetHeight(self.upKeepOutView.frame) + appImageViewH, CGRectGetWidth(self.bottomKeepOutView.frame), CGRectGetHeight(self.bottomKeepOutView.frame) );
+    
     //开始添加按键
-    /**
-     *  增加回退按钮
-     */
     float smallButtonWidth = 50;
-    self.redoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSLog(@"midx = %f",CGRectGetMidX(mainScreen));
-    self.redoButton.frame = CGRectMake(CGRectGetMidX(mainScreen) - 60, CGRectGetMaxY(upKeepOutView.frame) - 50 , smallButtonWidth, 50);
-    //self.redoButton.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y + 60);
-    self.redoButton.backgroundColor = [UIColor whiteColor];
-    [self.redoButton.layer setCornerRadius:5];
-    [self.redoButton  setTitle:@"返回" forState:UIControlStateNormal];
-    [self.redoButton  setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.redoButton  setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.redoButton  addTarget:self action:@selector(redoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
-    /**
-     *  增加前进按钮
-     */
-    self.undoButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.undoButton.frame = CGRectMake(CGRectGetMidX(mainScreen) + 10  , CGRectGetMaxY(upKeepOutView.frame) - 50, smallButtonWidth , 50);
-    //self.undoButton.center = CGPointMake(mainScreen.size.width/5*4,self.moveImg.center.y + 60);
-    self.undoButton.backgroundColor = [UIColor whiteColor];
-    [self.undoButton.layer setCornerRadius:5];
-    [self.undoButton setTitle:@"前进" forState:UIControlStateNormal];
-    [self.undoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.undoButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.undoButton addTarget:self action:@selector(undoButtonFoo) forControlEvents:UIControlEventTouchUpInside];
-    
-    
-    self.popViewCtrlButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.popViewCtrlButton.frame = CGRectMake( 0, CGRectGetMaxY(mainScreen) - 50, 50, 50);
-    self.popViewCtrlButton.backgroundColor = [UIColor clearColor];
-    [self.popViewCtrlButton.layer setCornerRadius:5];
-    [self.popViewCtrlButton setTitle:@"<-- " forState:UIControlStateNormal];
-    [self.popViewCtrlButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.popViewCtrlButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.popViewCtrlButton addTarget:self action:@selector(goback:) forControlEvents:UIControlEventTouchUpInside];
-    
+   
     //打开相册按键
     self.openPhotoAlbum = [UIButton buttonWithType:UIButtonTypeCustom];
     self.openPhotoAlbum.frame = CGRectMake(mainScreen.size.width - 100, mainScreen.size.height - 30, 100, 50);
@@ -180,38 +160,7 @@
     [self.moveImg setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.moveImg setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.moveImg addTarget:self action:@selector(enableMoveImg:) forControlEvents:UIControlEventTouchUpInside];
-    //添加单独添加Mask按键
-    self.addMaskPoint = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addMaskPoint.frame = CGRectMake(  CGRectGetMidX(mainScreen) - 25, CGRectGetMaxY(self.appImageView.frame) + 10, smallButtonWidth, 50);
-    //self.addMaskPoint.center = CGPointMake(mainScreen.size.width/5*2, self.addMaskPoint.center.y);
-    self.addMaskPoint.backgroundColor = [UIColor whiteColor];
-    [self.addMaskPoint.layer setCornerRadius:5];
-    [self.addMaskPoint setTitle:@"画笔" forState:UIControlStateNormal];
-    [self.addMaskPoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.addMaskPoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.addMaskPoint addTarget:self action:@selector(addMaskPointFoo:) forControlEvents:UIControlEventTouchUpInside];
     
-    //添加计算点按键
-    self.addCalculatePoint = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addCalculatePoint.frame = CGRectMake( CGRectGetMinX(self.addMaskPoint.frame) - (60 + 50) , CGRectGetMinY(self.addMaskPoint.frame) , smallButtonWidth, 50);
-   // self.addCalculatePoint.center = CGPointMake(mainScreen.size.width/5,self.addCalculatePoint.center.y);
-    self.addCalculatePoint.backgroundColor = [UIColor yellowColor];
-    [self.addCalculatePoint.layer setCornerRadius:5];
-    [self.addCalculatePoint setTitle:@"魔棒" forState:UIControlStateNormal];
-    [self.addCalculatePoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.addCalculatePoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.addCalculatePoint addTarget:self action:@selector(cutImageCut:) forControlEvents:UIControlEventTouchUpInside];
-    
-    //添加删除Mark的按键
-    self.deleteMaskPoint = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.deleteMaskPoint.frame = CGRectMake(CGRectGetMaxX(self.addMaskPoint.frame) + 60, CGRectGetMinY(self.addMaskPoint.frame), smallButtonWidth, 50);
-   // self.deleteMaskPoint.center = CGPointMake(mainScreen.size.width/5*3, self.deleteMaskPoint.center.y);
-    self.deleteMaskPoint.backgroundColor = [UIColor whiteColor];
-    [self.deleteMaskPoint.layer setCornerRadius:5];
-    [self.deleteMaskPoint setTitle:@"删除" forState:UIControlStateNormal];
-    [self.deleteMaskPoint setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.deleteMaskPoint setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.deleteMaskPoint addTarget:self action:@selector(deleteMaskPointFoo:) forControlEvents:UIControlEventTouchUpInside];
     /**
      *  增加线宽按钮
      */
@@ -239,34 +188,24 @@
   
     
     //CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-    self.nextStep = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.nextStep.frame = CGRectMake( CGRectGetMaxX(mainScreen) - 100, CGRectGetMaxY(mainScreen) - 50, 100, 50);
-    self.nextStep.backgroundColor = [UIColor whiteColor];
-    [self.nextStep.layer setCornerRadius:5];
-    [self.nextStep setTitle:@"下一步 >" forState:UIControlStateNormal];
-    [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    //[self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.nextStep addTarget:self action:@selector(nextStepFoo:) forControlEvents:UIControlEventTouchUpInside];
-   
+
 
     //
     //[self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
-    [self.view addSubview:upKeepOutView];
-    [self.view addSubview:bottomKeepOutView];
+    [self.view addSubview:self.upKeepOutView];
+    [self.view addSubview:self.bottomKeepOutView];
     //[self.view addSubview:self.openPhotoAlbum];
-  //  [self.view addSubview:self.sysTestButton];
-    [self.view addSubview:self.addCalculatePoint];
-    [self.view addSubview:self.addMaskPoint];
-    [self.view addSubview:self.deleteMaskPoint];
+    //[self.view addSubview:self.sysTestButton];
+    //[self.view addSubview:self.addCalculatePoint];
+    //[self.view addSubview:self.addMaskPoint];
+    //[self.view addSubview:self.deleteMaskPoint];
     //[self.view addSubview:self.moveImg];
-   // [self.view addSubview:self.resetDrawButton];
-    [self.view addSubview:self.redoButton];
-    [self.view addSubview:self.undoButton];
-  //  [self.view addSubview:self.addLineWidth];
-  //  [self.view addSubview:self.subtractLineWidth];
-    [self.view addSubview:self.nextStep];
-    [self.view addSubview:self.popViewCtrlButton];
+    //[self.view addSubview:self.resetDrawButton];
+    //[self.view addSubview:self.addLineWidth];
+    //[self.view addSubview:self.subtractLineWidth];
+    //[self.view addSubview:self.nextStep];
+    //[self.view addSubview:self.popViewCtrlButton];
     
     self.view.backgroundColor = [UIColor grayColor];
     
@@ -276,10 +215,10 @@
     /**
      *  得到最终的剪切图的线程建立
      *
-     *  @param "com.clover.cutImageIOS" <#"com.clover.cutImageIOS" description#>
-     *  @param NULL                     <#NULL description#>
+     *  @param "com.clover.cutImageIOS"
+     *  @param NULL
      *
-     *  @return <#return value description#>
+     *  @return
      */
     self.getFinnalImageQueue = dispatch_queue_create("com.clover.cutImageIOS", NULL);
    
@@ -292,6 +231,26 @@
                                                  name:@"com.clover.cutImageGetResultImage"
                                                object:nil];
     // Do any additional setup after loading the view, typically from a nib.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    NSLog(@"- (void)viewWillAppear:(BOOL)animated");
+    [super viewWillAppear:animated];
+    //self.appImageView.frame = self.receiveImgRect;
+    
+    [UIView animateWithDuration:0.4
+                     animations:^{
+                         self.upKeepOutView.frame = self.topViewWillAppearAt;
+                         self.bottomKeepOutView.frame = self.bottomViewWillAppearAt;
+                         
+                         //self.appImageView.transform = CGAffineTransformMake(1, 0, 0, 1, 0, 0);
+                         self.appImageView.frame = self.imgViewWillAppearAt;
+                         [self.appImageView resizeAllView];
+                     }
+                     completion:^(BOOL finished){
+                         self.orgRect = self.appImageView.frame;
+                     }];
 }
 
 - (void)haveMaskMatFoo:(NSNotification *)notification{
@@ -345,7 +304,7 @@
     }
 }
 
--(void)goback:(id)sender{
+- (void)goBackTouch {
     /*
     CATransition *transition = [CATransition animation];
     transition.duration =0.4;
@@ -403,14 +362,15 @@
 /**
  *  回退操作
  */
--(void) redoButtonFoo
+- (void) redoButtonTouch
 {
     [self.appImageView redo];
 }
+
 /**
  *  前进操作
  */
--(void) undoButtonFoo
+-(void) undoButtonTouch
 {
     [self.appImageView undo];
 }
@@ -431,7 +391,7 @@
     }
 }
 
--(void) cutImageCut:(id)sender
+-(void) cutImageCutTouch
 {
     [self.appImageView setMove:NO];
     [self.appImageView setUserInteractionEnabled:YES];
@@ -447,7 +407,7 @@
     //[self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
--(void) addMaskPointFoo:(id)sender          //直接添加种子点
+-(void) addMaskPointTouch           //直接添加种子点
 {
     [self.appImageView setMove:NO];
     [self.appImageView setUserInteractionEnabled:YES];
@@ -463,7 +423,7 @@
     //[self.appImageView removeGestureRecognizer:self.pinchGestureRecognizer];
 }
 
--(void) deleteMaskPointFoo:(id)sender
+-(void) deleteMaskPointTouch
 {
     [self.appImageView setMove:NO];
     [self.appImageView setUserInteractionEnabled:YES];
@@ -491,7 +451,7 @@
     //[self.appImageView addGestureRecognizer:self.pinchGestureRecognizer];
 }
 
--(void) nextStepFoo:(id) sender
+-(void) nextStepTouch
 {
     if(!self.lockNextStep){
         //    [self.rotateCutImageViewController setImageRect:self.orgRect];
@@ -647,6 +607,15 @@
     if( aPoint.x >= 0 && aPoint.x < self.orgRect.size.width && aPoint.y >= 0 && aPoint.y < self.orgRect.size.height ){
     [self.pointArray addObject: [NSValue valueWithCGPoint:aPoint]];
     }
+}
+
+
+- (void)topViewAppearAnimationWithView:(UIView *)tView {
+
+}
+
+- (void)bottomViewAppearAnimationWithView:(UIView *)bView {
+
 }
 
 /*

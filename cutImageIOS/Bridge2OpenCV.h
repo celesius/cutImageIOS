@@ -17,6 +17,7 @@
 -(id) init;
 -(id) initWithImage:(UIImage *)setImage;
 -(void) setCalculateImage:(UIImage *)setImage andWindowSize:(CGSize) winSize;
+- (void) updateWindowSize:(CGSize) winSize;
 -(void) setDrawPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
 -(void) setCreatPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;
 -(void) setDeletePoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth;

@@ -222,6 +222,10 @@ cv::Mat CutoutImagePacking::getFinalColorMergeImg()
     cv::Mat edgeBlurResult;
     cutoutImage->edgeBlur( srcColorImg, blobMat, 1, edgeBlurResult);  //dstMat就是扣取结果，还要对结果进行椭圆拟合和旋转
     cutoutImage->rotateMat(cutoutImage->classCutMat, dstMat, edgeBlurResult);
+    
+   printf(" b  cutImageByRect rows = %d \n",dstMat.rows);
+   printf(" b  cutImageByRect cols = %d \n",dstMat.cols);
+    
     dstMat = cutoutImage->scaleFCMI2InputColorImageSize(dstMat);
     return dstMat;
 }

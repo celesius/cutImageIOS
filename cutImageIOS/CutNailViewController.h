@@ -15,6 +15,7 @@
 @property (nonatomic, assign) CGPoint  returnPoint;
 @property (nonatomic, strong) UIImage *editImage;
 @property (nonatomic, strong) UIViewController *creatNailRootVC;
+@property (nonatomic, assign) CGRect receiveImgRect;
 
 @end
 

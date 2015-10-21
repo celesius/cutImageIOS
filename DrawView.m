@@ -118,7 +118,7 @@
 
 - (void)drawView:(CGContextRef)context
 {
-    NSLog(@"drawView");
+    //NSLog(@"drawView");
     for (DrawViewModel *myViewModel in _pathArray) {
         CGContextAddPath(context, myViewModel.path.CGPath);
        

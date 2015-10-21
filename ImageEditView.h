@@ -12,15 +12,15 @@
 
 @interface ImageEditView : UIView<Bridge2OpenCVDelegate,DrawViewDelegate>
 
--(id)initWithFrame:(CGRect)frame andEditImage:(UIImage *)editImage;
--(void)setPicture:(UIImage *)setImage;
--(void) setMove:(BOOL) isMove;
--(void) redo;
--(void) undo;
--(void) setLineScale:(float) scale;
--(void) resetAllMask;
--(UIImage *)getReusltImage;
-
+- (id)initWithFrame:(CGRect)frame andEditImage:(UIImage *)editImage;
+- (void)setPicture:(UIImage *)setImage;
+- (void) setMove:(BOOL) isMove;
+- (void) redo;
+- (void) undo;
+- (void) setLineScale:(float) scale;
+- (void) resetAllMask;
+- (UIImage *)getReusltImage;
+- (void) resizeAllView;//:(CGRect)inputRect;
 
 
 @property (nonatomic) BOOL isMove; //移动时最好禁用其他操作

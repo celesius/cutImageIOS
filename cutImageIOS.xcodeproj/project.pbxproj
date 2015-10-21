@@ -13,6 +13,8 @@
 		541382881B86E07600478FE6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 541382871B86E07600478FE6 /* Images.xcassets */; };
 		541382971B86E07600478FE6 /* cutImageIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382961B86E07600478FE6 /* cutImageIOSTests.m */; };
 		541382A41B870A4D00478FE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541382A21B870A2D00478FE6 /* UIKit.framework */; };
+		541A7BA71BD4F09A00EC3985 /* TopViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA61BD4F09A00EC3985 /* TopViewWithButton.m */; settings = {ASSET_TAGS = (); }; };
+		541A7BAA1BD4F7C000EC3985 /* BottomViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA91BD4F7C000EC3985 /* BottomViewWithButton.m */; settings = {ASSET_TAGS = (); }; };
 		54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */; };
 		54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */; };
 		545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */ = {isa = PBXBuildFile; fileRef = 545346711B8D5ADC00F86C35 /* UIImage+IF.m */; };
@@ -104,6 +106,10 @@
 		541382951B86E07600478FE6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		541382961B86E07600478FE6 /* cutImageIOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cutImageIOSTests.m; sourceTree = "<group>"; };
 		541382A21B870A2D00478FE6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		541A7BA51BD4F09A00EC3985 /* TopViewWithButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopViewWithButton.h; sourceTree = "<group>"; };
+		541A7BA61BD4F09A00EC3985 /* TopViewWithButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopViewWithButton.m; sourceTree = "<group>"; };
+		541A7BA81BD4F7C000EC3985 /* BottomViewWithButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomViewWithButton.h; sourceTree = "<group>"; };
+		541A7BA91BD4F7C000EC3985 /* BottomViewWithButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomViewWithButton.m; sourceTree = "<group>"; };
 		54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloverGrabCut.cpp; sourceTree = "<group>"; };
 		54318C741B9D7AF400A16E21 /* CloverGrabCut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverGrabCut.h; sourceTree = "<group>"; };
 		54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateCutImageViewController.h; path = ../RotateCutImageViewController.h; sourceTree = "<group>"; };
@@ -275,6 +281,10 @@
 				541382871B86E07600478FE6 /* Images.xcassets */,
 				541382891B86E07600478FE6 /* LaunchScreen.xib */,
 				5413827A1B86E07600478FE6 /* Supporting Files */,
+				541A7BA51BD4F09A00EC3985 /* TopViewWithButton.h */,
+				541A7BA61BD4F09A00EC3985 /* TopViewWithButton.m */,
+				541A7BA81BD4F7C000EC3985 /* BottomViewWithButton.h */,
+				541A7BA91BD4F7C000EC3985 /* BottomViewWithButton.m */,
 			);
 			path = cutImageIOS;
 			sourceTree = "<group>";
@@ -542,6 +552,7 @@
 				TargetAttributes = {
 					541382761B86E07600478FE6 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 78L6UCY98A;
 					};
 					5413828F1B86E07600478FE6 = {
 						CreatedOnToolsVersion = 6.4;
@@ -638,6 +649,8 @@
 				5413827D1B86E07600478FE6 /* main.m in Sources */,
 				54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */,
 				547C97811BCBB2F900A28727 /* BitmapRotationManipulator.m in Sources */,
+				541A7BAA1BD4F7C000EC3985 /* BottomViewWithButton.m in Sources */,
+				541A7BA71BD4F09A00EC3985 /* TopViewWithButton.m in Sources */,
 				54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */,
 				547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */,
 				54B3963C1BCF5FB400F55293 /* TWPhotoPickerController.m in Sources */,
@@ -780,7 +793,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cutImageIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -800,7 +813,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = cutImageIOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_CODE_SIGN_FLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

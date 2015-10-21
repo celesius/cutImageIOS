@@ -18,6 +18,9 @@
 @property (nonatomic) float xScale;
 @property (nonatomic) float yScale;
 
+@property (assign, nonatomic) int inputMatCols;
+@property (assign, nonatomic) int inputMatRows;
+
 @end
 
 @implementation Bridge2OpenCV
@@ -68,9 +71,20 @@
     NSLog(@"sendImageBGR.cols = %d",sendImageBGR.cols);
     NSLog(@"sendImageBGR.rows = %d",sendImageBGR.rows);
     self.cutoutImagePacking->setColorImage(sendImageBGR, 20);
-    self.xScale = sendImageBGR.cols/winSize.width;
-    self.yScale = sendImageBGR.rows/winSize.height;
+    self.inputMatCols = sendImageBGR.cols;
+    self.inputMatRows = sendImageBGR.rows;
+    [self setScaleWithWindowSize:winSize];
+}   
+
+- (void)setScaleWithWindowSize:(CGSize)winSize{
+    self.xScale = self.inputMatCols/winSize.width;
+    self.yScale = self.inputMatRows/winSize.height;
 }
+
+- (void) updateWindowSize:(CGSize) winSize{
+    [self setScaleWithWindowSize:winSize];
+}
+
 /**
  *  将输入点直接转换成Mask点，其中没有图像算法
  *
@@ -80,11 +94,12 @@
 -(void) setDrawPoint:(NSMutableArray*)selectPoint andLineWidth:(int)lineWidth
 {
     //存储类型转换，nsmutablearray转换为 std::vector
-    printf("lineWidth = %d\n",lineWidth);
+    //printf("lineWidth = %d\n",lineWidth);
     std::vector<cv::Point> sendPoint;
     for(int i =0;i<[selectPoint count];i++){
         NSValue *pv = [selectPoint objectAtIndex:i];
         CGPoint p = [pv CGPointValue];
+        NSLog(@" DrawPoint = %@ " , NSStringFromCGPoint(p));
         cv::Point cvp;
         cvp.x = (int)(p.x*self.xScale);
         cvp.y = (int)(p.y*self.yScale);
@@ -224,8 +239,7 @@
 {
     CGColorSpaceRef colorSpace = CGImageGetColorSpace(uiiameg.CGImage);
     CGFloat cols = uiiameg.size.width;
-    CGFloat
-    rows = uiiameg.size.height;
+    CGFloat rows = uiiameg.size.height;
     cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
     CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to backing data
                                                     cols,                      // Width of bitmap

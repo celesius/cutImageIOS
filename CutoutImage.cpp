@@ -159,6 +159,14 @@ void CutoutImage::processImageDeleteMask(std::vector<cv::Point> mouseSlideRegion
 
 void CutoutImage::point2LineMat( const cv::Mat drawMat, std::vector<cv::Point> inPoint, int lineWide, cv::Mat &dstMat )
 {
+    /**
+     *  debugpointf
+     *
+     *  @return
+     */
+    printf("drawMat.rows = %d .cols = %d\n ", drawMat.rows, drawMat.cols);
+    
+    
     cv::Mat drawLineMat = drawMat.clone();
 //    int rows = drawMat.rows;
 //    int cols = drawMat.cols;
@@ -166,6 +174,7 @@ void CutoutImage::point2LineMat( const cv::Mat drawMat, std::vector<cv::Point> i
     for(int loop = 0;loop < vectorSize-1;loop ++)
     {
         cv::Point p1 = inPoint[loop];
+        printf(" x = %d, y = %d \n ",p1.x,p1.y);
         cv::Point p2 = inPoint[loop + 1];
         cv::line(drawLineMat, p1, p2, cv::Scalar(255),lineWide);
     }
@@ -580,6 +589,8 @@ void CutoutImage::rotateMat (const cv::Mat srcMat ,cv::Mat &dstMat,const cv::Mat
     cv::RNG rng; //随机数
     int rows = dstMat.rows;
     int cols = dstMat.cols;
+   // printf(" b  cutImageByRect rows = %d \n",rows);
+   // printf(" b  cutImageByRect cols = %d \n",cols);
     
     int lx = cols;
     int rx = 0;
@@ -619,8 +630,8 @@ void CutoutImage::rotateMat (const cv::Mat srcMat ,cv::Mat &dstMat,const cv::Mat
     if(by + 10 <= rows - 1)
         by = by + 10;
     
-    cv::Point lt = cv::Point(lx,ty);
-    cv::Point rb = cv::Point(rx,by);
+    //cv::Point lt = cv::Point(lx,ty);
+    //cv::Point rb = cv::Point(rx,by);
    
     cv::Rect cutRect = *new cv::Rect;
   
@@ -628,7 +639,9 @@ void CutoutImage::rotateMat (const cv::Mat srcMat ,cv::Mat &dstMat,const cv::Mat
     cutRect.y = ty;
     cutRect.width = rx - lx + 1;
     cutRect.height = by - ty + 1;
-  
+ 
+    std::cout<< cutRect <<std::endl;
+    
     cv::Mat cutDst;
     CutoutImage::cutImageByRect(dstMat, cutRect, cutDst); //截图
     
@@ -1061,20 +1074,29 @@ void CutoutImage::getTestMat(cv::Mat & dstMat1, cv::Mat &dstMat2 )
 
 cv::Mat CutoutImage::scaleFCMI2InputColorImageSize( const cv::Mat srcMat )
 {
-    cv::Mat aMat;// = cv::Mat(inputColorImageSize, srcMat.channels());
-    cv::Mat rMat = cv::Mat(inputColorImageSize, CV_8UC4, cv::Scalar(0,0,0,0));  //cv::Mat(inputColorImageSize, srcMat.channels());
+    cv::Mat aMat;
+    cv::Mat rMat = cv::Mat(inputColorImageSize, CV_8UC4, cv::Scalar(0,0,0,0));
     if(srcMat.rows >= srcMat.cols)  //最终图像是竖直的
     {
         int scaleToHeight = inputColorImageSize.height;
         int scaleToWidth = (int)(((float)srcMat.cols/(float)srcMat.rows)*(float)inputColorImageSize.height);
-        cv::resize(srcMat, aMat, cv::Size(scaleToWidth,scaleToHeight));
-        cv::Rect copyRect = cv::Rect( (inputColorImageSize.width - scaleToWidth)/2,0,scaleToWidth,scaleToHeight );
-        aMat.copyTo(rMat(copyRect));
+        
+        if(scaleToWidth <= inputColorImageSize.width){
+            cv::resize(srcMat, aMat, cv::Size(scaleToWidth,scaleToHeight));
+            cv::Rect copyRect = cv::Rect( (inputColorImageSize.width - scaleToWidth)/2,0,scaleToWidth,scaleToHeight );
+            aMat.copyTo(rMat(copyRect));
+        }else{
+            scaleToWidth = inputColorImageSize.width;
+            scaleToHeight = (int)(  ((float)srcMat.rows/(float)srcMat.cols)*(float)inputColorImageSize.width );
+            cv::resize(srcMat, aMat, cv::Size(scaleToWidth,scaleToHeight));
+            cv::Rect copyRect = cv::Rect( 0, (inputColorImageSize.height - scaleToHeight)/2, scaleToWidth, scaleToHeight );
+            aMat.copyTo(rMat(copyRect));
+        }
     }
     else                            //最终图像是横向的
     {
         int scaleToHeight = int(((float)srcMat.rows/(float)srcMat.cols)*(float)inputColorImageSize.width);
-        int scaleToWidth =  inputColorImageSize.width;// (int)(((float)srcMat.cols/(float)srcMat.rows)*(float)inputColorImageSize.height);
+        int scaleToWidth =  inputColorImageSize.width;
         cv::resize(srcMat, aMat, cv::Size(scaleToWidth,scaleToHeight));
         cv::Rect copyRect = cv::Rect( (inputColorImageSize.width - scaleToWidth)/2,0,scaleToWidth,scaleToHeight );
         aMat.copyTo(rMat(copyRect));

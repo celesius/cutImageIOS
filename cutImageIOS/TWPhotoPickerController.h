@@ -13,6 +13,7 @@
 @property (nonatomic, copy) void(^cropBlock)(UIImage *image);
 @property (nonatomic, assign) CGPoint returnPoint;
 @property (nonatomic, strong) UIViewController *creatNailRootVC;
+@property (nonatomic, assign) float hiddenViewTime;
 
 @end
 

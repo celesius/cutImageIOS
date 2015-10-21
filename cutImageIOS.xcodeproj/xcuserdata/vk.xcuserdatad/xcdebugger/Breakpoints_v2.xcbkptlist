@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/DesignNailViewController.m"
-            timestampString = "466398659.533707"
+            timestampString = "467032578.223181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "227"
-            endingLineNumber = "227"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "-buttonActionSet:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/DesignNailViewController.m"
-            timestampString = "466398660.310879"
+            timestampString = "467032578.223181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "-buttonActionSet:"
             landmarkType = "5">
          </BreakpointContent>
@@ -192,6 +192,22 @@
             startingLineNumber = "80"
             endingLineNumber = "80"
             landmarkName = "-presentImagePicker"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "cutImageIOS/Bridge2OpenCV.mm"
+            timestampString = "467023670.919358"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "-setDrawPoint:andLineWidth:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -30,8 +30,14 @@
 @property (strong, nonatomic) UICollectionView *collectionView;
 @property (strong, nonatomic) CustomPopAnimation *customPopAnimation;
 @property (strong, nonatomic) CustomPushAnimation *customPushAnimation;
+@property (strong, nonatomic) UIView *dragView;
+@property (strong, nonatomic) UIView *navView;
 
 @property (assign, nonatomic) CGPoint pushVCReturnPoint;
+
+@property (assign, nonatomic) CGRect sendViewRect;
+
+@property (strong, nonatomic) CutNailViewController *cutNailViewController;
 
 @end
 
@@ -150,58 +156,59 @@
     if (_topView == nil) {
         CGFloat handleHeight = 44.0f;
         CGRect rect = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), (CGRectGetWidth(self.view.bounds)/3)*4 + handleHeight*2);
+        //CGRect rect = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight([UIScreen mainScreen].bounds));
         self.topView = [[UIView alloc] initWithFrame:rect];
         self.topView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         self.topView.backgroundColor = [UIColor clearColor];
         self.topView.clipsToBounds = YES;
         
         rect = CGRectMake(0, 0, CGRectGetWidth(self.topView.bounds), handleHeight);
-        UIView *navView = [[UIView alloc] initWithFrame:rect];//26 29 33
-        navView.backgroundColor = [[UIColor colorWithRed:26.0/255 green:29.0/255 blue:33.0/255 alpha:1] colorWithAlphaComponent:.8f];
-        [self.topView addSubview:navView];
+        self.navView = [[UIView alloc] initWithFrame:rect];//26 29 33
+        self.navView.backgroundColor = [[UIColor colorWithRed:26.0/255 green:29.0/255 blue:33.0/255 alpha:1] colorWithAlphaComponent:.8f];
+        [self.topView addSubview:self.navView];
         
-        rect = CGRectMake(0, 0, 60, CGRectGetHeight(navView.bounds));
+        rect = CGRectMake(0, 0, 60, CGRectGetHeight(self.navView.bounds));
         UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         backBtn.frame = rect;
         [backBtn setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
         [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
-        [navView addSubview:backBtn];
+        [self.navView addSubview:backBtn];
         
-        rect = CGRectMake((CGRectGetWidth(navView.bounds)-100)/2, 0, 100, CGRectGetHeight(navView.bounds));
+        rect = CGRectMake((CGRectGetWidth(self.navView.bounds)-100)/2, 0, 100, CGRectGetHeight(self.navView.bounds));
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:rect];
         titleLabel.text = @"照片选择";
         titleLabel.textAlignment = NSTextAlignmentCenter;
         titleLabel.backgroundColor = [UIColor clearColor];
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.font = [UIFont boldSystemFontOfSize:18.0f];
-        [navView addSubview:titleLabel];
+        [self.navView addSubview:titleLabel];
         
-        rect = CGRectMake(CGRectGetWidth(navView.bounds)-80, 0, 80, CGRectGetHeight(navView.bounds));
+        rect = CGRectMake(CGRectGetWidth(self.navView.bounds)-80, 0, 80, CGRectGetHeight(self.navView.bounds));
         UIButton *cropBtn = [[UIButton alloc] initWithFrame:rect];
         [cropBtn setTitle:@"OK" forState:UIControlStateNormal];
         [cropBtn.titleLabel setFont:[UIFont systemFontOfSize:14.0f]];
         [cropBtn setTitleColor:[UIColor cyanColor] forState:UIControlStateNormal];
         [cropBtn addTarget:self action:@selector(cropAction) forControlEvents:UIControlEventTouchUpInside];
-        [navView addSubview:cropBtn];
+        [self.navView addSubview:cropBtn];
         self.pushVCReturnPoint = cropBtn.center;
-        
+       
         rect = CGRectMake(0, CGRectGetHeight(self.topView.bounds)-handleHeight, CGRectGetWidth(self.topView.bounds), handleHeight);
-        UIView *dragView = [[UIView alloc] initWithFrame:rect];
-        dragView.backgroundColor = navView.backgroundColor;
-        dragView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
-        [self.topView addSubview:dragView];
+        self.dragView = [[UIView alloc] initWithFrame:rect];
+        self.dragView.backgroundColor = self.navView.backgroundColor;
+        self.dragView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;
+        [self.topView addSubview:self.dragView];
         
         UIImage *img = [UIImage imageNamed:@"cameraroll-picker-grip"];
-        rect = CGRectMake((CGRectGetWidth(dragView.bounds)-img.size.width)/2, (CGRectGetHeight(dragView.bounds)-img.size.height)/2, img.size.width, img.size.height);
+        rect = CGRectMake((CGRectGetWidth(self.dragView.bounds)-img.size.width)/2, (CGRectGetHeight(self.dragView.bounds)-img.size.height)/2, img.size.width, img.size.height);
         UIImageView *gripView = [[UIImageView alloc] initWithFrame:rect];
         gripView.image = img;
-        [dragView addSubview:gripView];
+        [self.dragView addSubview:gripView];
         
         UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(panGestureAction:)];
-        [dragView addGestureRecognizer:panGesture];
+        [self.dragView addGestureRecognizer:panGesture];
         
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureAction:)];
-        [dragView addGestureRecognizer:tapGesture];
+        [self.dragView addGestureRecognizer:tapGesture];
         
         [tapGesture requireGestureRecognizerToFail:panGesture];
         
@@ -280,12 +287,23 @@
         self.cropBlock(self.imageScrollView.capture);
         
         self.navigationController.delegate = self;
-        CutNailViewController *cutNailViewController = [[CutNailViewController alloc]init];
-        [cutNailViewController setCreatNailRootVC:self.creatNailRootVC];
-        [cutNailViewController setEditImage:self.imageScrollView.capture];
-        [cutNailViewController setReturnPoint:self.pushVCReturnPoint];
+        self.cutNailViewController = [[CutNailViewController alloc]init];
+        [self.cutNailViewController setCreatNailRootVC:self.creatNailRootVC];
+        [self.cutNailViewController setEditImage:self.imageScrollView.capture];
+        [self.cutNailViewController setReturnPoint:self.pushVCReturnPoint];
         [self.customPushAnimation setStartPoint:self.pushVCReturnPoint];
-        [self.navigationController pushViewController:cutNailViewController animated:YES];
+        //[self.navigationController pushViewController:cutNailViewController animated:NO]; //jiangbo test
+       
+        CGPoint topPoint = CGPointMake(0, -44);
+        [self viewHiddenAnimationOnView:self.navView animationDurationTime:0.4 andHiddenPoint:topPoint];
+        [self viewHiddenAnimationOnView:self.dragView animationDurationTime:0.4 andscalaTo:0.1];
+        [self viewHiddenAnimationOnView:self.imageScrollView animationDurationTime:0.4 andscalaTo:1.5];
+
+        CGRect mainScreen = [UIScreen mainScreen].bounds;
+        CGPoint bottomPoint = CGPointMake(0, CGRectGetMaxY(mainScreen));
+        //[self viewHiddenAnimationOnView:self.dragView animationDurationTime:0.8 andHiddenPoint:bottomPoint];
+//        [self viewHiddenAnimationOnView:self.collectionView animationDurationTime:0.4 andHiddenPoint:bottomPoint];
+        [self viewPush:self.cutNailViewController hiddenAnimationOnView:self.collectionView animationDurationTime:0.4 andHiddenPoint:bottomPoint];
         
     }
     //[self backAction];
@@ -400,8 +418,50 @@
     }
 }
 
+- (void) viewHiddenAnimationOnView:(UIView *)hiddenView  animationDurationTime:(NSTimeInterval) time andHiddenPoint:(CGPoint) hiddenPoint{
+    NSLog(@"Animation Start");
+    CGRect bufferRect = hiddenView.frame;
+    [UIView animateWithDuration:time
+                     animations:^{
+                         hiddenView.frame = CGRectMake(hiddenPoint.x, hiddenPoint.y, CGRectGetWidth(hiddenView.frame), CGRectGetHeight(hiddenView.frame));
+                     }
+                     completion:^(BOOL finished){
+                         hiddenView.frame = bufferRect;
+                     }];
+}
+
+- (void) viewPush:(CutNailViewController*)pushVC  hiddenAnimationOnView:(UIView *)hiddenView  animationDurationTime:(NSTimeInterval) time andHiddenPoint:(CGPoint) hiddenPoint{
+    NSLog(@"Animation Start");
+    CGRect bufferRect = hiddenView.frame;
+    [UIView animateWithDuration:time
+                     animations:^{
+                         hiddenView.frame = CGRectMake(hiddenPoint.x, hiddenPoint.y, CGRectGetWidth(hiddenView.frame), CGRectGetHeight(hiddenView.frame));
+                     }
+                     completion:^(BOOL finished){
+                         hiddenView.frame = bufferRect;
+                         [self.navigationController pushViewController:pushVC animated:NO]; //jiangbo test
+                     }];
+}
+
+- (void) viewHiddenAnimationOnView:(UIView *)hiddenView  animationDurationTime:(NSTimeInterval) time  andscalaTo:(float)scala{
+    NSLog(@"Animation Start");
+    CGAffineTransform atf = hiddenView.transform;
+    [UIView animateWithDuration:time
+                     animations:^{
+                         //hiddenView.frame = CGRectMake(hiddenPoint.x, hiddenPoint.y, CGRectGetWidth(hiddenView.frame), CGRectGetHeight(hiddenView.frame));
+                         hiddenView.transform = CGAffineTransformMake(scala, 0, 0, scala, 0, 0);
+                         if(scala < 1.0)
+                             hiddenView.alpha = 0.1;
+                     }
+                     completion:^(BOOL finished){
+                         if(scala > 1.0){
+                             [self.cutNailViewController setReceiveImgRect: hiddenView.frame];
+                         }
+                         hiddenView.transform = atf;
+                         hiddenView.alpha = 1;
+                     }];
+}
+
+
 @end
 
-// 版权属于原作者
-// http://code4app.com (cn) http://code4app.net (en)
-// 发布代码于最专业的源码分享网站: Code4App.com 

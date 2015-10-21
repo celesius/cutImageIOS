@@ -135,10 +135,9 @@
     self.navigationController.navigationBarHidden = YES;
      */
     //if(self.navigationController.delegate == nil){
-        self.navigationController.delegate = self;
+    self.navigationController.delegate = self;
     //}
     [self.customPushAnimation setStartPoint:self.drawNailButton.frame.origin];
-    
     [self.navigationController pushViewController:vc animated:YES];
 
 

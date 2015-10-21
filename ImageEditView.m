@@ -27,6 +27,8 @@
  */
 @property (nonatomic, strong) dispatch_queue_t imageProcessQueue;
 
+@property (nonatomic, strong) UIImage *inputImageBuffer;
+
 @end
 
 @implementation ImageEditView
@@ -48,12 +50,15 @@
         //UIImage *imageInit =  [UIImage imageWithColor:self.pictureImage.backgroundColor andRect:CGRectMake(0, 0, self.pictureImage.frame.size.width, self.pictureImage.frame.size.width)];
         //[self.b2opcv setCalculateImage:editImage andWindowSize:self.frame.size];
         [self setPicture:editImage];
+        self.inputImageBuffer = editImage;
         
         self.isMove = NO;
         self.isDraw = NO;       //默认是添加
         self.isDelete  = NO;
         
         self.imageProcessQueue = dispatch_queue_create("com.clover.cutImageIOS", NULL);
+    
+        self.backgroundColor = [UIColor greenColor];
         
         [self addSubview:self.pictureImage];
         [self addSubview:self.drawView];
@@ -132,6 +137,14 @@
             }
         }
     });
+}
+
+
+- (void) resizeAllView
+{
+    self.drawView.frame = self.bounds;
+    self.pictureImage.frame = self.bounds;
+    [self.b2opcv updateWindowSize:self.bounds.size];
 }
 
 /*
