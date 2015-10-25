@@ -56,6 +56,10 @@
                                                      selector:@selector(drawLineColorIS:)
                                                          name:@"com.clover.cutImageColorIS"
                                                        object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(drawLineWidthIS:)
+                                                         name:@"com.clover.cutImageWidthIS"
+                                                       object:nil];
 
         }
         else{
@@ -69,9 +73,16 @@
     return self;
 }
 
-- (void) drawLineColorIS:(NSNotification *)nt{
+- (void) drawLineColorIS:(NSNotification *)nt {
     UIColor *c = [nt object];
     self.lineColor = c;
+}
+
+- (void) drawLineWidthIS:(NSNotification *)nt {
+    NSValue *v = [nt object];
+    float lw;
+    [v getValue:&lw];
+    self.lineWidth = lw;
 }
 
 -(void) resetDraw

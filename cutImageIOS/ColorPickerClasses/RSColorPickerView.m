@@ -300,9 +300,9 @@
     [self generateBezierPaths];
     if (circle) {
         // there's a chance the selection was outside the bounds
-        //CGPoint point = [self validPointForTouch:CGPointMake(0, 0)]; //jiangbo
-        CGPoint point = [self validPointForTouch:[state selectionLocationWithSize:self.paletteDiameter
-                                                                          padding:self.paddingDistance]];
+        CGPoint point = [self validPointForTouch:CGPointMake(0, 0)]; //jiangbo
+        //CGPoint point = [self validPointForTouch:[state selectionLocationWithSize:self.paletteDiameter
+        //                                                                  padding:self.paddingDistance]];
         [self updateStateForTouchPoint:point];
     } else {
         [self handleStateChanged];
@@ -371,9 +371,9 @@
     /**
      *  jiangbo for loop color select
      */
-    if ([self.activeAreaShape containsPoint:touchPoint]) {
-        return touchPoint;
-     }
+    //if ([self.activeAreaShape containsPoint:touchPoint]) {
+    //    return touchPoint;
+    // }
 
     if (self.cropToCircle) {
         // We compute the right point on the gradient border

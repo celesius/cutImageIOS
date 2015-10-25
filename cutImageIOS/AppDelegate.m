@@ -7,12 +7,10 @@
 //
 
 #import "AppDelegate.h"
-#import "YZSwipeBetweenViewController.h"
 #import "CreatNailRootViewController.h"
 
 @interface AppDelegate ()
 
-@property (strong) YZSwipeBetweenViewController *swipeBetweenVC;
 @end
 
 @implementation AppDelegate
@@ -25,10 +23,6 @@
     CreatNailRootViewController *cnc = [[CreatNailRootViewController alloc]init];
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:cnc];
     self.window.rootViewController = nc;
-    
-    //self.swipeBetweenVC = [YZSwipeBetweenViewController new];
-    //[self setupRootViewControllerForWindow];
-    //self.window.rootViewController = self.swipeBetweenVC;
     
     [self.window makeKeyAndVisible];
     
@@ -72,8 +66,8 @@
 //    [[UINavigationController alloc] initWithRootViewController:vc3];
     
    // self.swipeBetweenVC.viewControllers = @[navCon1, navCon2, navCon3];
-    self.swipeBetweenVC.viewControllers = @[navCon1];
-    self.swipeBetweenVC.initialViewControllerIndex = self.swipeBetweenVC.viewControllers.count/2;
+    //self.swipeBetweenVC.viewControllers = @[navCon1];
+    //self.swipeBetweenVC.initialViewControllerIndex = self.swipeBetweenVC.viewControllers.count/2;
     
 }
 

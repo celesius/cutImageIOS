@@ -9,10 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @protocol DynamicViewDelegate  <NSObject>
-
 -(void) openAnimateFinishedCallBack;
 -(void) closeAnimateFinishedCallBack;
-
 @end
 
 @interface DynamicView : UIView

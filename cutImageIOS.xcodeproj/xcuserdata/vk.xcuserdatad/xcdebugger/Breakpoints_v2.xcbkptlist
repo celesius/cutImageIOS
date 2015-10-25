@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/LineWidthView.m"
-            timestampString = "465204979.171777"
+            timestampString = "467286966.93469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "68"
-            endingLineNumber = "68"
-            landmarkName = "-initWithRect:andHiddenPoint:andAnimateDuration:"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
+            landmarkName = "-initWithRect:andHiddenPoint:andAnimateDuration:andTouchButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/LineWidthView.m"
-            timestampString = "465190513.900101"
+            timestampString = "467286966.93469"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "-initWithRect:andHiddenPoint:andAnimateDuration:"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "-initWithRect:andHiddenPoint:andAnimateDuration:andTouchButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/LineWidthView.m"
-            timestampString = "465216395.124275"
+            timestampString = "467287002.858871"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "102"
-            endingLineNumber = "102"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "-changeLineWidth15:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/ColorPickerView.m"
-            timestampString = "466339372.321149"
+            timestampString = "467285512.077973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
             landmarkName = "-initWithFrame:"
             landmarkType = "5">
          </BreakpointContent>
@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/DesignNailViewController.m"
-            timestampString = "467032578.223181"
+            timestampString = "467281437.164682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "-buttonActionSet:"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "cutImageIOS/DesignNailViewController.m"
-            timestampString = "467032578.223181"
+            timestampString = "467281437.164682"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "288"
+            endingLineNumber = "288"
             landmarkName = "-buttonActionSet:"
             landmarkType = "5">
          </BreakpointContent>

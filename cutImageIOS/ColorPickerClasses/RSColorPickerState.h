@@ -20,6 +20,7 @@
  */
 @interface RSColorPickerState : NSObject {
     CGPoint scaledRelativePoint; // H & S
+    //CGFloat saturation; //jiangbo S
     CGFloat brightness; // V
     CGFloat alpha; // A
 }

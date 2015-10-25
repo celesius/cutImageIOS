@@ -70,8 +70,8 @@
             if (angle < 0.0) angle = (2.0 * M_PI) + angle;
 
             CGFloat perc_angle = angle / (2.0 * M_PI);
-            BMPixel thisPixel = RSPixelFromHSV(perc_angle, r_distance/relRadius, 1); // full brightness  jiangbo
-//            BMPixel thisPixel = RSPixelFromHSV(perc_angle, 1, 1); // full brightness
+            //BMPixel thisPixel = RSPixelFromHSV(perc_angle, r_distance/relRadius, 1); // full brightness  jiangbo
+            BMPixel thisPixel = RSPixelFromHSV(perc_angle, 1, 1); // full brightness
             [rep setPixel:thisPixel atPoint:BMPointMake(x, y)];
 
             i++;

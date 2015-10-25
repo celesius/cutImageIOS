@@ -10,6 +10,7 @@
 #import "ColorPreview.h"
 #import "RSOpacitySlider.h"
 #import "RSBrightnessSlider.h"
+#import "CloverScreen.h"
 
 @interface ColorPickerView()
 
@@ -25,10 +26,10 @@
 - (id)initWithFrame:(CGRect)frame{
     if(self = [super initWithFrame:frame]){
         CGRect mainScreen = self.bounds;
-        int rscpViewW = (CGRectGetWidth(mainScreen)*9.0/10.0 );//250.1;//CGRectGetWidth(mainScreen)*9.0/10.0; //220;//mainScreen.size.width*9/10;
-        int  rscpViewH =   rscpViewW;//250;//CGRectGetWidth(mainScreen)*9.0/10.0;
-        self.rscpView = [[RSColorPickerView alloc] initWithFrame:CGRectMake(0, 0, rscpViewW, rscpViewH)];
-        self.rscpView.center = CGPointMake(mainScreen.size.width/2, self.rscpView.bounds.size.height*3/5);
+        int rscpViewW = [CloverScreen getHorizontal:450];
+        int  rscpViewH =   rscpViewW;
+        self.rscpView = [[RSColorPickerView alloc] initWithFrame:CGRectMake(0, [CloverScreen getVertical:50], rscpViewW, rscpViewH)];
+        self.rscpView.center = CGPointMake( CGRectGetMidX(mainScreen), self.rscpView.center.y );
         
         // Optionally set and force the picker to only draw a circle
         [self.rscpView setCropToCircle:YES]; // Defaults to NO (you can set BG color)

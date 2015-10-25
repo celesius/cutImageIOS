@@ -8,11 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "DynamicView.h"
+#import "LineWidthShowView.h"
+#import "DynamicBlurView.h"
 
 @interface LineWidthView : DynamicView 
 
--(id)initWithRect:(CGRect) viewRect andHiddenPoint:(CGPoint) hiddenPoint andAnimateDuration:(NSTimeInterval)times;
+-(id)initWithRect:(CGRect) viewRect andHiddenPoint:(CGPoint) hiddenPoint andAnimateDuration:(NSTimeInterval)times andTouchButton:(UIButton *)button;
+
+//- (void) closeShowView:(LineWidthShowView *)showView
 
 @property (nonatomic, assign) float lineWidth;
+@property (nonatomic, strong) LineWidthShowView *showView;
+@property (nonatomic, strong) DynamicBlurView *blurView;
+@property (nonatomic, strong) DynamicBlurView *blurBGView;
 
 @end

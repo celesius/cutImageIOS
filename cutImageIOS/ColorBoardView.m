@@ -39,13 +39,15 @@
 }
 
 - (void)closeButtonFoo:(id)sender{
-    [self closeView];
+    
+    [[NSNotificationCenter defaultCenter]postNotificationName:@"com.clover.cutImageColorIS" object:self.colorPickerView.currentColor];
+    self.lineColor = self.colorPickerView.currentColor;
+    [self showViewAtParentView];
 }
 
 - (void) closeAnimateFinished
 {
-    [[NSNotificationCenter defaultCenter]postNotificationName:@"com.clover.cutImageColorIS" object:self.colorPickerView.currentColor];
-    self.lineColor = self.colorPickerView.currentColor;
+    [super closeAnimateFinished];
 }
 
 /*

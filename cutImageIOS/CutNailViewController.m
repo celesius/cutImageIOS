@@ -27,7 +27,6 @@
 @property (nonatomic, strong) UIButton *addMaskPoint;
 @property (nonatomic, strong) UIButton *deleteMaskPoint;
 @property (nonatomic, strong) UIButton *moveImg;
-@property (nonatomic, strong) UIButton *addLineWidth;
 @property (nonatomic, strong) UIButton *subtractLineWidth;
 @property (nonatomic, strong) UIButton *nextStep;
 
@@ -69,14 +68,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     self.lockNextStep = YES;
-    //CGRect pointRect = self.view.frame;
-    //NSLog(@"pointRect = %@ ",NSStringFromCGRect(pointRect));
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     NSLog(@"mainScreen = %@ ", NSStringFromCGRect(mainScreen));
-    
-    CGPoint screenCenter = CGPointMake(mainScreen.size.width/2, mainScreen.size.height/2 + 20 );
     
     self.navigationController.delegate = self;
     self.navigationController.navigationBar.translucent = YES;
@@ -85,17 +79,16 @@
     self.setLineWidth = DEFLINEWIDTH;              //线宽默认是10
     self.pointArray = [[NSMutableArray alloc]init];
 
-    //Init All View
+    /**
+     *  上工具条
+     */
     self.upKeepOutView = [[TopViewWithButton alloc]initWithFrame:CGRectMake(0, -70, CGRectGetWidth(mainScreen), 70)];
     self.upKeepOutView.backgroundColor = [UIColor greenColor];
     self.upKeepOutView.delegate = self;
     self.topViewWillAppearAt = CGRectMake( 0, 0, CGRectGetWidth(self.upKeepOutView.frame), CGRectGetHeight(self.upKeepOutView.frame) );
-    
    
     float appImageViewW = CGRectGetWidth(mainScreen)*(19.0/20.0);
     float appImageViewH = appImageViewW*4.0/3.0;
-//    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake( 0, CGRectGetMaxY(self.upKeepOutView.frame), appImageViewW, appImageViewH ) andEditImage:self.editImage];
-//    self.appImageView = [[ImageEditView alloc]initWithFrame:CGRectMake( 0, CGRectGetMaxY(self.topViewWillAppearAt), appImageViewW, appImageViewH ) andEditImage:self.editImage];
     self.appImageView = [[ImageEditView alloc]initWithFrame:self.receiveImgRect  andEditImage:self.editImage];
     self.imgViewOrgTransform = self.appImageView.transform;
 
@@ -104,22 +97,20 @@
     
     self.imgViewWillAppearAtCenter = CGPointMake(CGRectGetMidX(mainScreen), CGRectGetMaxY(self.topViewWillAppearAt) + (appImageViewH/2) );
     
-    
     /**
      *  初始化手势
      */
     [self creatPan];
-    //生成一个遮挡平面
-    
+    /**
+     *  下面的工具条
+     */
     self.bottomKeepOutView = [[BottomViewWithButton alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(mainScreen), mainScreen.size.width, mainScreen.size.height - (CGRectGetHeight(self.upKeepOutView.frame) + appImageViewH ))];
     self.bottomKeepOutView.backgroundColor = [UIColor redColor];
     self.bottomKeepOutView.delegate = self;
     self.bottomViewWillAppearAt = CGRectMake( 0, CGRectGetHeight(self.upKeepOutView.frame) + appImageViewH, CGRectGetWidth(self.bottomKeepOutView.frame), CGRectGetHeight(self.bottomKeepOutView.frame) );
-    
-    //开始添加按键
-    float smallButtonWidth = 50;
-   
-    //打开相册按键
+    /**
+     *  打开相册
+     */
     self.openPhotoAlbum = [UIButton buttonWithType:UIButtonTypeCustom];
     self.openPhotoAlbum.frame = CGRectMake(mainScreen.size.width - 100, mainScreen.size.height - 30, 100, 50);
     self.openPhotoAlbum.backgroundColor = [UIColor whiteColor];
@@ -128,7 +119,9 @@
     [self.openPhotoAlbum setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.openPhotoAlbum setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.openPhotoAlbum addTarget:self action:@selector(takePictureClick:) forControlEvents:UIControlEventTouchUpInside];
-    //测试用按键，图片位置复位
+    /**
+     *  回复图片位置
+     */
     self.sysTestButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.sysTestButton.frame =CGRectMake(0, mainScreen.size.height - 30, 100, 50);
     self.sysTestButton.backgroundColor = [UIColor whiteColor];
@@ -140,6 +133,7 @@
     /**
      *  重画按键，点击后消除所有当前图像所有Mask
      */
+    /*
     self.resetDrawButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.resetDrawButton.frame = CGRectMake(110, mainScreen.size.height - 30, 100, 50);
     self.resetDrawButton.backgroundColor = [UIColor whiteColor];
@@ -148,9 +142,13 @@
     [self.resetDrawButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.resetDrawButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.resetDrawButton addTarget:self action:@selector(resetDraw:) forControlEvents:UIControlEventTouchUpInside];
-    
+     */
 
-    //添加移动图片按键
+    /**
+     *  添加移动图片按键
+     */
+    //
+    /*
     self.moveImg= [UIButton buttonWithType:UIButtonTypeCustom];
     self.moveImg.frame = CGRectMake(mainScreen.size.width - smallButtonWidth, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth , 50);
     self.moveImg.center = CGPointMake(mainScreen.size.width/5*4,self.moveImg.center.y);
@@ -160,36 +158,7 @@
     [self.moveImg setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.moveImg setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.moveImg addTarget:self action:@selector(enableMoveImg:) forControlEvents:UIControlEventTouchUpInside];
-    
-    /**
-     *  增加线宽按钮
      */
-    self.addLineWidth = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addLineWidth.frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth, 50);
-    self.addLineWidth.center = CGPointMake(mainScreen.size.width/5*2, self.addMaskPoint.center.y + 60);
-    self.addLineWidth.backgroundColor = [UIColor whiteColor];
-    [self.addLineWidth.layer setCornerRadius:5];
-    [self.addLineWidth setTitle:@"+" forState:UIControlStateNormal];
-    [self.addLineWidth setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.addLineWidth setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.addLineWidth addTarget:self action:@selector(addLineWidthFoo) forControlEvents:UIControlEventTouchUpInside];
-    /**
-     *  减少线宽
-     */
-    self.subtractLineWidth = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.subtractLineWidth .frame = CGRectMake(0, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth, 50);
-    self.subtractLineWidth.center = CGPointMake(mainScreen.size.width/5*3, self.deleteMaskPoint.center.y + 60);
-    self.subtractLineWidth.backgroundColor = [UIColor whiteColor];
-    [self.subtractLineWidth.layer setCornerRadius:5];
-    [self.subtractLineWidth setTitle:@"-" forState:UIControlStateNormal];
-    [self.subtractLineWidth setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.subtractLineWidth setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.subtractLineWidth addTarget:self action:@selector(subtractLineWidthFoo) forControlEvents:UIControlEventTouchUpInside];
-  
-    
-    //CGRectMake(<#CGFloat x#>, <#CGFloat y#>, <#CGFloat width#>, <#CGFloat height#>)
-
-
     //
     //[self.view addSubview:self.showImgView];
     [self.view addSubview:self.appImageView];
@@ -202,8 +171,6 @@
     //[self.view addSubview:self.deleteMaskPoint];
     //[self.view addSubview:self.moveImg];
     //[self.view addSubview:self.resetDrawButton];
-    //[self.view addSubview:self.addLineWidth];
-    //[self.view addSubview:self.subtractLineWidth];
     //[self.view addSubview:self.nextStep];
     //[self.view addSubview:self.popViewCtrlButton];
     
@@ -221,10 +188,8 @@
      *  @return
      */
     self.getFinnalImageQueue = dispatch_queue_create("com.clover.cutImageIOS", NULL);
-   
-    
     /**
-     *  初始化观察者
+     *  初始化观察者,这个观察者与相关的函数调用要搬移到BottomViewWithButton中
      */
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(haveMaskMatFoo:)
@@ -232,7 +197,11 @@
                                                object:nil];
     // Do any additional setup after loading the view, typically from a nib.
 }
-
+/**
+ *  进入此ViewController的动画
+ *
+ *  @param animated
+ */
 - (void)viewWillAppear:(BOOL)animated
 {
     NSLog(@"- (void)viewWillAppear:(BOOL)animated");
@@ -243,8 +212,6 @@
                      animations:^{
                          self.upKeepOutView.frame = self.topViewWillAppearAt;
                          self.bottomKeepOutView.frame = self.bottomViewWillAppearAt;
-                         
-                         //self.appImageView.transform = CGAffineTransformMake(1, 0, 0, 1, 0, 0);
                          self.appImageView.frame = self.imgViewWillAppearAt;
                          [self.appImageView resizeAllView];
                      }
@@ -253,6 +220,11 @@
                      }];
 }
 
+/**
+ *  标志算法是否有
+ *
+ *  @param notification 带一个Bool返回值
+ */
 - (void)haveMaskMatFoo:(NSNotification *)notification{
     NSValue *haveMaskMat = [notification object];
     BOOL hb;
@@ -268,22 +240,35 @@
 - (void)unLockNextStepButton{
     if(self.lockNextStep){
         self.lockNextStep = !self.lockNextStep;
-        [self.nextStep setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        //[self.nextStep setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     }
 }
 
 - (void)LockNextStepButton{
     if(!self.lockNextStep){
         self.lockNextStep = !self.lockNextStep;
-        [self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        //[self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     }
 }
 
-
+/**
+ *  是否隐藏系统的状态栏
+ *
+ *  @return YES隐藏NO显示
+ */
 - (BOOL)prefersStatusBarHidden{
     return YES;
 }
-
+/**
+ *  自定义VCpush pop动画
+ *
+ *  @param navigationController 当前app的nc
+ *  @param operation            标志push还是pop，用于选择push还是pop动画
+ *  @param fromVC               从fromVCpush或pop出
+ *  @param toVC                 push或pop到 toVC
+ *
+ *  @return                     返回自定义的动画
+ */
 -(id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
                                 animationControllerForOperation :(UINavigationControllerOperation) operation
                                               fromViewController:(UIViewController *)fromVC
@@ -314,25 +299,9 @@
     transition.delegate = self;
     [self.navigationController.view.layer addAnimation:transition forKey:nil];
      */
-   
     [self.custompopanimation setEndPoint:self.returnPoint];
     [self.navigationController popViewControllerAnimated:YES];
 }
-/*
--(void) resultImageReady:(UIImage *)sendImage
-{
-    dispatch_async(dispatch_get_global_queue(0,0), ^{
-        //耗时处理
-        dispatch_async( dispatch_get_main_queue(), ^{
-            //同步显示
-            //self.appImageView.image = sendImage;
-            //self.appImageView.layer.contents = sendImage;
-            [self.appImageView setPicture:sendImage];
-            //self.showImgView.image = sendImage;
-        });
-    });
-}
- */
 /**
  *  将试图恢复到初始位置,并且添加动画
  *
@@ -349,9 +318,10 @@
 }
 /**
  *  重置所有绘制
- *
- *  @param sender <#sender description#>
+ *  这个操作现在不需要了
+ *  @param sender
  */
+/*
 -(void) resetDraw:(id)sender
 {
     self.appImageView.transform =CGAffineTransformScale(self.orgTrf, 1, 1);
@@ -359,6 +329,7 @@
     self.setLineWidth = DEFLINEWIDTH;
     [self.appImageView resetAllMask];
 }
+*/
 /**
  *  回退操作
  */
@@ -373,22 +344,6 @@
 -(void) undoButtonTouch
 {
     [self.appImageView undo];
-}
-/**
- *  加线宽
- */
--(void) addLineWidthFoo
-{
-    self.setLineWidth = self.setLineWidth + LINESTEP;
-}
-/**
- *  减线宽
- */
--(void) subtractLineWidthFoo
-{
-    if( self.setLineWidth - LINESTEP > 0  ){
-        self.setLineWidth = self.setLineWidth - LINESTEP;
-    }
 }
 
 -(void) cutImageCutTouch
@@ -454,8 +409,6 @@
 -(void) nextStepTouch
 {
     if(!self.lockNextStep){
-        //    [self.rotateCutImageViewController setImageRect:self.orgRect];
-        
         dispatch_async(self.getFinnalImageQueue, ^{
             UIImage *setImage = [self.appImageView getReusltImage];
             [self.rotateCutImageViewController setImageRect:self.orgRect andImage:setImage];
@@ -491,13 +444,10 @@
     /*注：使用，需要实现以下协议：UIImagePickerControllerDelegate,
      UINavigationControllerDelegate
      */
-    
     UIImagePickerController *picker = [[UIImagePickerController alloc]init];
-    
     //设置图片源(相簿)
-//    picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    //picker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
     picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    //picker.sourceType = UIImagePickerControllerSourceTypeCamera;
     //设置代理
     picker.delegate = self;
     //设置可以编辑
@@ -505,32 +455,31 @@
     //打开拾取器界面
     [self presentViewController:picker animated:YES completion:nil];
 }
-
-//完成选择图片
-//-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo
+/**
+ *  完成照片选择
+ *
+ *  @param picker 传递的picker
+ *  @param info   取得的媒体内容描述字典
+ */
 -(void)imagePickerController:(UIImagePickerController *)picker  didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //加载图片
-//    self.appImageView.image = image;
-//    self.appImageView.layer.contents = image;
-   // UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
     UIImage *image = [info objectForKey:@"UIImagePickerControllerEditedImage"];
-    
     CGRect corpRect = [[info objectForKey:@"UIImagePickerControllerCropRect"]CGRectValue];
-    
     [self.appImageView  setPicture:image];
-    //self.showImgView.image = image;
-    //[self.b2opcv setCalculateImage:image andWindowSize:self.imgWindowSize];
     //重置绘制线宽
     self.setLineWidth = DEFLINEWIDTH;
     //每次打开时，将appImageView归到初始位置
-//    self.appImageView.frame = self.orgRect;
-//    [self creatPan];
+    //self.appImageView.frame = self.orgRect;
+    //[self creatPan];
     //选择框消失
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
-//取消选择图片
-
+/**
+ *  取消照片选择
+ *
+ *  @param picker 传递的picker
+ */
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
