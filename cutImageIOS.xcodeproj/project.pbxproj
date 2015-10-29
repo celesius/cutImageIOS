@@ -16,7 +16,6 @@
 		541A7BAA1BD4F7C000EC3985 /* BottomViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA91BD4F7C000EC3985 /* BottomViewWithButton.m */; };
 		541A7BEA1BD746F500EC3985 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 541A7BE91BD746F500EC3985 /* Images.xcassets */; };
 		541A7BEE1BD794C800EC3985 /* CloverScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BED1BD794C800EC3985 /* CloverScreen.m */; };
-		541A7C151BD8EEA700EC3985 /* LineWidthShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7C141BD8EEA700EC3985 /* LineWidthShowView.m */; };
 		54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */; };
 		54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */; };
 		545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */ = {isa = PBXBuildFile; fileRef = 545346711B8D5ADC00F86C35 /* UIImage+IF.m */; };
@@ -24,39 +23,10 @@
 		547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */; };
 		547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C01BB247DD00E20453 /* CreatNailRootViewController.m */; };
 		547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C71BB29F8100E20453 /* CustomPushAnimation.m */; };
-		547C97771BCBB2F900A28727 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97491BCBB2F900A28727 /* ANImageBitmapRep.m */; };
-		547C97781BCBB2F900A28727 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C974B1BCBB2F900A28727 /* BitmapContextRep.m */; };
-		547C97791BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C974E1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m */; };
-		547C977A1BCBB2F900A28727 /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97501BCBB2F900A28727 /* OSCommonImage.m */; };
-		547C977B1BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97521BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m */; };
-		547C977C1BCBB2F900A28727 /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97551BCBB2F900A28727 /* CGContextCreator.m */; };
-		547C977D1BCBB2F900A28727 /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97571BCBB2F900A28727 /* CGImageContainer.m */; };
-		547C977E1BCBB2F900A28727 /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975A1BCBB2F900A28727 /* BitmapContextManipulator.m */; };
-		547C977F1BCBB2F900A28727 /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975C1BCBB2F900A28727 /* BitmapCropManipulator.m */; };
-		547C97801BCBB2F900A28727 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975E1BCBB2F900A28727 /* BitmapDrawManipulator.m */; };
-		547C97811BCBB2F900A28727 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97601BCBB2F900A28727 /* BitmapRotationManipulator.m */; };
-		547C97821BCBB2F900A28727 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97621BCBB2F900A28727 /* BitmapScaleManipulator.m */; };
-		547C97831BCBB2F900A28727 /* BGRSLoupeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97641BCBB2F900A28727 /* BGRSLoupeLayer.m */; };
-		547C97841BCBB2F900A28727 /* ColorPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97661BCBB2F900A28727 /* ColorPreview.m */; };
-		547C97851BCBB2F900A28727 /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97681BCBB2F900A28727 /* RSBrightnessSlider.m */; };
-		547C97861BCBB2F900A28727 /* RSColorFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976A1BCBB2F900A28727 /* RSColorFunctions.m */; };
-		547C97871BCBB2F900A28727 /* RSColorPickerLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976C1BCBB2F900A28727 /* RSColorPickerLoopView.m */; };
-		547C97881BCBB2F900A28727 /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976E1BCBB2F900A28727 /* RSColorPickerState.m */; };
-		547C97891BCBB2F900A28727 /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97701BCBB2F900A28727 /* RSColorPickerView.m */; };
-		547C978A1BCBB2F900A28727 /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97721BCBB2F900A28727 /* RSGenerateOperation.m */; };
-		547C978B1BCBB2F900A28727 /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97741BCBB2F900A28727 /* RSOpacitySlider.m */; };
-		547C978C1BCBB2F900A28727 /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97761BCBB2F900A28727 /* RSSelectionLayer.m */; };
-		547C97921BCBBC1700A28727 /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97911BCBBC1700A28727 /* ColorPickerView.m */; };
-		54ADFAD11BDA062100BAB7BF /* DynamicBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD01BDA062100BAB7BF /* DynamicBlurView.m */; };
-		54ADFAD41BDCC28A00BAB7BF /* CloverColorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD31BDCC28A00BAB7BF /* CloverColorLayer.m */; };
-		54ADFADA1BDE2F5300BAB7BF /* MaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD91BDE2F5300BAB7BF /* MaskLayer.m */; };
-		54ADFADD1BDE553B00BAB7BF /* BrightnessAndSaturationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFADC1BDE553B00BAB7BF /* BrightnessAndSaturationView.m */; };
 		54B3963A1BCF5FB400F55293 /* TWImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396351BCF5FB400F55293 /* TWImageScrollView.m */; };
 		54B3963B1BCF5FB400F55293 /* TWPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396371BCF5FB400F55293 /* TWPhotoCollectionViewCell.m */; };
 		54B3963C1BCF5FB400F55293 /* TWPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396391BCF5FB400F55293 /* TWPhotoPickerController.m */; };
-		54C679D91BDF4F4B00D48D1A /* BSColorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C679D81BDF4F4B00D48D1A /* BSColorLayer.m */; };
 		54C679DE1BDFC2A600D48D1A /* UIImageView+Capture.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C679DD1BDFC2A600D48D1A /* UIImageView+Capture.m */; };
-		54C679E01BDFCCDC00D48D1A /* DesignNailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C679DF1BDFCCDC00D48D1A /* DesignNailViewController.m */; };
 		54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816D71B8B18F40002061D /* CutoutImage.cpp */; };
 		54D816DC1B8B220E0002061D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D816DA1B8B22010002061D /* Foundation.framework */; };
 		54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54D816DE1B8B254E0002061D /* Bridge2OpenCV.mm */; };
@@ -64,17 +34,47 @@
 		54D816E51B8B2DF00002061D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 541382841B86E07600478FE6 /* Main.storyboard */; };
 		54D816E61B8B2DF00002061D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541382891B86E07600478FE6 /* LaunchScreen.xib */; };
 		54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */; };
-		54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375A1BB8DD4E00467518 /* DotButton.m */; };
 		54E1375F1BB8E9C700467518 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375E1BB8E9C700467518 /* FXBlurView.m */; };
 		54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */; };
-		54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */; };
-		54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */; };
-		54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */; };
 		54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF67481B947641007E7A3C /* DrawViewModel.m */; };
 		54EF674C1B947723007E7A3C /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF674B1B947723007E7A3C /* DrawView.m */; };
 		54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF67541B95861F007E7A3C /* ImageEditView.m */; };
-		54F38B781BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F38B771BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m */; };
-		54FD3B1C1BE1BC3B00B93429 /* CloverWhiteArc.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FD3B1B1BE1BC3B00B93429 /* CloverWhiteArc.m */; };
+		54FE87F81BE1F8C40022D48C /* ColorBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87AB1BE1F8C40022D48C /* ColorBoardView.m */; };
+		54FE87F91BE1F8C40022D48C /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87AF1BE1F8C40022D48C /* ANImageBitmapRep.m */; };
+		54FE87FA1BE1F8C40022D48C /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87B11BE1F8C40022D48C /* BitmapContextRep.m */; };
+		54FE87FB1BE1F8C40022D48C /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87B41BE1F8C40022D48C /* NSImage+ANImageBitmapRep.m */; };
+		54FE87FC1BE1F8C40022D48C /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87B61BE1F8C40022D48C /* OSCommonImage.m */; };
+		54FE87FD1BE1F8C40022D48C /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87B81BE1F8C40022D48C /* UIImage+ANImageBitmapRep.m */; };
+		54FE87FE1BE1F8C40022D48C /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87BB1BE1F8C40022D48C /* CGContextCreator.m */; };
+		54FE87FF1BE1F8C40022D48C /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87BD1BE1F8C40022D48C /* CGImageContainer.m */; };
+		54FE88001BE1F8C40022D48C /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87C01BE1F8C40022D48C /* BitmapContextManipulator.m */; };
+		54FE88011BE1F8C40022D48C /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87C21BE1F8C40022D48C /* BitmapCropManipulator.m */; };
+		54FE88021BE1F8C40022D48C /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87C41BE1F8C40022D48C /* BitmapDrawManipulator.m */; };
+		54FE88031BE1F8C40022D48C /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87C61BE1F8C40022D48C /* BitmapRotationManipulator.m */; };
+		54FE88041BE1F8C40022D48C /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87C81BE1F8C40022D48C /* BitmapScaleManipulator.m */; };
+		54FE88051BE1F8C40022D48C /* BGRSLoupeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87CA1BE1F8C40022D48C /* BGRSLoupeLayer.m */; };
+		54FE88061BE1F8C40022D48C /* BrightnessAndSaturationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87CC1BE1F8C40022D48C /* BrightnessAndSaturationView.m */; };
+		54FE88071BE1F8C40022D48C /* BSColorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87CE1BE1F8C40022D48C /* BSColorLayer.m */; };
+		54FE88081BE1F8C40022D48C /* CloverColorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87D01BE1F8C40022D48C /* CloverColorLayer.m */; };
+		54FE88091BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87D21BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.m */; };
+		54FE880A1BE1F8C40022D48C /* CloverWhiteArc.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87D41BE1F8C40022D48C /* CloverWhiteArc.m */; };
+		54FE880B1BE1F8C40022D48C /* ColorPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87D61BE1F8C40022D48C /* ColorPreview.m */; };
+		54FE880C1BE1F8C40022D48C /* MaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87D81BE1F8C40022D48C /* MaskLayer.m */; };
+		54FE880D1BE1F8C40022D48C /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87DA1BE1F8C40022D48C /* RSBrightnessSlider.m */; };
+		54FE880E1BE1F8C40022D48C /* RSColorFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87DC1BE1F8C40022D48C /* RSColorFunctions.m */; };
+		54FE880F1BE1F8C40022D48C /* RSColorPickerLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87DE1BE1F8C40022D48C /* RSColorPickerLoopView.m */; };
+		54FE88101BE1F8C40022D48C /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87E01BE1F8C40022D48C /* RSColorPickerState.m */; };
+		54FE88111BE1F8C40022D48C /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87E21BE1F8C40022D48C /* RSColorPickerView.m */; };
+		54FE88121BE1F8C40022D48C /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87E41BE1F8C40022D48C /* RSGenerateOperation.m */; };
+		54FE88131BE1F8C40022D48C /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87E61BE1F8C40022D48C /* RSOpacitySlider.m */; };
+		54FE88141BE1F8C40022D48C /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87E81BE1F8C40022D48C /* RSSelectionLayer.m */; };
+		54FE88151BE1F8C40022D48C /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87EB1BE1F8C40022D48C /* ColorPickerView.m */; };
+		54FE88161BE1F8C40022D48C /* DesignNailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87ED1BE1F8C40022D48C /* DesignNailViewController.m */; };
+		54FE88171BE1F8C40022D48C /* DotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87EF1BE1F8C40022D48C /* DotButton.m */; };
+		54FE88181BE1F8C40022D48C /* DynamicBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87F11BE1F8C40022D48C /* DynamicBlurView.m */; };
+		54FE88191BE1F8C40022D48C /* DynamicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87F31BE1F8C40022D48C /* DynamicView.m */; };
+		54FE881A1BE1F8C40022D48C /* LineWidthShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87F51BE1F8C40022D48C /* LineWidthShowView.m */; };
+		54FE881B1BE1F8C40022D48C /* LineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FE87F71BE1F8C40022D48C /* LineWidthView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,8 +121,6 @@
 		541A7BE91BD746F500EC3985 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = cutImageIOS/Images.xcassets; sourceTree = "<group>"; };
 		541A7BEC1BD794C800EC3985 /* CloverScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverScreen.h; sourceTree = "<group>"; };
 		541A7BED1BD794C800EC3985 /* CloverScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverScreen.m; sourceTree = "<group>"; };
-		541A7C131BD8EEA700EC3985 /* LineWidthShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineWidthShowView.h; sourceTree = "<group>"; };
-		541A7C141BD8EEA700EC3985 /* LineWidthShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineWidthShowView.m; sourceTree = "<group>"; };
 		54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CloverGrabCut.cpp; sourceTree = "<group>"; };
 		54318C741B9D7AF400A16E21 /* CloverGrabCut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverGrabCut.h; sourceTree = "<group>"; };
 		54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateCutImageViewController.h; path = ../RotateCutImageViewController.h; sourceTree = "<group>"; };
@@ -134,76 +132,18 @@
 		547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KTOneFingerRotationGestureRecognizer.m; sourceTree = "<group>"; };
 		547094BF1BB247DD00E20453 /* CreatNailRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatNailRootViewController.h; sourceTree = "<group>"; };
 		547094C01BB247DD00E20453 /* CreatNailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatNailRootViewController.m; sourceTree = "<group>"; };
-		547094C21BB28C5200E20453 /* DesignNailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignNailViewController.h; sourceTree = "<group>"; };
 		547094C61BB29F8100E20453 /* CustomPushAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPushAnimation.h; sourceTree = "<group>"; };
 		547094C71BB29F8100E20453 /* CustomPushAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPushAnimation.m; sourceTree = "<group>"; };
-		547C97481BCBB2F900A28727 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
-		547C97491BCBB2F900A28727 /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageBitmapRep.m; sourceTree = "<group>"; };
-		547C974A1BCBB2F900A28727 /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextRep.h; sourceTree = "<group>"; };
-		547C974B1BCBB2F900A28727 /* BitmapContextRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextRep.m; sourceTree = "<group>"; };
-		547C974D1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
-		547C974E1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
-		547C974F1BCBB2F900A28727 /* OSCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCommonImage.h; sourceTree = "<group>"; };
-		547C97501BCBB2F900A28727 /* OSCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCommonImage.m; sourceTree = "<group>"; };
-		547C97511BCBB2F900A28727 /* UIImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
-		547C97521BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
-		547C97541BCBB2F900A28727 /* CGContextCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGContextCreator.h; sourceTree = "<group>"; };
-		547C97551BCBB2F900A28727 /* CGContextCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGContextCreator.m; sourceTree = "<group>"; };
-		547C97561BCBB2F900A28727 /* CGImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGImageContainer.h; sourceTree = "<group>"; };
-		547C97571BCBB2F900A28727 /* CGImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGImageContainer.m; sourceTree = "<group>"; };
-		547C97591BCBB2F900A28727 /* BitmapContextManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextManipulator.h; sourceTree = "<group>"; };
-		547C975A1BCBB2F900A28727 /* BitmapContextManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextManipulator.m; sourceTree = "<group>"; };
-		547C975B1BCBB2F900A28727 /* BitmapCropManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapCropManipulator.h; sourceTree = "<group>"; };
-		547C975C1BCBB2F900A28727 /* BitmapCropManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapCropManipulator.m; sourceTree = "<group>"; };
-		547C975D1BCBB2F900A28727 /* BitmapDrawManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapDrawManipulator.h; sourceTree = "<group>"; };
-		547C975E1BCBB2F900A28727 /* BitmapDrawManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapDrawManipulator.m; sourceTree = "<group>"; };
-		547C975F1BCBB2F900A28727 /* BitmapRotationManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapRotationManipulator.h; sourceTree = "<group>"; };
-		547C97601BCBB2F900A28727 /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
-		547C97611BCBB2F900A28727 /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
-		547C97621BCBB2F900A28727 /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
-		547C97631BCBB2F900A28727 /* BGRSLoupeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGRSLoupeLayer.h; sourceTree = "<group>"; };
-		547C97641BCBB2F900A28727 /* BGRSLoupeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGRSLoupeLayer.m; sourceTree = "<group>"; };
-		547C97651BCBB2F900A28727 /* ColorPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPreview.h; sourceTree = "<group>"; };
-		547C97661BCBB2F900A28727 /* ColorPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPreview.m; sourceTree = "<group>"; };
-		547C97671BCBB2F900A28727 /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
-		547C97681BCBB2F900A28727 /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
-		547C97691BCBB2F900A28727 /* RSColorFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorFunctions.h; sourceTree = "<group>"; };
-		547C976A1BCBB2F900A28727 /* RSColorFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorFunctions.m; sourceTree = "<group>"; };
-		547C976B1BCBB2F900A28727 /* RSColorPickerLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerLoopView.h; sourceTree = "<group>"; };
-		547C976C1BCBB2F900A28727 /* RSColorPickerLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerLoopView.m; sourceTree = "<group>"; };
-		547C976D1BCBB2F900A28727 /* RSColorPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerState.h; sourceTree = "<group>"; };
-		547C976E1BCBB2F900A28727 /* RSColorPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerState.m; sourceTree = "<group>"; };
-		547C976F1BCBB2F900A28727 /* RSColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerView.h; sourceTree = "<group>"; };
-		547C97701BCBB2F900A28727 /* RSColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerView.m; sourceTree = "<group>"; };
-		547C97711BCBB2F900A28727 /* RSGenerateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGenerateOperation.h; sourceTree = "<group>"; };
-		547C97721BCBB2F900A28727 /* RSGenerateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGenerateOperation.m; sourceTree = "<group>"; };
-		547C97731BCBB2F900A28727 /* RSOpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSOpacitySlider.h; sourceTree = "<group>"; };
-		547C97741BCBB2F900A28727 /* RSOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSOpacitySlider.m; sourceTree = "<group>"; };
-		547C97751BCBB2F900A28727 /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
-		547C97761BCBB2F900A28727 /* RSSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSelectionLayer.m; sourceTree = "<group>"; };
-		547C97901BCBBC1700A28727 /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
-		547C97911BCBBC1700A28727 /* ColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerView.m; sourceTree = "<group>"; };
 		547C97941BCCFDEA00A28727 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		547C97951BCCFDEA00A28727 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
-		54ADFACF1BDA062100BAB7BF /* DynamicBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBlurView.h; sourceTree = "<group>"; };
-		54ADFAD01BDA062100BAB7BF /* DynamicBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicBlurView.m; sourceTree = "<group>"; };
-		54ADFAD21BDCC28A00BAB7BF /* CloverColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverColorLayer.h; sourceTree = "<group>"; };
-		54ADFAD31BDCC28A00BAB7BF /* CloverColorLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverColorLayer.m; sourceTree = "<group>"; };
-		54ADFAD81BDE2F5300BAB7BF /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
-		54ADFAD91BDE2F5300BAB7BF /* MaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskLayer.m; sourceTree = "<group>"; };
-		54ADFADB1BDE553B00BAB7BF /* BrightnessAndSaturationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessAndSaturationView.h; sourceTree = "<group>"; };
-		54ADFADC1BDE553B00BAB7BF /* BrightnessAndSaturationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessAndSaturationView.m; sourceTree = "<group>"; };
 		54B396341BCF5FB400F55293 /* TWImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageScrollView.h; sourceTree = "<group>"; };
 		54B396351BCF5FB400F55293 /* TWImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageScrollView.m; sourceTree = "<group>"; };
 		54B396361BCF5FB400F55293 /* TWPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		54B396371BCF5FB400F55293 /* TWPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		54B396381BCF5FB400F55293 /* TWPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPhotoPickerController.h; sourceTree = "<group>"; };
 		54B396391BCF5FB400F55293 /* TWPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPhotoPickerController.m; sourceTree = "<group>"; };
-		54C679D71BDF4F4B00D48D1A /* BSColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSColorLayer.h; sourceTree = "<group>"; };
-		54C679D81BDF4F4B00D48D1A /* BSColorLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSColorLayer.m; sourceTree = "<group>"; };
 		54C679DC1BDFC2A600D48D1A /* UIImageView+Capture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Capture.h"; sourceTree = "<group>"; };
 		54C679DD1BDFC2A600D48D1A /* UIImageView+Capture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Capture.m"; sourceTree = "<group>"; };
-		54C679DF1BDFCCDC00D48D1A /* DesignNailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignNailViewController.m; sourceTree = "<group>"; };
 		54D816D71B8B18F40002061D /* CutoutImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImage.cpp; sourceTree = "<group>"; };
 		54D816D81B8B18F40002061D /* CutoutImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImage.h; sourceTree = "<group>"; };
 		54D816DA1B8B22010002061D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -212,28 +152,88 @@
 		54D816E31B8B28C10002061D /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = opencv2.framework; sourceTree = "<group>"; };
 		54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImagePacking.cpp; sourceTree = "<group>"; };
 		54D816EB1B8C777C0002061D /* CutoutImagePacking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImagePacking.h; sourceTree = "<group>"; };
-		54E137591BB8DD4E00467518 /* DotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotButton.h; sourceTree = "<group>"; };
-		54E1375A1BB8DD4E00467518 /* DotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DotButton.m; sourceTree = "<group>"; };
 		54E1375D1BB8E9C700467518 /* FXBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FXBlurView.h; sourceTree = "<group>"; };
 		54E1375E1BB8E9C700467518 /* FXBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FXBlurView.m; sourceTree = "<group>"; };
 		54E3E6C51BB2ADB900FD1206 /* CustomPopAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPopAnimation.h; sourceTree = "<group>"; };
 		54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPopAnimation.m; sourceTree = "<group>"; };
-		54E3E6C91BB3D74500FD1206 /* LineWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineWidthView.h; sourceTree = "<group>"; };
-		54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineWidthView.m; sourceTree = "<group>"; };
-		54E3E6CC1BB3FDA400FD1206 /* DynamicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicView.h; sourceTree = "<group>"; };
-		54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicView.m; sourceTree = "<group>"; };
-		54E3E6CF1BB40A1500FD1206 /* ColorBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBoardView.h; sourceTree = "<group>"; };
-		54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBoardView.m; sourceTree = "<group>"; };
 		54EF67471B947641007E7A3C /* DrawViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawViewModel.h; sourceTree = "<group>"; };
 		54EF67481B947641007E7A3C /* DrawViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawViewModel.m; sourceTree = "<group>"; };
 		54EF674A1B947723007E7A3C /* DrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawView.h; path = ../DrawView.h; sourceTree = "<group>"; };
 		54EF674B1B947723007E7A3C /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawView.m; path = ../DrawView.m; sourceTree = "<group>"; };
 		54EF67531B95861F007E7A3C /* ImageEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageEditView.h; path = ../ImageEditView.h; sourceTree = "<group>"; };
 		54EF67541B95861F007E7A3C /* ImageEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageEditView.m; path = ../ImageEditView.m; sourceTree = "<group>"; };
-		54F38B761BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverOpacitySliderBackgroundLayer.h; sourceTree = "<group>"; };
-		54F38B771BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverOpacitySliderBackgroundLayer.m; sourceTree = "<group>"; };
-		54FD3B1A1BE1BC3B00B93429 /* CloverWhiteArc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverWhiteArc.h; sourceTree = "<group>"; };
-		54FD3B1B1BE1BC3B00B93429 /* CloverWhiteArc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverWhiteArc.m; sourceTree = "<group>"; };
+		54FE87AA1BE1F8C40022D48C /* ColorBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorBoardView.h; sourceTree = "<group>"; };
+		54FE87AB1BE1F8C40022D48C /* ColorBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorBoardView.m; sourceTree = "<group>"; };
+		54FE87AE1BE1F8C40022D48C /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
+		54FE87AF1BE1F8C40022D48C /* ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ANImageBitmapRep.m; sourceTree = "<group>"; };
+		54FE87B01BE1F8C40022D48C /* BitmapContextRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextRep.h; sourceTree = "<group>"; };
+		54FE87B11BE1F8C40022D48C /* BitmapContextRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextRep.m; sourceTree = "<group>"; };
+		54FE87B31BE1F8C40022D48C /* NSImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		54FE87B41BE1F8C40022D48C /* NSImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		54FE87B51BE1F8C40022D48C /* OSCommonImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCommonImage.h; sourceTree = "<group>"; };
+		54FE87B61BE1F8C40022D48C /* OSCommonImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCommonImage.m; sourceTree = "<group>"; };
+		54FE87B71BE1F8C40022D48C /* UIImage+ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ANImageBitmapRep.h"; sourceTree = "<group>"; };
+		54FE87B81BE1F8C40022D48C /* UIImage+ANImageBitmapRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ANImageBitmapRep.m"; sourceTree = "<group>"; };
+		54FE87BA1BE1F8C40022D48C /* CGContextCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGContextCreator.h; sourceTree = "<group>"; };
+		54FE87BB1BE1F8C40022D48C /* CGContextCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGContextCreator.m; sourceTree = "<group>"; };
+		54FE87BC1BE1F8C40022D48C /* CGImageContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGImageContainer.h; sourceTree = "<group>"; };
+		54FE87BD1BE1F8C40022D48C /* CGImageContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGImageContainer.m; sourceTree = "<group>"; };
+		54FE87BF1BE1F8C40022D48C /* BitmapContextManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapContextManipulator.h; sourceTree = "<group>"; };
+		54FE87C01BE1F8C40022D48C /* BitmapContextManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapContextManipulator.m; sourceTree = "<group>"; };
+		54FE87C11BE1F8C40022D48C /* BitmapCropManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapCropManipulator.h; sourceTree = "<group>"; };
+		54FE87C21BE1F8C40022D48C /* BitmapCropManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapCropManipulator.m; sourceTree = "<group>"; };
+		54FE87C31BE1F8C40022D48C /* BitmapDrawManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapDrawManipulator.h; sourceTree = "<group>"; };
+		54FE87C41BE1F8C40022D48C /* BitmapDrawManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapDrawManipulator.m; sourceTree = "<group>"; };
+		54FE87C51BE1F8C40022D48C /* BitmapRotationManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapRotationManipulator.h; sourceTree = "<group>"; };
+		54FE87C61BE1F8C40022D48C /* BitmapRotationManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapRotationManipulator.m; sourceTree = "<group>"; };
+		54FE87C71BE1F8C40022D48C /* BitmapScaleManipulator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BitmapScaleManipulator.h; sourceTree = "<group>"; };
+		54FE87C81BE1F8C40022D48C /* BitmapScaleManipulator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BitmapScaleManipulator.m; sourceTree = "<group>"; };
+		54FE87C91BE1F8C40022D48C /* BGRSLoupeLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BGRSLoupeLayer.h; sourceTree = "<group>"; };
+		54FE87CA1BE1F8C40022D48C /* BGRSLoupeLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BGRSLoupeLayer.m; sourceTree = "<group>"; };
+		54FE87CB1BE1F8C40022D48C /* BrightnessAndSaturationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessAndSaturationView.h; sourceTree = "<group>"; };
+		54FE87CC1BE1F8C40022D48C /* BrightnessAndSaturationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessAndSaturationView.m; sourceTree = "<group>"; };
+		54FE87CD1BE1F8C40022D48C /* BSColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSColorLayer.h; sourceTree = "<group>"; };
+		54FE87CE1BE1F8C40022D48C /* BSColorLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSColorLayer.m; sourceTree = "<group>"; };
+		54FE87CF1BE1F8C40022D48C /* CloverColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverColorLayer.h; sourceTree = "<group>"; };
+		54FE87D01BE1F8C40022D48C /* CloverColorLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverColorLayer.m; sourceTree = "<group>"; };
+		54FE87D11BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverOpacitySliderBackgroundLayer.h; sourceTree = "<group>"; };
+		54FE87D21BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverOpacitySliderBackgroundLayer.m; sourceTree = "<group>"; };
+		54FE87D31BE1F8C40022D48C /* CloverWhiteArc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverWhiteArc.h; sourceTree = "<group>"; };
+		54FE87D41BE1F8C40022D48C /* CloverWhiteArc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverWhiteArc.m; sourceTree = "<group>"; };
+		54FE87D51BE1F8C40022D48C /* ColorPreview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPreview.h; sourceTree = "<group>"; };
+		54FE87D61BE1F8C40022D48C /* ColorPreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPreview.m; sourceTree = "<group>"; };
+		54FE87D71BE1F8C40022D48C /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
+		54FE87D81BE1F8C40022D48C /* MaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskLayer.m; sourceTree = "<group>"; };
+		54FE87D91BE1F8C40022D48C /* RSBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSBrightnessSlider.h; sourceTree = "<group>"; };
+		54FE87DA1BE1F8C40022D48C /* RSBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSBrightnessSlider.m; sourceTree = "<group>"; };
+		54FE87DB1BE1F8C40022D48C /* RSColorFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorFunctions.h; sourceTree = "<group>"; };
+		54FE87DC1BE1F8C40022D48C /* RSColorFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorFunctions.m; sourceTree = "<group>"; };
+		54FE87DD1BE1F8C40022D48C /* RSColorPickerLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerLoopView.h; sourceTree = "<group>"; };
+		54FE87DE1BE1F8C40022D48C /* RSColorPickerLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerLoopView.m; sourceTree = "<group>"; };
+		54FE87DF1BE1F8C40022D48C /* RSColorPickerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerState.h; sourceTree = "<group>"; };
+		54FE87E01BE1F8C40022D48C /* RSColorPickerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerState.m; sourceTree = "<group>"; };
+		54FE87E11BE1F8C40022D48C /* RSColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSColorPickerView.h; sourceTree = "<group>"; };
+		54FE87E21BE1F8C40022D48C /* RSColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSColorPickerView.m; sourceTree = "<group>"; };
+		54FE87E31BE1F8C40022D48C /* RSGenerateOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSGenerateOperation.h; sourceTree = "<group>"; };
+		54FE87E41BE1F8C40022D48C /* RSGenerateOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSGenerateOperation.m; sourceTree = "<group>"; };
+		54FE87E51BE1F8C40022D48C /* RSOpacitySlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSOpacitySlider.h; sourceTree = "<group>"; };
+		54FE87E61BE1F8C40022D48C /* RSOpacitySlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSOpacitySlider.m; sourceTree = "<group>"; };
+		54FE87E71BE1F8C40022D48C /* RSSelectionLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSSelectionLayer.h; sourceTree = "<group>"; };
+		54FE87E81BE1F8C40022D48C /* RSSelectionLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSSelectionLayer.m; sourceTree = "<group>"; };
+		54FE87EA1BE1F8C40022D48C /* ColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerView.h; sourceTree = "<group>"; };
+		54FE87EB1BE1F8C40022D48C /* ColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerView.m; sourceTree = "<group>"; };
+		54FE87EC1BE1F8C40022D48C /* DesignNailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignNailViewController.h; sourceTree = "<group>"; };
+		54FE87ED1BE1F8C40022D48C /* DesignNailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignNailViewController.m; sourceTree = "<group>"; };
+		54FE87EE1BE1F8C40022D48C /* DotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DotButton.h; sourceTree = "<group>"; };
+		54FE87EF1BE1F8C40022D48C /* DotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DotButton.m; sourceTree = "<group>"; };
+		54FE87F01BE1F8C40022D48C /* DynamicBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBlurView.h; sourceTree = "<group>"; };
+		54FE87F11BE1F8C40022D48C /* DynamicBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicBlurView.m; sourceTree = "<group>"; };
+		54FE87F21BE1F8C40022D48C /* DynamicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicView.h; sourceTree = "<group>"; };
+		54FE87F31BE1F8C40022D48C /* DynamicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicView.m; sourceTree = "<group>"; };
+		54FE87F41BE1F8C40022D48C /* LineWidthShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineWidthShowView.h; sourceTree = "<group>"; };
+		54FE87F51BE1F8C40022D48C /* LineWidthShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineWidthShowView.m; sourceTree = "<group>"; };
+		54FE87F61BE1F8C40022D48C /* LineWidthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineWidthView.h; sourceTree = "<group>"; };
+		54FE87F71BE1F8C40022D48C /* LineWidthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineWidthView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -285,9 +285,9 @@
 		541382791B86E07600478FE6 /* cutImageIOS */ = {
 			isa = PBXGroup;
 			children = (
+				54FE87A91BE1F8C40022D48C /* DesignNailView */,
 				54B396331BCF5FA300F55293 /* PhotoPicker */,
 				54E1375C1BB8E9C700467518 /* FXBlurView */,
-				54E3E6C81BB3D67800FD1206 /* DesignNailView */,
 				54318C761BA019FB00A16E21 /* RotateCutImageViewController.h */,
 				54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */,
 				54EF67531B95861F007E7A3C /* ImageEditView.h */,
@@ -387,119 +387,6 @@
 			name = Animation;
 			sourceTree = "<group>";
 		};
-		547C97451BCBB1AD00A28727 /* ColorPicker */ = {
-			isa = PBXGroup;
-			children = (
-				547C97931BCBBFC400A28727 /* View */,
-				547C97461BCBB2F900A28727 /* ColorPickerClasses */,
-			);
-			name = ColorPicker;
-			sourceTree = "<group>";
-		};
-		547C97461BCBB2F900A28727 /* ColorPickerClasses */ = {
-			isa = PBXGroup;
-			children = (
-				547C97471BCBB2F900A28727 /* ANImageBitmapRep */,
-				547C97631BCBB2F900A28727 /* BGRSLoupeLayer.h */,
-				547C97641BCBB2F900A28727 /* BGRSLoupeLayer.m */,
-				547C97651BCBB2F900A28727 /* ColorPreview.h */,
-				547C97661BCBB2F900A28727 /* ColorPreview.m */,
-				547C97671BCBB2F900A28727 /* RSBrightnessSlider.h */,
-				547C97681BCBB2F900A28727 /* RSBrightnessSlider.m */,
-				547C97691BCBB2F900A28727 /* RSColorFunctions.h */,
-				547C976A1BCBB2F900A28727 /* RSColorFunctions.m */,
-				547C976B1BCBB2F900A28727 /* RSColorPickerLoopView.h */,
-				547C976C1BCBB2F900A28727 /* RSColorPickerLoopView.m */,
-				547C976D1BCBB2F900A28727 /* RSColorPickerState.h */,
-				547C976E1BCBB2F900A28727 /* RSColorPickerState.m */,
-				547C976F1BCBB2F900A28727 /* RSColorPickerView.h */,
-				547C97701BCBB2F900A28727 /* RSColorPickerView.m */,
-				547C97711BCBB2F900A28727 /* RSGenerateOperation.h */,
-				547C97721BCBB2F900A28727 /* RSGenerateOperation.m */,
-				547C97731BCBB2F900A28727 /* RSOpacitySlider.h */,
-				547C97741BCBB2F900A28727 /* RSOpacitySlider.m */,
-				54F38B761BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.h */,
-				54F38B771BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m */,
-				54FD3B1A1BE1BC3B00B93429 /* CloverWhiteArc.h */,
-				54FD3B1B1BE1BC3B00B93429 /* CloverWhiteArc.m */,
-				547C97751BCBB2F900A28727 /* RSSelectionLayer.h */,
-				547C97761BCBB2F900A28727 /* RSSelectionLayer.m */,
-				54ADFAD21BDCC28A00BAB7BF /* CloverColorLayer.h */,
-				54ADFAD31BDCC28A00BAB7BF /* CloverColorLayer.m */,
-				54ADFAD81BDE2F5300BAB7BF /* MaskLayer.h */,
-				54ADFAD91BDE2F5300BAB7BF /* MaskLayer.m */,
-				54ADFADB1BDE553B00BAB7BF /* BrightnessAndSaturationView.h */,
-				54ADFADC1BDE553B00BAB7BF /* BrightnessAndSaturationView.m */,
-				54C679D71BDF4F4B00D48D1A /* BSColorLayer.h */,
-				54C679D81BDF4F4B00D48D1A /* BSColorLayer.m */,
-			);
-			path = ColorPickerClasses;
-			sourceTree = "<group>";
-		};
-		547C97471BCBB2F900A28727 /* ANImageBitmapRep */ = {
-			isa = PBXGroup;
-			children = (
-				547C97481BCBB2F900A28727 /* ANImageBitmapRep.h */,
-				547C97491BCBB2F900A28727 /* ANImageBitmapRep.m */,
-				547C974A1BCBB2F900A28727 /* BitmapContextRep.h */,
-				547C974B1BCBB2F900A28727 /* BitmapContextRep.m */,
-				547C974C1BCBB2F900A28727 /* Compatibility */,
-				547C97531BCBB2F900A28727 /* CoreGraphics */,
-				547C97581BCBB2F900A28727 /* Manipulators */,
-			);
-			path = ANImageBitmapRep;
-			sourceTree = "<group>";
-		};
-		547C974C1BCBB2F900A28727 /* Compatibility */ = {
-			isa = PBXGroup;
-			children = (
-				547C974D1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.h */,
-				547C974E1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m */,
-				547C974F1BCBB2F900A28727 /* OSCommonImage.h */,
-				547C97501BCBB2F900A28727 /* OSCommonImage.m */,
-				547C97511BCBB2F900A28727 /* UIImage+ANImageBitmapRep.h */,
-				547C97521BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m */,
-			);
-			path = Compatibility;
-			sourceTree = "<group>";
-		};
-		547C97531BCBB2F900A28727 /* CoreGraphics */ = {
-			isa = PBXGroup;
-			children = (
-				547C97541BCBB2F900A28727 /* CGContextCreator.h */,
-				547C97551BCBB2F900A28727 /* CGContextCreator.m */,
-				547C97561BCBB2F900A28727 /* CGImageContainer.h */,
-				547C97571BCBB2F900A28727 /* CGImageContainer.m */,
-			);
-			path = CoreGraphics;
-			sourceTree = "<group>";
-		};
-		547C97581BCBB2F900A28727 /* Manipulators */ = {
-			isa = PBXGroup;
-			children = (
-				547C97591BCBB2F900A28727 /* BitmapContextManipulator.h */,
-				547C975A1BCBB2F900A28727 /* BitmapContextManipulator.m */,
-				547C975B1BCBB2F900A28727 /* BitmapCropManipulator.h */,
-				547C975C1BCBB2F900A28727 /* BitmapCropManipulator.m */,
-				547C975D1BCBB2F900A28727 /* BitmapDrawManipulator.h */,
-				547C975E1BCBB2F900A28727 /* BitmapDrawManipulator.m */,
-				547C975F1BCBB2F900A28727 /* BitmapRotationManipulator.h */,
-				547C97601BCBB2F900A28727 /* BitmapRotationManipulator.m */,
-				547C97611BCBB2F900A28727 /* BitmapScaleManipulator.h */,
-				547C97621BCBB2F900A28727 /* BitmapScaleManipulator.m */,
-			);
-			path = Manipulators;
-			sourceTree = "<group>";
-		};
-		547C97931BCBBFC400A28727 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				547C97901BCBBC1700A28727 /* ColorPickerView.h */,
-				547C97911BCBBC1700A28727 /* ColorPickerView.m */,
-			);
-			name = View;
-			sourceTree = "<group>";
-		};
 		54B396331BCF5FA300F55293 /* PhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
@@ -533,26 +420,131 @@
 			path = FXBlurView;
 			sourceTree = "<group>";
 		};
-		54E3E6C81BB3D67800FD1206 /* DesignNailView */ = {
+		54FE87A91BE1F8C40022D48C /* DesignNailView */ = {
 			isa = PBXGroup;
 			children = (
-				547C97451BCBB1AD00A28727 /* ColorPicker */,
-				547094C21BB28C5200E20453 /* DesignNailViewController.h */,
-				54C679DF1BDFCCDC00D48D1A /* DesignNailViewController.m */,
-				54E3E6C91BB3D74500FD1206 /* LineWidthView.h */,
-				54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */,
-				54E3E6CC1BB3FDA400FD1206 /* DynamicView.h */,
-				54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */,
-				54ADFACF1BDA062100BAB7BF /* DynamicBlurView.h */,
-				54ADFAD01BDA062100BAB7BF /* DynamicBlurView.m */,
-				54E3E6CF1BB40A1500FD1206 /* ColorBoardView.h */,
-				54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */,
-				54E137591BB8DD4E00467518 /* DotButton.h */,
-				54E1375A1BB8DD4E00467518 /* DotButton.m */,
-				541A7C131BD8EEA700EC3985 /* LineWidthShowView.h */,
-				541A7C141BD8EEA700EC3985 /* LineWidthShowView.m */,
+				54FE87AA1BE1F8C40022D48C /* ColorBoardView.h */,
+				54FE87AB1BE1F8C40022D48C /* ColorBoardView.m */,
+				54FE87AC1BE1F8C40022D48C /* ColorPickerClasses */,
+				54FE87EC1BE1F8C40022D48C /* DesignNailViewController.h */,
+				54FE87ED1BE1F8C40022D48C /* DesignNailViewController.m */,
+				54FE87EE1BE1F8C40022D48C /* DotButton.h */,
+				54FE87EF1BE1F8C40022D48C /* DotButton.m */,
+				54FE87F01BE1F8C40022D48C /* DynamicBlurView.h */,
+				54FE87F11BE1F8C40022D48C /* DynamicBlurView.m */,
+				54FE87F21BE1F8C40022D48C /* DynamicView.h */,
+				54FE87F31BE1F8C40022D48C /* DynamicView.m */,
+				54FE87F41BE1F8C40022D48C /* LineWidthShowView.h */,
+				54FE87F51BE1F8C40022D48C /* LineWidthShowView.m */,
+				54FE87F61BE1F8C40022D48C /* LineWidthView.h */,
+				54FE87F71BE1F8C40022D48C /* LineWidthView.m */,
 			);
-			name = DesignNailView;
+			path = DesignNailView;
+			sourceTree = "<group>";
+		};
+		54FE87AC1BE1F8C40022D48C /* ColorPickerClasses */ = {
+			isa = PBXGroup;
+			children = (
+				54FE87AD1BE1F8C40022D48C /* ANImageBitmapRep */,
+				54FE87C91BE1F8C40022D48C /* BGRSLoupeLayer.h */,
+				54FE87CA1BE1F8C40022D48C /* BGRSLoupeLayer.m */,
+				54FE87CB1BE1F8C40022D48C /* BrightnessAndSaturationView.h */,
+				54FE87CC1BE1F8C40022D48C /* BrightnessAndSaturationView.m */,
+				54FE87CD1BE1F8C40022D48C /* BSColorLayer.h */,
+				54FE87CE1BE1F8C40022D48C /* BSColorLayer.m */,
+				54FE87CF1BE1F8C40022D48C /* CloverColorLayer.h */,
+				54FE87D01BE1F8C40022D48C /* CloverColorLayer.m */,
+				54FE87D11BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.h */,
+				54FE87D21BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.m */,
+				54FE87D31BE1F8C40022D48C /* CloverWhiteArc.h */,
+				54FE87D41BE1F8C40022D48C /* CloverWhiteArc.m */,
+				54FE87D51BE1F8C40022D48C /* ColorPreview.h */,
+				54FE87D61BE1F8C40022D48C /* ColorPreview.m */,
+				54FE87D71BE1F8C40022D48C /* MaskLayer.h */,
+				54FE87D81BE1F8C40022D48C /* MaskLayer.m */,
+				54FE87D91BE1F8C40022D48C /* RSBrightnessSlider.h */,
+				54FE87DA1BE1F8C40022D48C /* RSBrightnessSlider.m */,
+				54FE87DB1BE1F8C40022D48C /* RSColorFunctions.h */,
+				54FE87DC1BE1F8C40022D48C /* RSColorFunctions.m */,
+				54FE87DD1BE1F8C40022D48C /* RSColorPickerLoopView.h */,
+				54FE87DE1BE1F8C40022D48C /* RSColorPickerLoopView.m */,
+				54FE87DF1BE1F8C40022D48C /* RSColorPickerState.h */,
+				54FE87E01BE1F8C40022D48C /* RSColorPickerState.m */,
+				54FE87E11BE1F8C40022D48C /* RSColorPickerView.h */,
+				54FE87E21BE1F8C40022D48C /* RSColorPickerView.m */,
+				54FE87E31BE1F8C40022D48C /* RSGenerateOperation.h */,
+				54FE87E41BE1F8C40022D48C /* RSGenerateOperation.m */,
+				54FE87E51BE1F8C40022D48C /* RSOpacitySlider.h */,
+				54FE87E61BE1F8C40022D48C /* RSOpacitySlider.m */,
+				54FE87E71BE1F8C40022D48C /* RSSelectionLayer.h */,
+				54FE87E81BE1F8C40022D48C /* RSSelectionLayer.m */,
+				54FE87E91BE1F8C40022D48C /* View */,
+			);
+			path = ColorPickerClasses;
+			sourceTree = "<group>";
+		};
+		54FE87AD1BE1F8C40022D48C /* ANImageBitmapRep */ = {
+			isa = PBXGroup;
+			children = (
+				54FE87AE1BE1F8C40022D48C /* ANImageBitmapRep.h */,
+				54FE87AF1BE1F8C40022D48C /* ANImageBitmapRep.m */,
+				54FE87B01BE1F8C40022D48C /* BitmapContextRep.h */,
+				54FE87B11BE1F8C40022D48C /* BitmapContextRep.m */,
+				54FE87B21BE1F8C40022D48C /* Compatibility */,
+				54FE87B91BE1F8C40022D48C /* CoreGraphics */,
+				54FE87BE1BE1F8C40022D48C /* Manipulators */,
+			);
+			path = ANImageBitmapRep;
+			sourceTree = "<group>";
+		};
+		54FE87B21BE1F8C40022D48C /* Compatibility */ = {
+			isa = PBXGroup;
+			children = (
+				54FE87B31BE1F8C40022D48C /* NSImage+ANImageBitmapRep.h */,
+				54FE87B41BE1F8C40022D48C /* NSImage+ANImageBitmapRep.m */,
+				54FE87B51BE1F8C40022D48C /* OSCommonImage.h */,
+				54FE87B61BE1F8C40022D48C /* OSCommonImage.m */,
+				54FE87B71BE1F8C40022D48C /* UIImage+ANImageBitmapRep.h */,
+				54FE87B81BE1F8C40022D48C /* UIImage+ANImageBitmapRep.m */,
+			);
+			path = Compatibility;
+			sourceTree = "<group>";
+		};
+		54FE87B91BE1F8C40022D48C /* CoreGraphics */ = {
+			isa = PBXGroup;
+			children = (
+				54FE87BA1BE1F8C40022D48C /* CGContextCreator.h */,
+				54FE87BB1BE1F8C40022D48C /* CGContextCreator.m */,
+				54FE87BC1BE1F8C40022D48C /* CGImageContainer.h */,
+				54FE87BD1BE1F8C40022D48C /* CGImageContainer.m */,
+			);
+			path = CoreGraphics;
+			sourceTree = "<group>";
+		};
+		54FE87BE1BE1F8C40022D48C /* Manipulators */ = {
+			isa = PBXGroup;
+			children = (
+				54FE87BF1BE1F8C40022D48C /* BitmapContextManipulator.h */,
+				54FE87C01BE1F8C40022D48C /* BitmapContextManipulator.m */,
+				54FE87C11BE1F8C40022D48C /* BitmapCropManipulator.h */,
+				54FE87C21BE1F8C40022D48C /* BitmapCropManipulator.m */,
+				54FE87C31BE1F8C40022D48C /* BitmapDrawManipulator.h */,
+				54FE87C41BE1F8C40022D48C /* BitmapDrawManipulator.m */,
+				54FE87C51BE1F8C40022D48C /* BitmapRotationManipulator.h */,
+				54FE87C61BE1F8C40022D48C /* BitmapRotationManipulator.m */,
+				54FE87C71BE1F8C40022D48C /* BitmapScaleManipulator.h */,
+				54FE87C81BE1F8C40022D48C /* BitmapScaleManipulator.m */,
+			);
+			path = Manipulators;
+			sourceTree = "<group>";
+		};
+		54FE87E91BE1F8C40022D48C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				54FE87EA1BE1F8C40022D48C /* ColorPickerView.h */,
+				54FE87EB1BE1F8C40022D48C /* ColorPickerView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -657,65 +649,65 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				54FE88061BE1F8C40022D48C /* BrightnessAndSaturationView.m in Sources */,
+				54FE88171BE1F8C40022D48C /* DotButton.m in Sources */,
 				541A7BEE1BD794C800EC3985 /* CloverScreen.m in Sources */,
-				54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */,
-				547C97781BCBB2F900A28727 /* BitmapContextRep.m in Sources */,
+				54FE87F81BE1F8C40022D48C /* ColorBoardView.m in Sources */,
 				541382831B86E07600478FE6 /* CutNailViewController.m in Sources */,
-				547C977A1BCBB2F900A28727 /* OSCommonImage.m in Sources */,
-				547C978C1BCBB2F900A28727 /* RSSelectionLayer.m in Sources */,
+				54FE880D1BE1F8C40022D48C /* RSBrightnessSlider.m in Sources */,
+				54FE87F91BE1F8C40022D48C /* ANImageBitmapRep.m in Sources */,
 				54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */,
-				54ADFAD41BDCC28A00BAB7BF /* CloverColorLayer.m in Sources */,
-				54C679D91BDF4F4B00D48D1A /* BSColorLayer.m in Sources */,
-				547C97831BCBB2F900A28727 /* BGRSLoupeLayer.m in Sources */,
 				547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */,
 				54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */,
+				54FE880F1BE1F8C40022D48C /* RSColorPickerLoopView.m in Sources */,
+				54FE88141BE1F8C40022D48C /* RSSelectionLayer.m in Sources */,
 				54C679DE1BDFC2A600D48D1A /* UIImageView+Capture.m in Sources */,
-				547C97841BCBB2F900A28727 /* ColorPreview.m in Sources */,
-				547C977E1BCBB2F900A28727 /* BitmapContextManipulator.m in Sources */,
+				54FE881B1BE1F8C40022D48C /* LineWidthView.m in Sources */,
 				54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */,
-				547C97891BCBB2F900A28727 /* RSColorPickerView.m in Sources */,
+				54FE88071BE1F8C40022D48C /* BSColorLayer.m in Sources */,
+				54FE88131BE1F8C40022D48C /* RSOpacitySlider.m in Sources */,
 				54E1375F1BB8E9C700467518 /* FXBlurView.m in Sources */,
-				547C977C1BCBB2F900A28727 /* CGContextCreator.m in Sources */,
 				54EF674C1B947723007E7A3C /* DrawView.m in Sources */,
+				54FE881A1BE1F8C40022D48C /* LineWidthShowView.m in Sources */,
+				54FE87FD1BE1F8C40022D48C /* UIImage+ANImageBitmapRep.m in Sources */,
 				547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */,
-				54FD3B1C1BE1BC3B00B93429 /* CloverWhiteArc.m in Sources */,
-				547C977F1BCBB2F900A28727 /* BitmapCropManipulator.m in Sources */,
-				547C97881BCBB2F900A28727 /* RSColorPickerState.m in Sources */,
-				547C97851BCBB2F900A28727 /* RSBrightnessSlider.m in Sources */,
-				547C97771BCBB2F900A28727 /* ANImageBitmapRep.m in Sources */,
-				547C97861BCBB2F900A28727 /* RSColorFunctions.m in Sources */,
 				54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */,
 				54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */,
-				547C977D1BCBB2F900A28727 /* CGImageContainer.m in Sources */,
+				54FE880C1BE1F8C40022D48C /* MaskLayer.m in Sources */,
+				54FE880E1BE1F8C40022D48C /* RSColorFunctions.m in Sources */,
+				54FE87FB1BE1F8C40022D48C /* NSImage+ANImageBitmapRep.m in Sources */,
 				545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */,
-				547C97871BCBB2F900A28727 /* RSColorPickerLoopView.m in Sources */,
-				547C97791BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m in Sources */,
-				54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */,
+				54FE87FE1BE1F8C40022D48C /* CGContextCreator.m in Sources */,
 				541382801B86E07600478FE6 /* AppDelegate.m in Sources */,
-				54ADFADD1BDE553B00BAB7BF /* BrightnessAndSaturationView.m in Sources */,
-				54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */,
-				547C978A1BCBB2F900A28727 /* RSGenerateOperation.m in Sources */,
-				54F38B781BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m in Sources */,
 				54B3963B1BCF5FB400F55293 /* TWPhotoCollectionViewCell.m in Sources */,
-				54ADFADA1BDE2F5300BAB7BF /* MaskLayer.m in Sources */,
-				547C978B1BCBB2F900A28727 /* RSOpacitySlider.m in Sources */,
 				54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */,
-				547C97921BCBBC1700A28727 /* ColorPickerView.m in Sources */,
-				54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */,
-				547C97801BCBB2F900A28727 /* BitmapDrawManipulator.m in Sources */,
-				541A7C151BD8EEA700EC3985 /* LineWidthShowView.m in Sources */,
-				547C977B1BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m in Sources */,
-				547C97821BCBB2F900A28727 /* BitmapScaleManipulator.m in Sources */,
+				54FE88111BE1F8C40022D48C /* RSColorPickerView.m in Sources */,
+				54FE88011BE1F8C40022D48C /* BitmapCropManipulator.m in Sources */,
 				5413827D1B86E07600478FE6 /* main.m in Sources */,
 				54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */,
-				547C97811BCBB2F900A28727 /* BitmapRotationManipulator.m in Sources */,
 				541A7BAA1BD4F7C000EC3985 /* BottomViewWithButton.m in Sources */,
+				54FE88041BE1F8C40022D48C /* BitmapScaleManipulator.m in Sources */,
+				54FE87FA1BE1F8C40022D48C /* BitmapContextRep.m in Sources */,
+				54FE87FC1BE1F8C40022D48C /* OSCommonImage.m in Sources */,
+				54FE880B1BE1F8C40022D48C /* ColorPreview.m in Sources */,
+				54FE88031BE1F8C40022D48C /* BitmapRotationManipulator.m in Sources */,
+				54FE88091BE1F8C40022D48C /* CloverOpacitySliderBackgroundLayer.m in Sources */,
 				541A7BA71BD4F09A00EC3985 /* TopViewWithButton.m in Sources */,
-				54ADFAD11BDA062100BAB7BF /* DynamicBlurView.m in Sources */,
+				54FE88001BE1F8C40022D48C /* BitmapContextManipulator.m in Sources */,
+				54FE88101BE1F8C40022D48C /* RSColorPickerState.m in Sources */,
+				54FE88051BE1F8C40022D48C /* BGRSLoupeLayer.m in Sources */,
+				54FE88151BE1F8C40022D48C /* ColorPickerView.m in Sources */,
+				54FE88181BE1F8C40022D48C /* DynamicBlurView.m in Sources */,
+				54FE88081BE1F8C40022D48C /* CloverColorLayer.m in Sources */,
 				54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */,
 				547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */,
-				54C679E01BDFCCDC00D48D1A /* DesignNailViewController.m in Sources */,
+				54FE88161BE1F8C40022D48C /* DesignNailViewController.m in Sources */,
+				54FE87FF1BE1F8C40022D48C /* CGImageContainer.m in Sources */,
+				54FE88191BE1F8C40022D48C /* DynamicView.m in Sources */,
+				54FE88021BE1F8C40022D48C /* BitmapDrawManipulator.m in Sources */,
+				54FE88121BE1F8C40022D48C /* RSGenerateOperation.m in Sources */,
 				54B3963C1BCF5FB400F55293 /* TWPhotoPickerController.m in Sources */,
+				54FE880A1BE1F8C40022D48C /* CloverWhiteArc.m in Sources */,
 				54B3963A1BCF5FB400F55293 /* TWImageScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
