@@ -12,46 +12,51 @@
 		541382831B86E07600478FE6 /* CutNailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382821B86E07600478FE6 /* CutNailViewController.m */; };
 		541382971B86E07600478FE6 /* cutImageIOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 541382961B86E07600478FE6 /* cutImageIOSTests.m */; };
 		541382A41B870A4D00478FE6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 541382A21B870A2D00478FE6 /* UIKit.framework */; };
-		541A7BA71BD4F09A00EC3985 /* TopViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA61BD4F09A00EC3985 /* TopViewWithButton.m */; settings = {ASSET_TAGS = (); }; };
-		541A7BAA1BD4F7C000EC3985 /* BottomViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA91BD4F7C000EC3985 /* BottomViewWithButton.m */; settings = {ASSET_TAGS = (); }; };
-		541A7BEA1BD746F500EC3985 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 541A7BE91BD746F500EC3985 /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
-		541A7BEE1BD794C800EC3985 /* CloverScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BED1BD794C800EC3985 /* CloverScreen.m */; settings = {ASSET_TAGS = (); }; };
-		541A7C151BD8EEA700EC3985 /* LineWidthShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7C141BD8EEA700EC3985 /* LineWidthShowView.m */; settings = {ASSET_TAGS = (); }; };
+		541A7BA71BD4F09A00EC3985 /* TopViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA61BD4F09A00EC3985 /* TopViewWithButton.m */; };
+		541A7BAA1BD4F7C000EC3985 /* BottomViewWithButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BA91BD4F7C000EC3985 /* BottomViewWithButton.m */; };
+		541A7BEA1BD746F500EC3985 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 541A7BE91BD746F500EC3985 /* Images.xcassets */; };
+		541A7BEE1BD794C800EC3985 /* CloverScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7BED1BD794C800EC3985 /* CloverScreen.m */; };
+		541A7C151BD8EEA700EC3985 /* LineWidthShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 541A7C141BD8EEA700EC3985 /* LineWidthShowView.m */; };
 		54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54318C731B9D7AF400A16E21 /* CloverGrabCut.cpp */; };
 		54318C781BA019FB00A16E21 /* RotateCutImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54318C771BA019FB00A16E21 /* RotateCutImageViewController.m */; };
 		545346721B8D5ADC00F86C35 /* UIImage+IF.m in Sources */ = {isa = PBXBuildFile; fileRef = 545346711B8D5ADC00F86C35 /* UIImage+IF.m */; };
 		5467C2641B96EBA300B0FB6F /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5467C2621B96EB9000B0FB6F /* CoreMotion.framework */; };
-		547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */; settings = {ASSET_TAGS = (); }; };
-		547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C01BB247DD00E20453 /* CreatNailRootViewController.m */; settings = {ASSET_TAGS = (); }; };
-		547094C41BB28C5200E20453 /* DesignNailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C31BB28C5200E20453 /* DesignNailViewController.m */; settings = {ASSET_TAGS = (); }; };
-		547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C71BB29F8100E20453 /* CustomPushAnimation.m */; settings = {ASSET_TAGS = (); }; };
-		547C97771BCBB2F900A28727 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97491BCBB2F900A28727 /* ANImageBitmapRep.m */; settings = {ASSET_TAGS = (); }; };
-		547C97781BCBB2F900A28727 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C974B1BCBB2F900A28727 /* BitmapContextRep.m */; settings = {ASSET_TAGS = (); }; };
-		547C97791BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C974E1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m */; settings = {ASSET_TAGS = (); }; };
-		547C977A1BCBB2F900A28727 /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97501BCBB2F900A28727 /* OSCommonImage.m */; settings = {ASSET_TAGS = (); }; };
-		547C977B1BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97521BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m */; settings = {ASSET_TAGS = (); }; };
-		547C977C1BCBB2F900A28727 /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97551BCBB2F900A28727 /* CGContextCreator.m */; settings = {ASSET_TAGS = (); }; };
-		547C977D1BCBB2F900A28727 /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97571BCBB2F900A28727 /* CGImageContainer.m */; settings = {ASSET_TAGS = (); }; };
-		547C977E1BCBB2F900A28727 /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975A1BCBB2F900A28727 /* BitmapContextManipulator.m */; settings = {ASSET_TAGS = (); }; };
-		547C977F1BCBB2F900A28727 /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975C1BCBB2F900A28727 /* BitmapCropManipulator.m */; settings = {ASSET_TAGS = (); }; };
-		547C97801BCBB2F900A28727 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975E1BCBB2F900A28727 /* BitmapDrawManipulator.m */; settings = {ASSET_TAGS = (); }; };
-		547C97811BCBB2F900A28727 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97601BCBB2F900A28727 /* BitmapRotationManipulator.m */; settings = {ASSET_TAGS = (); }; };
-		547C97821BCBB2F900A28727 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97621BCBB2F900A28727 /* BitmapScaleManipulator.m */; settings = {ASSET_TAGS = (); }; };
-		547C97831BCBB2F900A28727 /* BGRSLoupeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97641BCBB2F900A28727 /* BGRSLoupeLayer.m */; settings = {ASSET_TAGS = (); }; };
-		547C97841BCBB2F900A28727 /* ColorPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97661BCBB2F900A28727 /* ColorPreview.m */; settings = {ASSET_TAGS = (); }; };
-		547C97851BCBB2F900A28727 /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97681BCBB2F900A28727 /* RSBrightnessSlider.m */; settings = {ASSET_TAGS = (); }; };
-		547C97861BCBB2F900A28727 /* RSColorFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976A1BCBB2F900A28727 /* RSColorFunctions.m */; settings = {ASSET_TAGS = (); }; };
-		547C97871BCBB2F900A28727 /* RSColorPickerLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976C1BCBB2F900A28727 /* RSColorPickerLoopView.m */; settings = {ASSET_TAGS = (); }; };
-		547C97881BCBB2F900A28727 /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976E1BCBB2F900A28727 /* RSColorPickerState.m */; settings = {ASSET_TAGS = (); }; };
-		547C97891BCBB2F900A28727 /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97701BCBB2F900A28727 /* RSColorPickerView.m */; settings = {ASSET_TAGS = (); }; };
-		547C978A1BCBB2F900A28727 /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97721BCBB2F900A28727 /* RSGenerateOperation.m */; settings = {ASSET_TAGS = (); }; };
-		547C978B1BCBB2F900A28727 /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97741BCBB2F900A28727 /* RSOpacitySlider.m */; settings = {ASSET_TAGS = (); }; };
-		547C978C1BCBB2F900A28727 /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97761BCBB2F900A28727 /* RSSelectionLayer.m */; settings = {ASSET_TAGS = (); }; };
-		547C97921BCBBC1700A28727 /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97911BCBBC1700A28727 /* ColorPickerView.m */; settings = {ASSET_TAGS = (); }; };
-		54ADFAD11BDA062100BAB7BF /* DynamicBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD01BDA062100BAB7BF /* DynamicBlurView.m */; settings = {ASSET_TAGS = (); }; };
-		54B3963A1BCF5FB400F55293 /* TWImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396351BCF5FB400F55293 /* TWImageScrollView.m */; settings = {ASSET_TAGS = (); }; };
-		54B3963B1BCF5FB400F55293 /* TWPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396371BCF5FB400F55293 /* TWPhotoCollectionViewCell.m */; settings = {ASSET_TAGS = (); }; };
-		54B3963C1BCF5FB400F55293 /* TWPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396391BCF5FB400F55293 /* TWPhotoPickerController.m */; settings = {ASSET_TAGS = (); }; };
+		547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094B71BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m */; };
+		547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C01BB247DD00E20453 /* CreatNailRootViewController.m */; };
+		547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547094C71BB29F8100E20453 /* CustomPushAnimation.m */; };
+		547C97771BCBB2F900A28727 /* ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97491BCBB2F900A28727 /* ANImageBitmapRep.m */; };
+		547C97781BCBB2F900A28727 /* BitmapContextRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C974B1BCBB2F900A28727 /* BitmapContextRep.m */; };
+		547C97791BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C974E1BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m */; };
+		547C977A1BCBB2F900A28727 /* OSCommonImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97501BCBB2F900A28727 /* OSCommonImage.m */; };
+		547C977B1BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97521BCBB2F900A28727 /* UIImage+ANImageBitmapRep.m */; };
+		547C977C1BCBB2F900A28727 /* CGContextCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97551BCBB2F900A28727 /* CGContextCreator.m */; };
+		547C977D1BCBB2F900A28727 /* CGImageContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97571BCBB2F900A28727 /* CGImageContainer.m */; };
+		547C977E1BCBB2F900A28727 /* BitmapContextManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975A1BCBB2F900A28727 /* BitmapContextManipulator.m */; };
+		547C977F1BCBB2F900A28727 /* BitmapCropManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975C1BCBB2F900A28727 /* BitmapCropManipulator.m */; };
+		547C97801BCBB2F900A28727 /* BitmapDrawManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C975E1BCBB2F900A28727 /* BitmapDrawManipulator.m */; };
+		547C97811BCBB2F900A28727 /* BitmapRotationManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97601BCBB2F900A28727 /* BitmapRotationManipulator.m */; };
+		547C97821BCBB2F900A28727 /* BitmapScaleManipulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97621BCBB2F900A28727 /* BitmapScaleManipulator.m */; };
+		547C97831BCBB2F900A28727 /* BGRSLoupeLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97641BCBB2F900A28727 /* BGRSLoupeLayer.m */; };
+		547C97841BCBB2F900A28727 /* ColorPreview.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97661BCBB2F900A28727 /* ColorPreview.m */; };
+		547C97851BCBB2F900A28727 /* RSBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97681BCBB2F900A28727 /* RSBrightnessSlider.m */; };
+		547C97861BCBB2F900A28727 /* RSColorFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976A1BCBB2F900A28727 /* RSColorFunctions.m */; };
+		547C97871BCBB2F900A28727 /* RSColorPickerLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976C1BCBB2F900A28727 /* RSColorPickerLoopView.m */; };
+		547C97881BCBB2F900A28727 /* RSColorPickerState.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C976E1BCBB2F900A28727 /* RSColorPickerState.m */; };
+		547C97891BCBB2F900A28727 /* RSColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97701BCBB2F900A28727 /* RSColorPickerView.m */; };
+		547C978A1BCBB2F900A28727 /* RSGenerateOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97721BCBB2F900A28727 /* RSGenerateOperation.m */; };
+		547C978B1BCBB2F900A28727 /* RSOpacitySlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97741BCBB2F900A28727 /* RSOpacitySlider.m */; };
+		547C978C1BCBB2F900A28727 /* RSSelectionLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97761BCBB2F900A28727 /* RSSelectionLayer.m */; };
+		547C97921BCBBC1700A28727 /* ColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 547C97911BCBBC1700A28727 /* ColorPickerView.m */; };
+		54ADFAD11BDA062100BAB7BF /* DynamicBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD01BDA062100BAB7BF /* DynamicBlurView.m */; };
+		54ADFAD41BDCC28A00BAB7BF /* CloverColorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD31BDCC28A00BAB7BF /* CloverColorLayer.m */; };
+		54ADFADA1BDE2F5300BAB7BF /* MaskLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFAD91BDE2F5300BAB7BF /* MaskLayer.m */; };
+		54ADFADD1BDE553B00BAB7BF /* BrightnessAndSaturationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54ADFADC1BDE553B00BAB7BF /* BrightnessAndSaturationView.m */; };
+		54B3963A1BCF5FB400F55293 /* TWImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396351BCF5FB400F55293 /* TWImageScrollView.m */; };
+		54B3963B1BCF5FB400F55293 /* TWPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396371BCF5FB400F55293 /* TWPhotoCollectionViewCell.m */; };
+		54B3963C1BCF5FB400F55293 /* TWPhotoPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B396391BCF5FB400F55293 /* TWPhotoPickerController.m */; };
+		54C679D91BDF4F4B00D48D1A /* BSColorLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C679D81BDF4F4B00D48D1A /* BSColorLayer.m */; };
+		54C679DE1BDFC2A600D48D1A /* UIImageView+Capture.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C679DD1BDFC2A600D48D1A /* UIImageView+Capture.m */; };
+		54C679E01BDFCCDC00D48D1A /* DesignNailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C679DF1BDFCCDC00D48D1A /* DesignNailViewController.m */; };
 		54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816D71B8B18F40002061D /* CutoutImage.cpp */; };
 		54D816DC1B8B220E0002061D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54D816DA1B8B22010002061D /* Foundation.framework */; };
 		54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 54D816DE1B8B254E0002061D /* Bridge2OpenCV.mm */; };
@@ -59,15 +64,17 @@
 		54D816E51B8B2DF00002061D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 541382841B86E07600478FE6 /* Main.storyboard */; };
 		54D816E61B8B2DF00002061D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 541382891B86E07600478FE6 /* LaunchScreen.xib */; };
 		54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 54D816EA1B8C777C0002061D /* CutoutImagePacking.cpp */; };
-		54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375A1BB8DD4E00467518 /* DotButton.m */; settings = {ASSET_TAGS = (); }; };
-		54E1375F1BB8E9C700467518 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375E1BB8E9C700467518 /* FXBlurView.m */; settings = {ASSET_TAGS = (); }; };
-		54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */; settings = {ASSET_TAGS = (); }; };
-		54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */; settings = {ASSET_TAGS = (); }; };
-		54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */; settings = {ASSET_TAGS = (); }; };
-		54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */; settings = {ASSET_TAGS = (); }; };
+		54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375A1BB8DD4E00467518 /* DotButton.m */; };
+		54E1375F1BB8E9C700467518 /* FXBlurView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E1375E1BB8E9C700467518 /* FXBlurView.m */; };
+		54E3E6C71BB2ADB900FD1206 /* CustomPopAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6C61BB2ADB900FD1206 /* CustomPopAnimation.m */; };
+		54E3E6CB1BB3D74500FD1206 /* LineWidthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */; };
+		54E3E6CE1BB3FDA400FD1206 /* DynamicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6CD1BB3FDA400FD1206 /* DynamicView.m */; };
+		54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54E3E6D01BB40A1500FD1206 /* ColorBoardView.m */; };
 		54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF67481B947641007E7A3C /* DrawViewModel.m */; };
 		54EF674C1B947723007E7A3C /* DrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF674B1B947723007E7A3C /* DrawView.m */; };
 		54EF67551B95861F007E7A3C /* ImageEditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EF67541B95861F007E7A3C /* ImageEditView.m */; };
+		54F38B781BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F38B771BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m */; };
+		54FD3B1C1BE1BC3B00B93429 /* CloverWhiteArc.m in Sources */ = {isa = PBXBuildFile; fileRef = 54FD3B1B1BE1BC3B00B93429 /* CloverWhiteArc.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,7 +135,6 @@
 		547094BF1BB247DD00E20453 /* CreatNailRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatNailRootViewController.h; sourceTree = "<group>"; };
 		547094C01BB247DD00E20453 /* CreatNailRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatNailRootViewController.m; sourceTree = "<group>"; };
 		547094C21BB28C5200E20453 /* DesignNailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DesignNailViewController.h; sourceTree = "<group>"; };
-		547094C31BB28C5200E20453 /* DesignNailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignNailViewController.m; sourceTree = "<group>"; };
 		547094C61BB29F8100E20453 /* CustomPushAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPushAnimation.h; sourceTree = "<group>"; };
 		547094C71BB29F8100E20453 /* CustomPushAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPushAnimation.m; sourceTree = "<group>"; };
 		547C97481BCBB2F900A28727 /* ANImageBitmapRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ANImageBitmapRep.h; sourceTree = "<group>"; };
@@ -181,12 +187,23 @@
 		547C97951BCCFDEA00A28727 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		54ADFACF1BDA062100BAB7BF /* DynamicBlurView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicBlurView.h; sourceTree = "<group>"; };
 		54ADFAD01BDA062100BAB7BF /* DynamicBlurView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicBlurView.m; sourceTree = "<group>"; };
+		54ADFAD21BDCC28A00BAB7BF /* CloverColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverColorLayer.h; sourceTree = "<group>"; };
+		54ADFAD31BDCC28A00BAB7BF /* CloverColorLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverColorLayer.m; sourceTree = "<group>"; };
+		54ADFAD81BDE2F5300BAB7BF /* MaskLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MaskLayer.h; sourceTree = "<group>"; };
+		54ADFAD91BDE2F5300BAB7BF /* MaskLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MaskLayer.m; sourceTree = "<group>"; };
+		54ADFADB1BDE553B00BAB7BF /* BrightnessAndSaturationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrightnessAndSaturationView.h; sourceTree = "<group>"; };
+		54ADFADC1BDE553B00BAB7BF /* BrightnessAndSaturationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrightnessAndSaturationView.m; sourceTree = "<group>"; };
 		54B396341BCF5FB400F55293 /* TWImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWImageScrollView.h; sourceTree = "<group>"; };
 		54B396351BCF5FB400F55293 /* TWImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWImageScrollView.m; sourceTree = "<group>"; };
 		54B396361BCF5FB400F55293 /* TWPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		54B396371BCF5FB400F55293 /* TWPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		54B396381BCF5FB400F55293 /* TWPhotoPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TWPhotoPickerController.h; sourceTree = "<group>"; };
 		54B396391BCF5FB400F55293 /* TWPhotoPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TWPhotoPickerController.m; sourceTree = "<group>"; };
+		54C679D71BDF4F4B00D48D1A /* BSColorLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSColorLayer.h; sourceTree = "<group>"; };
+		54C679D81BDF4F4B00D48D1A /* BSColorLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSColorLayer.m; sourceTree = "<group>"; };
+		54C679DC1BDFC2A600D48D1A /* UIImageView+Capture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Capture.h"; sourceTree = "<group>"; };
+		54C679DD1BDFC2A600D48D1A /* UIImageView+Capture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Capture.m"; sourceTree = "<group>"; };
+		54C679DF1BDFCCDC00D48D1A /* DesignNailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DesignNailViewController.m; sourceTree = "<group>"; };
 		54D816D71B8B18F40002061D /* CutoutImage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CutoutImage.cpp; sourceTree = "<group>"; };
 		54D816D81B8B18F40002061D /* CutoutImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CutoutImage.h; sourceTree = "<group>"; };
 		54D816DA1B8B22010002061D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -213,6 +230,10 @@
 		54EF674B1B947723007E7A3C /* DrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawView.m; path = ../DrawView.m; sourceTree = "<group>"; };
 		54EF67531B95861F007E7A3C /* ImageEditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageEditView.h; path = ../ImageEditView.h; sourceTree = "<group>"; };
 		54EF67541B95861F007E7A3C /* ImageEditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageEditView.m; path = ../ImageEditView.m; sourceTree = "<group>"; };
+		54F38B761BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverOpacitySliderBackgroundLayer.h; sourceTree = "<group>"; };
+		54F38B771BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverOpacitySliderBackgroundLayer.m; sourceTree = "<group>"; };
+		54FD3B1A1BE1BC3B00B93429 /* CloverWhiteArc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CloverWhiteArc.h; sourceTree = "<group>"; };
+		54FD3B1B1BE1BC3B00B93429 /* CloverWhiteArc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CloverWhiteArc.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,8 +418,20 @@
 				547C97721BCBB2F900A28727 /* RSGenerateOperation.m */,
 				547C97731BCBB2F900A28727 /* RSOpacitySlider.h */,
 				547C97741BCBB2F900A28727 /* RSOpacitySlider.m */,
+				54F38B761BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.h */,
+				54F38B771BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m */,
+				54FD3B1A1BE1BC3B00B93429 /* CloverWhiteArc.h */,
+				54FD3B1B1BE1BC3B00B93429 /* CloverWhiteArc.m */,
 				547C97751BCBB2F900A28727 /* RSSelectionLayer.h */,
 				547C97761BCBB2F900A28727 /* RSSelectionLayer.m */,
+				54ADFAD21BDCC28A00BAB7BF /* CloverColorLayer.h */,
+				54ADFAD31BDCC28A00BAB7BF /* CloverColorLayer.m */,
+				54ADFAD81BDE2F5300BAB7BF /* MaskLayer.h */,
+				54ADFAD91BDE2F5300BAB7BF /* MaskLayer.m */,
+				54ADFADB1BDE553B00BAB7BF /* BrightnessAndSaturationView.h */,
+				54ADFADC1BDE553B00BAB7BF /* BrightnessAndSaturationView.m */,
+				54C679D71BDF4F4B00D48D1A /* BSColorLayer.h */,
+				54C679D81BDF4F4B00D48D1A /* BSColorLayer.m */,
 			);
 			path = ColorPickerClasses;
 			sourceTree = "<group>";
@@ -485,6 +518,8 @@
 			children = (
 				545346701B8D5ADC00F86C35 /* UIImage+IF.h */,
 				545346711B8D5ADC00F86C35 /* UIImage+IF.m */,
+				54C679DC1BDFC2A600D48D1A /* UIImageView+Capture.h */,
+				54C679DD1BDFC2A600D48D1A /* UIImageView+Capture.m */,
 			);
 			name = ProjectClassExpand;
 			sourceTree = "<group>";
@@ -503,7 +538,7 @@
 			children = (
 				547C97451BCBB1AD00A28727 /* ColorPicker */,
 				547094C21BB28C5200E20453 /* DesignNailViewController.h */,
-				547094C31BB28C5200E20453 /* DesignNailViewController.m */,
+				54C679DF1BDFCCDC00D48D1A /* DesignNailViewController.m */,
 				54E3E6C91BB3D74500FD1206 /* LineWidthView.h */,
 				54E3E6CA1BB3D74500FD1206 /* LineWidthView.m */,
 				54E3E6CC1BB3FDA400FD1206 /* DynamicView.h */,
@@ -628,11 +663,13 @@
 				541382831B86E07600478FE6 /* CutNailViewController.m in Sources */,
 				547C977A1BCBB2F900A28727 /* OSCommonImage.m in Sources */,
 				547C978C1BCBB2F900A28727 /* RSSelectionLayer.m in Sources */,
-				547094C41BB28C5200E20453 /* DesignNailViewController.m in Sources */,
 				54D816DF1B8B254E0002061D /* Bridge2OpenCV.mm in Sources */,
+				54ADFAD41BDCC28A00BAB7BF /* CloverColorLayer.m in Sources */,
+				54C679D91BDF4F4B00D48D1A /* BSColorLayer.m in Sources */,
 				547C97831BCBB2F900A28727 /* BGRSLoupeLayer.m in Sources */,
 				547094B81BB0FAFE00E20453 /* KTOneFingerRotationGestureRecognizer.m in Sources */,
 				54EF67491B947641007E7A3C /* DrawViewModel.m in Sources */,
+				54C679DE1BDFC2A600D48D1A /* UIImageView+Capture.m in Sources */,
 				547C97841BCBB2F900A28727 /* ColorPreview.m in Sources */,
 				547C977E1BCBB2F900A28727 /* BitmapContextManipulator.m in Sources */,
 				54318C751B9D7AF400A16E21 /* CloverGrabCut.cpp in Sources */,
@@ -641,6 +678,7 @@
 				547C977C1BCBB2F900A28727 /* CGContextCreator.m in Sources */,
 				54EF674C1B947723007E7A3C /* DrawView.m in Sources */,
 				547094C11BB247DD00E20453 /* CreatNailRootViewController.m in Sources */,
+				54FD3B1C1BE1BC3B00B93429 /* CloverWhiteArc.m in Sources */,
 				547C977F1BCBB2F900A28727 /* BitmapCropManipulator.m in Sources */,
 				547C97881BCBB2F900A28727 /* RSColorPickerState.m in Sources */,
 				547C97851BCBB2F900A28727 /* RSBrightnessSlider.m in Sources */,
@@ -654,9 +692,12 @@
 				547C97791BCBB2F900A28727 /* NSImage+ANImageBitmapRep.m in Sources */,
 				54E3E6D11BB40A1500FD1206 /* ColorBoardView.m in Sources */,
 				541382801B86E07600478FE6 /* AppDelegate.m in Sources */,
+				54ADFADD1BDE553B00BAB7BF /* BrightnessAndSaturationView.m in Sources */,
 				54E1375B1BB8DD4E00467518 /* DotButton.m in Sources */,
 				547C978A1BCBB2F900A28727 /* RSGenerateOperation.m in Sources */,
+				54F38B781BE1033200B170E4 /* CloverOpacitySliderBackgroundLayer.m in Sources */,
 				54B3963B1BCF5FB400F55293 /* TWPhotoCollectionViewCell.m in Sources */,
+				54ADFADA1BDE2F5300BAB7BF /* MaskLayer.m in Sources */,
 				547C978B1BCBB2F900A28727 /* RSOpacitySlider.m in Sources */,
 				54D816EC1B8C777C0002061D /* CutoutImagePacking.cpp in Sources */,
 				547C97921BCBBC1700A28727 /* ColorPickerView.m in Sources */,
@@ -673,6 +714,7 @@
 				54ADFAD11BDA062100BAB7BF /* DynamicBlurView.m in Sources */,
 				54D816D91B8B18F40002061D /* CutoutImage.cpp in Sources */,
 				547094C81BB29F8100E20453 /* CustomPushAnimation.m in Sources */,
+				54C679E01BDFCCDC00D48D1A /* DesignNailViewController.m in Sources */,
 				54B3963C1BCF5FB400F55293 /* TWPhotoPickerController.m in Sources */,
 				54B3963A1BCF5FB400F55293 /* TWImageScrollView.m in Sources */,
 			);

@@ -68,6 +68,7 @@
         
         self.multipleTouchEnabled = YES;
         self.cancelDraw = NO;
+        self.deleteLine = NO;
         
     }
     return self;
@@ -133,11 +134,28 @@
     for (DrawViewModel *myViewModel in _pathArray) {
         CGContextAddPath(context, myViewModel.path.CGPath);
        
-        [myViewModel.color set];
-        CGContextSetLineWidth(context, myViewModel.width);
-        CGContextSetLineCap(context, kCGLineCapRound);
-        CGContextDrawPath(context, kCGPathStroke);
-        //CGContextStrokePath(context);
+        //CGContextDrawPath(context, kCGPathStroke);
+            [myViewModel.color set];
+/*
+        if (self.deleteLine) {
+            CGContextSetLineWidth(context, myViewModel.width);
+            CGContextSetLineCap(context, kCGLineCapRound);
+            CGContextSetLineJoin(context, kCGLineJoinRound);
+            CGContextSetFlatness(context, 0.6);
+            CGContextSetMiterLimit(context, 5);
+            CGContextStrokePath(context);
+            CGContextSaveGState(context);
+        }else{
+            */
+            
+            CGContextSetLineWidth(context, myViewModel.width);
+            CGContextSetLineCap(context, kCGLineCapRound);
+            CGContextSetLineJoin(context, kCGLineJoinRound);
+            CGContextSetFlatness(context, 0.6);
+            CGContextSetMiterLimit(context, 5);
+            CGContextStrokePath(context);
+            CGContextSaveGState(context);
+        //}
     }
     if (_isHavePath) {
         if(self.IsCutImage){
@@ -145,10 +163,25 @@
         }
         //        self.lineColor = [UIColor  colorWithRed:0.0 green:0 blue:1.0 alpha:0.5];  //[UIColor redColor];
         CGContextAddPath(context, _path);
-        [_lineColor set];
-        CGContextSetLineWidth(context, _lineWidth*self.lineScale);
-        CGContextSetLineCap(context, kCGLineCapRound);
-        CGContextDrawPath(context, kCGPathStroke);
+            [_lineColor set];
+        /*
+        if (self.deleteLine) {
+            CGContextSetLineWidth(context, _lineWidth*self.lineScale);
+            CGContextSetLineCap(context, kCGLineCapRound);
+            CGContextSetLineJoin(context, kCGLineJoinRound);
+            CGContextSetFlatness(context, 0.6);
+            CGContextSetMiterLimit(context, 5);
+            CGContextDrawPath(context, kCGPathStroke);
+        } else {
+            */
+            CGContextSetLineWidth(context, _lineWidth*self.lineScale);
+            CGContextSetLineCap(context, kCGLineCapRound);
+            CGContextSetLineJoin(context, kCGLineJoinRound);
+            CGContextSetFlatness(context, 0.6);
+            CGContextSetMiterLimit(context, 5);
+            CGContextDrawPath(context, kCGPathStroke);
+       // }
+        
     }
     else{//将路径绘制为透明，为了消除路径图像
         if(self.IsCutImage){
@@ -265,6 +298,14 @@
             [self setNeedsDisplay];
         }
     }
+}
+
+- (UIImage *)capture {
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, [UIScreen mainScreen].scale);
+    [self drawViewHierarchyInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) afterScreenUpdates:YES];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
 }
 
 /*

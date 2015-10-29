@@ -138,7 +138,7 @@ UIImage * RSArrowLoopThumbImage(CGSize size, CGSize loopSize){
 
 - (void)initRoutine {
     self.minimumValue = 0.0;
-    self.maximumValue = 1.0;
+    self.maximumValue = 2.0;
     self.continuous = YES;
 
     self.enabled = YES;
@@ -148,7 +148,17 @@ UIImage * RSArrowLoopThumbImage(CGSize size, CGSize loopSize){
 }
 
 - (void)myValueChanged:(id)notif {
-    [_colorPicker setBrightness:self.value];
+    //[_colorPicker setBrightness:self.value];
+    if(self.value <= 1.0){
+        [_colorPicker setBrightness:self.value];
+        [_colorPicker setSaturation:1.0];
+    NSLog(@"self.value %f",self.value);
+    }
+    //}
+    else{
+        [_colorPicker setBrightness:1.0];
+        [_colorPicker setSaturation:2.0 - self.value];
+    }
 }
 
 - (void)drawRect:(CGRect)rect {
@@ -168,7 +178,21 @@ UIImage * RSArrowLoopThumbImage(CGSize size, CGSize loopSize){
 - (void)setColorPicker:(RSColorPickerView*)cp {
     _colorPicker = cp;
     if (!_colorPicker) { return; }
-    self.value = [_colorPicker brightness];
+    if([_colorPicker brightness] <= 1.0  && [_colorPicker saturation] == 1.0){
+        self.value = [_colorPicker brightness];
+    }
+    else if( [_colorPicker saturation] <= 1.0 && [_colorPicker brightness] == 1.0){
+        self.value = 1.0 + (1.0 - [_colorPicker saturation]);
+    }
+    else {
+        self.value = 1.0;
+    }
+    
+    NSLog(@" saturation %f ",[_colorPicker saturation]);
+    NSLog(@" brightness %f ",[_colorPicker brightness]);
+    
+   // self.value = [_colorPicker brightness];
+   // self.value = [_colorPicker saturation];
 }
 
 @end

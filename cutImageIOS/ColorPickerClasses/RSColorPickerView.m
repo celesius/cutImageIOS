@@ -14,8 +14,11 @@
 #import "RSColorPickerView.h"
 #import "RSGenerateOperation.h"
 #import "RSSelectionLayer.h"
+#import "CloverScreen.h"
+#import "CloverColorLayer.h"
+#import "MaskLayer.h"
 
-#define kSelectionViewSize 22
+#define kSelectionViewSize 30
 
 @interface RSColorPickerView () {
     struct {
@@ -71,6 +74,14 @@
 
 
 @property (nonatomic) BGRSLoupeLayer *loupeLayer;
+
+
+@property (nonatomic) CloverColorLayer *lastColorLayer;
+@property (nonatomic) CloverColorLayer *currentColorLayer;
+
+@property (nonatomic) MaskLayer *colorMaskLayer;
+@property (nonatomic) MaskLayer *lastColorMaskLayer;
+
 
 /**
  * Gets updated to the scale of the current UIWindow.
@@ -128,6 +139,9 @@
 
 - (void)initRoutine {
 
+    CGRect mm = self.frame;
+    NSLog(@" mm = %@ ",NSStringFromCGRect(mm));
+    
     // Show or hide the loupe. Default: show.
     self.showLoupe = YES;
     self.opaque = YES;
@@ -157,11 +171,11 @@
     self.contentsLayer.frame = self.bounds;
 
     [self.contentsLayer addSublayer:self.gradientLayer];
-    [self.contentsLayer addSublayer:self.brightnessLayer];
-    [self.contentsLayer addSublayer:self.selectionColorLayer];  //选择窗内的颜色
-    [self.contentsLayer addSublayer:self.opacityLayer];
+    //[self.contentsLayer addSublayer:self.brightnessLayer];
+    //[self.contentsLayer addSublayer:self.selectionColorLayer];  //选择窗内的颜色
+    //[self.contentsLayer addSublayer:self.opacityLayer];
     [self.contentsLayer addSublayer:self.selectionLayer];
-    //[self addWhiteMask];
+    [self addWhiteMask];
 
     [self.layer addSublayer:self.contentsLayer];
 
@@ -169,8 +183,14 @@
 
     self.contentsLayer.masksToBounds = YES;
     self.cropToCircle = NO;
-    self.selectionColor = [UIColor whiteColor];
+    self.selectionColor = [UIColor greenColor];
+    [self.lastColorLayer upDateWithColor:self.selectionColor];
+    [self.currentColorLayer upDateWithColor:self.selectionColor];
+    
+    //self.selectionColor = [UIColor greenColor];
+   // [self setSelectionColor:[UIColor redColor]];
 }
+
 
 /**
  *  
@@ -180,8 +200,73 @@
     CALayer *mask = [CALayer layer];
     mask.frame =CGRectMake(2*self.paddingDistance, 2*self.paddingDistance, self.paletteDiameter- 4*self.paddingDistance, self.paletteDiameter - 4*self.paddingDistance);
     [mask setCornerRadius:mask.frame.size.width/2];
-    mask.backgroundColor = [UIColor whiteColor].CGColor;
+    mask.backgroundColor = [CloverScreen stringTOColor:@"292829"].CGColor;
+    [mask setShadowOffset:CGSizeMake(0, 2)];
+    [mask setShadowColor:[UIColor blackColor].CGColor];
+    [mask setShadowOpacity:1.0];
     [self.contentsLayer  addSublayer:mask];
+    
+    self.lastColorLayer = [CloverColorLayer layer];
+    [self.lastColorLayer setEnableInnerShadow:YES];
+    self.lastColorLayer.frame = CGRectMake([CloverScreen getHorizontal:295.0] - CGRectGetMinX(self.frame), [CloverScreen getVertical:(190.0 - 50)], [CloverScreen getHorizontal:80.0], [CloverScreen getHorizontal:80.0]);
+    [self.lastColorLayer setCornerRadius:CGRectGetWidth(self.lastColorLayer.bounds)/2.0];
+    //self.lastColorLayer.color =  [UIColor whiteColor]; //[self colorAtPoint:CGPointMake(0, 0)];  //[UIColor whiteColor];
+    //[self.lastColorLayer setNeedsDisplay];
+    [self.lastColorLayer upDateWithColor:[UIColor clearColor]];
+    [self.contentsLayer  addSublayer:self.lastColorLayer];
+    
+    self.lastColorMaskLayer = [MaskLayer layer];
+    self.lastColorMaskLayer.frame = CGRectMake(CGRectGetMinX(self.lastColorLayer.frame) - 10, CGRectGetMinY(self.lastColorLayer.frame) - 10, CGRectGetWidth(self.lastColorLayer.bounds) + 20, CGRectGetHeight(self.lastColorLayer.bounds) + 20);
+    //self.lastColorMaskLayer.position = self.lastColorLayer.position;
+    self.lastColorMaskLayer.maskColor = mask.backgroundColor;
+    self.lastColorMaskLayer.transparentRect = self.lastColorLayer.bounds;
+    [self.lastColorMaskLayer setNeedsDisplay];
+    [self.contentsLayer addSublayer:self.lastColorMaskLayer];
+    
+    NSLog(@" %@", NSStringFromCGRect(self.lastColorLayer.frame));
+    NSLog(@" %@", NSStringFromCGRect(self.lastColorMaskLayer.frame));
+    
+    CALayer *maskGrayLay = [CALayer layer];
+    maskGrayLay.frame = CGRectMake([CloverScreen getHorizontal:325.0] - CGRectGetMinX(self.frame), [CloverScreen getVertical:(230.0 - 50.0)], [CloverScreen getHorizontal:130.0], [CloverScreen getHorizontal:130.0]);
+    [maskGrayLay setCornerRadius:CGRectGetWidth(maskGrayLay.bounds)/2.0];
+    maskGrayLay.backgroundColor = mask.backgroundColor;
+    maskGrayLay.contentsScale = self.window.screen.scale;
+    [self.contentsLayer addSublayer:maskGrayLay];
+    
+    self.currentColorLayer = [CloverColorLayer layer];
+    
+    self.currentColorLayer.frame = CGRectMake(3, 3, CGRectGetWidth(maskGrayLay.bounds) - 6, CGRectGetWidth(maskGrayLay.bounds) - 6);
+    [self.currentColorLayer setCornerRadius:CGRectGetWidth(self.currentColorLayer.bounds)/2.0];
+    [self.currentColorLayer upDateWithColor:[UIColor clearColor]];
+    [self.currentColorLayer setEnableInnerShadow:YES];
+    [self.currentColorLayer setShadowColor:mask.backgroundColor];
+   // [self.currentColorLayer setContentsRect:CGRectMake(0, 0, 5, 5)];
+    //[self.currentColorLayer setShadowColor:[UIColor redColor].CGColor];
+    //[self.currentColorLayer setShadowOffset:CGSizeMake(0, 2)];
+    //[self.currentColorLayer setShadowOpacity:1];
+    
+    //[self.currentColorLayer setBorderWidth:2.0];
+    //[self.currentColorLayer setBorderColor:[UIColor redColor].CGColor];
+    //UIImage *backgroundImage = RSOpacityBackgroundImage(16.f, self.window.screen.scale, [UIColor colorWithWhite:0.5 alpha:1.0]);
+    //self.backgroundColor = [UIColor colorWithPatternImage:backgroundImage];
+    [maskGrayLay addSublayer:self.currentColorLayer];
+    
+    self.colorMaskLayer = [MaskLayer layer];
+    self.colorMaskLayer.frame = CGRectMake(CGRectGetMinX(maskGrayLay.frame) - 5 , CGRectGetMinY(maskGrayLay.frame) - 5, CGRectGetWidth( maskGrayLay.frame) + 10, CGRectGetWidth( maskGrayLay.frame) + 10 );
+    self.colorMaskLayer.maskColor =  [CloverScreen stringTOColor:@"292829"].CGColor;//[UIColor colorWithRed:1 green:0 blue:0 alpha:0.9];
+    self.colorMaskLayer.transparentRect = self.currentColorLayer.bounds;
+    //[self.colorMaskLayer setBackgroundColor:[UIColor whiteColor].CGColor];
+    [self.colorMaskLayer setNeedsDisplay];
+    [self.contentsLayer addSublayer:self.colorMaskLayer];
+    //[self.contentsLayer  insertSublayer:self.colorMaskLayer below:self.lastColorLayer]; //addSublayer:self.colorMaskLayer];
+    //[self.contentsLayer  insertSublayer:maskGrayLay below:self.colorMaskLayer];
+    //[self.contentsLayer  insertSublayer:self.lastColorLayer below:self.colorMaskLayer];
+    
+    
+}
+
+- (void)updateLastColorLayer:(UIColor *)color {
+    [self.lastColorLayer upDateWithColor:color];
 }
 
 - (void)resizeOrRescale {
@@ -204,7 +289,15 @@
     self.opacityLayer.contentsScale = 1.0;//self.scale;
     self.loupeLayer.contentsScale = self.scale;
     self.contentsLayer.contentsScale = self.scale;
+    self.lastColorLayer.contentsScale = self.scale;
+    self.lastColorMaskLayer.contentsScale = self.scale;
+    self.currentColorLayer.contentsScale = self.scale;
+    self.colorMaskLayer.contentsScale = self.scale;
 
+    
+    self.currentColorLayer.backgroundColor = [[UIColor colorWithPatternImage:RSOpacityBackgroundImage(10, self.scale, [UIColor colorWithWhite:0.5 alpha:1.0])] CGColor];
+    self.lastColorLayer.backgroundColor = self.currentColorLayer.backgroundColor;
+    
     _colorPickerViewFlags.bitmapNeedsUpdate = YES;
     self.contentsLayer.frame    = self.bounds;
     self.gradientLayer.frame    = self.bounds;
@@ -237,7 +330,9 @@
 
     self.rep = [self.class bitmapForDiameter:self.gradientLayer.bounds.size.width scale:self.scale padding:self.paddingDistance shouldCache:YES];
     _colorPickerViewFlags.bitmapNeedsUpdate = NO;
+  //  UIImage *myImage = [UIImage imageNamed:@"aaa.jpg"];
     self.gradientLayer.contents = (id)[RSUIImageWithScale(self.rep.image, self.scale) CGImage];
+  //  self.gradientLayer.contents = (id)[RSUIImageWithScale(myImage, self.scale) CGImage];
 }
 
 - (void)generateBezierPaths {
@@ -262,6 +357,10 @@
     return [self stateForPoint:point].color;
 }
 
+- (UIColor *)pureColorAtPoint:(CGPoint)point {
+    return [self pureColoForPoint:point].color;
+}
+
 - (CGFloat)brightness {
     return state.brightness;
 }
@@ -270,8 +369,22 @@
     return state.alpha;
 }
 
+/**
+ *  饱和度
+ *  jiangbo
+ *  @return 返回饱和度
+ */
+- (CGFloat)saturation {
+    return state.saturation;
+}
+
 - (UIColor *)selectionColor {
+    [self.currentColorLayer upDateWithColor:state.color];
     return state.color;
+}
+
+- (CGFloat) hue {
+    return state.hue;
 }
 
 - (CGPoint)selection {
@@ -294,15 +407,20 @@
     [self handleStateChanged];
 }
 
+- (void)setSaturation:(CGFloat)saturation {
+    state = [state stateBySettingSaturation:saturation];
+    [self handleStateChanged];
+}
+
 - (void)setCropToCircle:(BOOL)circle {
     _cropToCircle = circle;
 
     [self generateBezierPaths];
     if (circle) {
         // there's a chance the selection was outside the bounds
-        CGPoint point = [self validPointForTouch:CGPointMake(0, 0)]; //jiangbo
-        //CGPoint point = [self validPointForTouch:[state selectionLocationWithSize:self.paletteDiameter
-        //                                                                  padding:self.paddingDistance]];
+        CGPoint point = [self validPointForTouch:[state selectionLocationWithSize:self.paletteDiameter
+                                                                          padding:self.paddingDistance]];
+//        CGPoint point = [self validPointForTouch:CGPointMake(0, 0)]; //jiangbo
         [self updateStateForTouchPoint:point];
     } else {
         [self handleStateChanged];
@@ -430,7 +548,15 @@
     RSColorPickerState * newState = [RSColorPickerState stateForPoint:point
                                                                  size:self.paletteDiameter
                                                               padding:self.paddingDistance];
-    newState = [[newState stateBySettingAlpha:self.opacity] stateBySettingBrightness:self.brightness];
+//    newState = [[newState stateBySettingAlpha:self.opacity] stateBySettingBrightness:self.brightness];    //jiangbo
+    newState = [[[newState stateBySettingAlpha:self.opacity] stateBySettingBrightness:self.brightness] stateBySettingSaturation:self.saturation];
+    return newState;
+}
+
+- (RSColorPickerState *)pureColoForPoint:(CGPoint)point {
+    RSColorPickerState * newState = [RSColorPickerState stateForPoint:point
+                                                                 size:self.paletteDiameter
+                                                              padding:self.paddingDistance];
     return newState;
 }
 
@@ -480,6 +606,10 @@ float pow2(float a)
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
     CGPoint point = [[touches anyObject] locationInView:self];
     [self updateStateForTouchPoint:point];
+    
+    if ([self.delegate respondsToSelector:@selector(updateBSView)]) {
+        [self.delegate updateBSView];
+    }
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -490,6 +620,10 @@ float pow2(float a)
 
     if ([self.delegate respondsToSelector:@selector(colorPicker:touchesEnded:withEvent:)]) {
         [self.delegate colorPicker:self touchesEnded:touches withEvent:event];
+    }
+
+    if ([self.delegate respondsToSelector:@selector(updateBSView)]) {
+        [self.delegate updateBSView];
     }
 }
 

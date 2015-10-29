@@ -20,7 +20,7 @@
 - (void)drawInContext:(CGContextRef)ctx {
     if (!self.outerRingColor || !self.innerRingColor) {
         self.outerRingColor = [[UIColor colorWithWhite:1 alpha:0.4] CGColor];
-        self.innerRingColor = [[UIColor colorWithWhite:0 alpha:1] CGColor];
+        self.innerRingColor = [[UIColor colorWithWhite:1 alpha:1] CGColor];
     }
     CGRect rect = self.bounds;
     

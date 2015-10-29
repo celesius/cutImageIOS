@@ -100,7 +100,6 @@
                      }];
 }
 
-
 -(void) openAnimateFinished
 {
     

@@ -17,6 +17,7 @@
  * Don't do expensive operations here as it will slow down your app.
  */
 - (void)colorPickerDidChangeSelection:(RSColorPickerView *)colorPicker;
+- (void)updateBSView;
 @optional
 - (void)colorPicker:(RSColorPickerView *)colorPicker touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
 - (void)colorPicker:(RSColorPickerView *)colorPicker touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
@@ -30,6 +31,7 @@ IB_DESIGNABLE
  */
 @property (nonatomic) IBInspectable BOOL cropToCircle;
 
+@property (nonatomic) CGFloat hue;
 /**
  * The brightness of the current selection
  */
@@ -40,11 +42,17 @@ IB_DESIGNABLE
  */
 @property (nonatomic) CGFloat opacity;
 
+//jiangbo
+/**
+ * The saturation of the current selection
+ */
+@property (nonatomic) CGFloat saturation;
 /**
  * The selection color.
  * This setter may modify `brightness` and `opacity` as necessary.
  */
 @property (nonatomic, strong) UIColor * selectionColor;
+
 
 /**
  * The delegate
@@ -72,6 +80,11 @@ IB_DESIGNABLE
  * The color at a given point in the color picker's bounds.
  */
 - (UIColor *)colorAtPoint:(CGPoint)point;
+
+- (UIColor *)pureColorAtPoint:(CGPoint)point;
+
+- (void) updateLastColorLayer:(UIColor *)color;
+
 
 /**
  * Methods that create/cache data needed to create a color picker.

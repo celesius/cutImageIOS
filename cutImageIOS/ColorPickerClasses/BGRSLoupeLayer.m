@@ -193,7 +193,8 @@ const int NUM_PIXELS = 5, NUM_SKIP = 15;
         for (i=0; i<NUM_PIXELS; i++){
 
             CGRect pixelRect = CGRectMake(w*i-LOUPE_SIZE/2, w*j-LOUPE_SIZE/2, w, w);
-            UIColor *pixelColor = [self.colorPicker colorAtPoint:currentPoint];
+//            UIColor *pixelColor = [self.colorPicker colorAtPoint:currentPoint];
+            UIColor *pixelColor = [self.colorPicker pureColorAtPoint:currentPoint];
             CGContextSetFillColorWithColor(ctx, pixelColor.CGColor);
             CGContextFillRect(ctx, pixelRect);
 

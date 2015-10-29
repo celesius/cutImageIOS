@@ -44,9 +44,7 @@
 @property (nonatomic) int setLineWidth;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, strong) UIPinchGestureRecognizer *pinchGestureRecognizer;
-
 @property (nonatomic, strong)  RotateCutImageViewController *rotateCutImageViewController;
-
 @property (nonatomic, strong) dispatch_queue_t getFinnalImageQueue;
 
 @property (nonatomic, strong) CustomPopAnimation *custompopanimation;
@@ -78,7 +76,6 @@
     self.rotateCutImageViewController = [[RotateCutImageViewController alloc]init];
     self.setLineWidth = DEFLINEWIDTH;              //线宽默认是10
     self.pointArray = [[NSMutableArray alloc]init];
-
     /**
      *  上工具条
      */
@@ -86,17 +83,18 @@
     self.upKeepOutView.backgroundColor = [UIColor greenColor];
     self.upKeepOutView.delegate = self;
     self.topViewWillAppearAt = CGRectMake( 0, 0, CGRectGetWidth(self.upKeepOutView.frame), CGRectGetHeight(self.upKeepOutView.frame) );
-   
+    /**
+     *  抠图view初始化
+     */
     float appImageViewW = CGRectGetWidth(mainScreen)*(19.0/20.0);
     float appImageViewH = appImageViewW*4.0/3.0;
     self.appImageView = [[ImageEditView alloc]initWithFrame:self.receiveImgRect  andEditImage:self.editImage];
+    /**
+     *  动画相关rect与变换
+     */
     self.imgViewOrgTransform = self.appImageView.transform;
-
-    //self.appImageView.center = CGPointMake( CGRectGetMidX(mainScreen), self.appImageView.center.y );
     self.imgViewWillAppearAt = CGRectMake( ( CGRectGetWidth(mainScreen) - appImageViewW )/2, CGRectGetHeight(self.upKeepOutView.frame) , appImageViewW, appImageViewH);
-    
     self.imgViewWillAppearAtCenter = CGPointMake(CGRectGetMidX(mainScreen), CGRectGetMaxY(self.topViewWillAppearAt) + (appImageViewH/2) );
-    
     /**
      *  初始化手势
      */
@@ -143,11 +141,9 @@
     [self.resetDrawButton setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
     [self.resetDrawButton addTarget:self action:@selector(resetDraw:) forControlEvents:UIControlEventTouchUpInside];
      */
-
     /**
      *  添加移动图片按键
      */
-    //
     /*
     self.moveImg= [UIButton buttonWithType:UIButtonTypeCustom];
     self.moveImg.frame = CGRectMake(mainScreen.size.width - smallButtonWidth, (screenCenter.y - ((mainScreen.size.height - mainScreen.size.width)/4) - (mainScreen.size.width/2) ) + mainScreen.size.width, smallButtonWidth , 50);
@@ -173,12 +169,9 @@
     //[self.view addSubview:self.resetDrawButton];
     //[self.view addSubview:self.nextStep];
     //[self.view addSubview:self.popViewCtrlButton];
-    
     self.view.backgroundColor = [UIColor grayColor];
-    
     self.isDraw = NO;       //默认是添加
     self.isDelete  = NO;
-    
     /**
      *  得到最终的剪切图的线程建立
      *
@@ -207,7 +200,6 @@
     NSLog(@"- (void)viewWillAppear:(BOOL)animated");
     [super viewWillAppear:animated];
     //self.appImageView.frame = self.receiveImgRect;
-    
     [UIView animateWithDuration:0.4
                      animations:^{
                          self.upKeepOutView.frame = self.topViewWillAppearAt;
@@ -219,7 +211,6 @@
                          self.orgRect = self.appImageView.frame;
                      }];
 }
-
 /**
  *  标志算法是否有
  *
@@ -250,7 +241,6 @@
         //[self.nextStep setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     }
 }
-
 /**
  *  是否隐藏系统的状态栏
  *
@@ -337,7 +327,6 @@
 {
     [self.appImageView redo];
 }
-
 /**
  *  前进操作
  */
@@ -515,10 +504,8 @@
                                              recognizer.view.center.y + translation.y);
         [recognizer setTranslation:CGPointZero inView:self.view];
     }
-    else if(recognizer.state == UIGestureRecognizerStateEnded){
-        CGAffineTransform show =  recognizer.view.transform;
-        CGAffineTransform show2 =  self.orgTrf;
-    }
+   // else if(recognizer.state == UIGestureRecognizerStateEnded){
+   // }
 }
 
 - (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
@@ -533,16 +520,18 @@
                 recognizer.view.transform= CGAffineTransformMake(2.0, 0.0, 0.0, 2.0, 0, 0) ;//取消一切形变
             }];
         }
-        else if( recognizer.view.transform.a < 0.6 ){
+        else if( recognizer.view.transform.a < 0.9 ){
             [UIView animateWithDuration:.25 animations:^{
-                recognizer.view.transform= CGAffineTransformMake(0.6, 0.0, 0.0, 0.6, 0, 0) ;//取消一切形变
+                //self.appImageView.transform = CGAffineTransformMake(1, 0.0, 0.0, 1, 0, 0);
+                //self.appImageView.frame = self.orgRect;
+                //recognizer.view.transform= CGAffineTransformMake(0.6, 0.0, 0.0, 0.6, 0, 0) ;//取消一切形变
+                recognizer.view.transform = CGAffineTransformMake(1, 0.0, 0.0, 1, 0, 0);
+                recognizer.view.frame = self.orgRect;
             }];
         }
         
         [self.appImageView setLineScale:recognizer.view.transform.a];
         NSLog(@"view.transform.a = %f",recognizer.view.transform.a);
-        CGAffineTransform show =  recognizer.view.transform;
-        CGAffineTransform show2 =  self.orgTrf;
     }
 }
 

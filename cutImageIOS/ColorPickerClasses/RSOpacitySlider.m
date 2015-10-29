@@ -9,6 +9,15 @@
 #import "RSOpacitySlider.h"
 
 #import "RSColorFunctions.h"
+#import "CloverOpacitySliderBackgroundLayer.h"
+#import "CloverWhiteArc.h"
+
+@interface RSOpacitySlider()
+
+@property (nonatomic, strong) CloverOpacitySliderBackgroundLayer *backgroundLayer;
+@property (nonatomic, strong) CloverWhiteArc *arcLayer;
+
+@end
 
 @implementation RSOpacitySlider
 
@@ -35,15 +44,33 @@
 
     self.enabled = YES;
     self.userInteractionEnabled = YES;
-
+    
+    self.backgroundLayer  = [CloverOpacitySliderBackgroundLayer layer];
+    //bagL.backgroundColor = [UIColor blackColor].CGColor;
+    self.backgroundLayer.frame = self.bounds;
+    [self.backgroundLayer setCornerRadius:CGRectGetHeight(self.bounds)/2.0];
+    [self.backgroundLayer setNeedsDisplay];
+    [self.layer addSublayer:self.backgroundLayer];
+    
+    self.arcLayer = [CloverWhiteArc layer];
+    self.arcLayer.frame = self.bounds;
+    [self.arcLayer setNeedsDisplay];
+    [self.layer addSublayer:self.arcLayer];
+    
+    //[self.layer setCornerRadius:5];
     [self addTarget:self action:@selector(myValueChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
 -  (void)didMoveToWindow {
     if (!self.window) return;
 
-    UIImage *backgroundImage = RSOpacityBackgroundImage(16.f, self.window.screen.scale, [UIColor colorWithWhite:0.5 alpha:1.0]);
-    self.backgroundColor = [UIColor colorWithPatternImage:backgroundImage];
+    UIImage *backgroundImage = RSOpacityBackgroundImage(5.f, self.window.screen.scale, [UIColor colorWithWhite:0.5 alpha:1.0]);
+    self.backgroundLayer.backgroundColor = [UIColor colorWithPatternImage:backgroundImage].CGColor;
+    
+    self.arcLayer.contentsScale = self.layer.contentsScale;
+    
+    // self.backgroundColor = [UIColor colorWithPatternImage:backgroundImage];
+   // self.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)myValueChanged:(id)notif {
@@ -51,18 +78,20 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    CGContextRef ctx = UIGraphicsGetCurrentContext();
-
-    CGColorSpaceRef space = CGColorSpaceCreateDeviceGray();
-    NSArray *colors = [[NSArray alloc] initWithObjects:
-                       (id)[UIColor colorWithWhite:0 alpha:0].CGColor,
-                       (id)[UIColor colorWithWhite:1 alpha:1].CGColor,nil];
-
-    CGGradientRef myGradient = CGGradientCreateWithColors(space, (__bridge CFArrayRef)colors, NULL);
-
-    CGContextDrawLinearGradient(ctx, myGradient, CGPointZero, CGPointMake(rect.size.width, 0), 0);
-    CGGradientRelease(myGradient);
-    CGColorSpaceRelease(space);
+    
+//    CGContextRef ctx = UIGraphicsGetCurrentContext();
+//
+//    CGColorSpaceRef space = CGColorSpaceCreateDeviceGray();
+//    NSArray *colors = [[NSArray alloc] initWithObjects:
+//                       (id)[UIColor colorWithWhite:0 alpha:0].CGColor,
+//                       (id)[UIColor colorWithWhite:1 alpha:1].CGColor,nil];
+//
+//    CGGradientRef myGradient = CGGradientCreateWithColors(space, (__bridge CFArrayRef)colors, NULL);
+//
+//    CGContextDrawLinearGradient(ctx, myGradient, CGPointZero, CGPointMake(rect.size.width, 0), 0);
+//    CGGradientRelease(myGradient);
+//    CGColorSpaceRelease(space);
+    
 }
 
 - (void)setColorPicker:(RSColorPickerView *)cp {

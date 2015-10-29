@@ -12,7 +12,9 @@
 @interface ColorPickerView : UIView <RSColorPickerViewDelegate>
 
 - (id)initWithFrame:(CGRect)frame;
+- (void) updateLastColor;
 
 @property (nonatomic, strong) UIColor *currentColor;
+
 
 @end

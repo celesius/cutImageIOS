@@ -20,9 +20,9 @@
  */
 @interface RSColorPickerState : NSObject {
     CGPoint scaledRelativePoint; // H & S
-    //CGFloat saturation; //jiangbo S
     CGFloat brightness; // V
     CGFloat alpha; // A
+    CGFloat saturation; //jiangbo S
 }
 
 @property (readonly) CGFloat hue, saturation, brightness, alpha;
@@ -41,7 +41,8 @@
 /**
  * Create a state given a point on the unit circle and brightness+alpha
  */
-- (id)initWithScaledRelativePoint:(CGPoint)p brightness:(CGFloat)V alpha:(CGFloat)A;
+//- (id)initWithScaledRelativePoint:(CGPoint)p brightness:(CGFloat)V alpha:(CGFloat)A;
+- (id)initWithScaledRelativePoint:(CGPoint)p brightness:(CGFloat)V alpha:(CGFloat)A saturation:(CGFloat)S;
 
 /**
  * Create a state given HSVA components.

@@ -15,6 +15,7 @@
 #import "TopViewWithButton.h"
 #import "CloverScreen.h"
 #import "DynamicBlurView.h"
+#import "UIImageView+Capture.h"
 
 #define TEXTSIZE 26
 
@@ -51,6 +52,9 @@
 @property (nonatomic, strong) LineWidthShowView *lwsView;
 @property (nonatomic, strong) DynamicBlurView *fxblurViewMask;
 @property (nonatomic, strong) DynamicBlurView *lwViewBlurBG;
+@property (nonatomic, strong) UIImageView *drawNailMask;
+
+@property (nonatomic) BOOL deleteLineFlag;
 
 @end
 
@@ -63,7 +67,7 @@
     self.navigationController.delegate = self;
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     NSLog(@" DesignNailViewController mainScreen = %@", NSStringFromCGRect(mainScreen));
-   
+    
     TopViewWithButton *tvwb = [[TopViewWithButton alloc]initWithFrame:CGRectMake(0, 0, CGRectGetWidth(mainScreen), 44)];
     tvwb.backgroundColor = [UIColor blackColor];
     tvwb.delegate = self;
@@ -74,7 +78,7 @@
     self.drawNailView.backgroundColor = [UIColor clearColor];
     
     self.drawBackboard = [[UIView alloc]initWithFrame:self.drawNailView.frame];
-    self.drawBackboard.backgroundColor = [self stringTOColor:@"292829"];
+    self.drawBackboard.backgroundColor = [UIColor whiteColor]; //[self stringTOColor:@"292829"];
     
     /**
      *  deleteLine用于对其下面的所有按键。
@@ -92,20 +96,20 @@
     [self.view addSubview:bottomLine];
     
     [self createPopViewButtonWithRefRect:bottomLine.frame];
-   
+    
     UIButton *finishButton = [UIButton buttonWithType:UIButtonTypeCustom];
-   
+    
     [self createFinishButton:finishButton andRefRect:bottomLine.frame];
     
     //[self greatUndoButton:mainScreen];
     //[self greatRedoButton:mainScreen];
     
-//    CGRect lwViewRect = CGRectMake( (mainScreen.size.width/2) - 150 , self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height - 75, 300, 50);
+    //    CGRect lwViewRect = CGRectMake( (mainScreen.size.width/2) - 150 , self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height - 75, 300, 50);
     CGRect lwViewRect = CGRectMake( CGRectGetMinX(mainScreen), CGRectGetMaxY(mainScreen) - [CloverScreen getVertical:269], CGRectGetWidth(mainScreen), [CloverScreen getVertical:269]);
     self.lwView = [[LineWidthView alloc]initWithRect:lwViewRect andHiddenPoint:self.setLineWidth.center andAnimateDuration:0.5 andTouchButton:self.setLineWidth];
-//    self.lwView.backgroundColor = [self stringTOColor:@"252525"];
+    //    self.lwView.backgroundColor = [self stringTOColor:@"252525"];
     self.lwView.backgroundColor = [UIColor colorWithRed:37.0/255.0 green:37.0/255.0 blue:37.0/255.0 alpha:0.5];  //[self stringTOColor:@"252525"];
-  
+    
     self.lwViewBlurBG = [[DynamicBlurView alloc] initWithRect:lwViewRect andHiddenPoint:self.setLineWidth.center andAnimateDuration:0.5];
     [self setupBlurView:self.lwViewBlurBG];
     [self.lwView setBlurBGView:self.lwViewBlurBG];
@@ -123,13 +127,21 @@
     self.fxblurViewMask = [[DynamicBlurView alloc]initWithRect:lwsViewRect andHiddenPoint:self.setLineWidth.center andAnimateDuration:0.5];
     [self setupBlurView:self.fxblurViewMask];
     [self.lwView setBlurView:self.fxblurViewMask];
-   
+    
     float cbViewW = mainScreen.size.width*9/10;
     float cbViewH = mainScreen.size.height*8/9;
-//    CGRect cbViewRect = CGRectMake( (mainScreen.size.width/2) - (cbViewW/2), self.drawNailView.center.y - (cbViewH/2), cbViewW, cbViewH);
-    CGRect cbViewRect = CGRectMake( CGRectGetMinX(self.view.bounds), CGRectGetMaxY(self.view.bounds) - [CloverScreen getVertical:820], CGRectGetWidth(self.view.bounds), [CloverScreen getVertical:820]);
+    //    CGRect cbViewRect = CGRectMake( (mainScreen.size.width/2) - (cbViewW/2), self.drawNailView.center.y - (cbViewH/2), cbViewW, cbViewH);
+    CGRect cbViewRect = CGRectMake( CGRectGetMinX(self.view.bounds), CGRectGetMaxY(self.view.bounds) - [CloverScreen getVertical:900], CGRectGetWidth(self.view.bounds), [CloverScreen getVertical:900]);
     self.cbView = [[ColorBoardView alloc]initWithRect:cbViewRect andHiddenPoint:self.setLineColor.center andAnimateDuration:0.5];
-    self.cbView.backgroundColor = [self stringTOColor:@"252525"]; //[UIColor colorWithRed:255.0/255.0 green:255.0/248.0 blue:255.0/220.0 alpha:1.0];
+   self.cbView.backgroundColor = [UIColor  colorWithRed:32.0/255.0 green:32.0/255.0 blue:32.0/255.0 alpha:0.5]; //[UIColor colorWithRed:255.0/255.0 green:255.0/248.0 blue:255.0/220.0 alpha:1.0];
+    //self.cbView.backgroundColor = [UIColor clearColor]; //[UIColor colorWithRed:255.0/255.0 green:255.0/248.0 blue:255.0/220.0 alpha:1.0];
+    
+    DynamicBlurView *cbBlueView = [[DynamicBlurView alloc]initWithRect:self.cbView.frame andHiddenPoint:self.setLineColor.center andAnimateDuration:0.5];
+    [self setupBlurView:cbBlueView];
+    [self.cbView setBlurBackground:cbBlueView];
+    
+    //self.cbView.backgroundColor = [UIColor clearColor];
+    
     
     [self.view setBackgroundColor:[UIColor blackColor]];
     [self.view addSubview:tvwb];
@@ -144,9 +156,11 @@
     //[self.view addSubview:self.undo];
     [self.view addSubview:self.lwViewBlurBG];
     [self.view addSubview:self.lwView];
+    [self.view addSubview:cbBlueView];
     [self.view addSubview:self.cbView];
     [self.view addSubview:self.fxblurViewMask];
     [self.view addSubview:self.lwsView];
+    [self initMaskView];
     
     [self buttonAction:self.deleteLine andInitAction:NO andView:self.view];
     /**
@@ -156,6 +170,8 @@
                                              selector:@selector(drawViewLineWidth:)
                                                  name:@"cutImageSetLineWidth"
                                                object:nil];
+    
+    self.deleteLineFlag = NO;
     // Do any additional setup after loading the view.
 }
 
@@ -164,9 +180,9 @@
 }
 
 - (void) setupBlurView:(DynamicBlurView *)view {
-   view.blurRadius = 10;
-   view.tintColor = [UIColor clearColor];
-   view.underlyingView = self.view;
+    view.blurRadius = 10;
+    view.tintColor = [UIColor clearColor];
+    view.underlyingView = self.view;
 }
 
 -(void)drawViewLineWidth:(NSNotification *)notification{
@@ -197,20 +213,20 @@
 
 -(void) goback:(id)sender{
     /*
-    CATransition *transition = [CATransition animation];
-    transition.duration =0.4;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush;
-    transition.subtype = kCATransitionFromBottom;
-    transition.delegate = self;
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    */
+     CATransition *transition = [CATransition animation];
+     transition.duration =0.4;
+     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+     transition.type = kCATransitionPush;
+     transition.subtype = kCATransitionFromBottom;
+     transition.delegate = self;
+     [self.navigationController.view.layer addAnimation:transition forKey:nil];
+     */
     [self.customPopAnimation setEndPoint:self.returnPoint];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)setLineWidthFoo:(id)sender{
-//    [self.lwView showViewAtParentView:self.view ];
+    //    [self.lwView showViewAtParentView:self.view ];
     [self.lwView showViewAtParentView];
     [self.lwsView showViewAtParentView];
     [self.fxblurViewMask showViewAtParentView];
@@ -218,14 +234,29 @@
 }
 
 -(void)setLineColorFoo:(id)sender{
+    [self unTouchDeleteLine];
     [self.cbView showViewAtParentView];
 }
 
 -(void) deleteLineFoo:(id)sender{
-    static BOOL act = NO;
-    [self buttonActionSet:act];
+    //static BOOL act = NO;
+    //[self buttonActionSet:act];
     //[self buttonAction:self.deleteLine andInitAction:act andView:self.view];
-    act = !act;
+    self.deleteLineFlag = !self.deleteLineFlag;
+    [self.drawNailView setDeleteLine:self.deleteLineFlag];
+    if(self.deleteLineFlag) {
+        self.drawNailView.lineColor =  self.drawBackboard.backgroundColor; //[UIColor blackColor];
+        [self.deleteLine setImage: [UIImage imageNamed:@"点击-橡皮"]forState:UIControlStateNormal];
+    }
+    else{
+        self.drawNailView.lineColor = self.cbView.lineColor;
+        [self.deleteLine setImage: [UIImage imageNamed:@"橡皮"]forState:UIControlStateNormal];
+    }
+}
+
+- (void) unTouchDeleteLine {
+    self.deleteLineFlag = NO;
+    [self.deleteLine setImage: [UIImage imageNamed:@"橡皮"]forState:UIControlStateNormal];
 }
 
 - (void) undoButtonTouch {
@@ -236,15 +267,15 @@
     [self.drawNailView redo];
 }
 /*
--(void) undoFoo:(id)sender{
-    [self.drawNailView undo];
-}
-
--(void) redoFoo:(id)sender{
-    [self.drawNailView redo];
-}
-*/
+ -(void) undoFoo:(id)sender{
+ [self.drawNailView undo];
+ }
  
+ -(void) redoFoo:(id)sender{
+ [self.drawNailView redo];
+ }
+ */
+
 -(void) buttonAction:(UIButton *)aButton andInitAction:(BOOL)action andView:(UIView *)currentView{
     //BOOL thisButtonAction = NO;
     float aButtonW = aButton.frame.size.width;
@@ -265,29 +296,15 @@
     [currentView insertSubview:self.actionViewL1 belowSubview:aButton];
     [currentView insertSubview:self.actionViewL2 belowSubview:self.actionViewL1];
     /*
-    if(action){
-        self.actionViewL1.hidden = NO;
-        self.actionViewL2.hidden = NO;
-    }
-    else{
-        self.actionViewL1.hidden = YES;
-        self.actionViewL2.hidden = YES;
-    }
-    */
-}
-
--(void) buttonActionSet:(BOOL) action {
-    if(action){
-        self.actionViewL1.hidden = NO;
-        self.actionViewL2.hidden = NO;
-        //self.beforDetelet = self.cbView.lineColor;
-        self.drawNailView.lineColor = [UIColor blackColor];
-    }
-    else{
-        self.actionViewL1.hidden = YES;
-        self.actionViewL2.hidden = YES;
-        self.drawNailView.lineColor = self.cbView.lineColor;
-    }
+     if(action){
+     self.actionViewL1.hidden = NO;
+     self.actionViewL2.hidden = NO;
+     }
+     else{
+     self.actionViewL1.hidden = YES;
+     self.actionViewL2.hidden = YES;
+     }
+     */
 }
 
 - (void) greatSetLineWidthButtonWithRefRect:(CGRect) refRect {
@@ -303,7 +320,7 @@
     [self.view addSubview:self.lineWidthLabel];
     
     self.setLineWidth = [UIButton buttonWithType:UIButtonTypeCustom];
-//    self.setLineWidth.frame = CGRectMake( 0, 0, setLinwWidthImg.size.width, setLinwWidthImg.size.height);
+    //    self.setLineWidth.frame = CGRectMake( 0, 0, setLinwWidthImg.size.width, setLinwWidthImg.size.height);
     self.setLineWidth.frame = CGRectMake( 0, CGRectGetMaxY(self.drawNailView.frame) + [CloverScreen getVertical:54] - ((50 - setLinwWidthImg.size.height)/2), 50, 50);
     self.setLineWidth.center = CGPointMake( CGRectGetMidX(self.lineWidthLabel.frame), self.setLineWidth.center.y );
     
@@ -316,13 +333,13 @@
     
     self.deleteLineLabel = [[UILabel alloc]init];
     self.deleteLineLabel.frame = CGRectMake(CGRectGetMaxX(refRect) + [CloverScreen getHorizontal:120], CGRectGetMinY(refRect), ( ((float)TEXTSIZE/2) +1) * 2, ((float)TEXTSIZE/2)+1);
-   
+    
     [self.deleteLineLabel setFont:[UIFont fontWithName:@"Helvetica" size:(float)(TEXTSIZE/2)]];
     [self.deleteLineLabel setTextColor:[UIColor whiteColor]];
     [self.deleteLineLabel setTextAlignment:NSTextAlignmentCenter];
     [self.deleteLineLabel setText:@"擦除"];
     [self.view addSubview:self.deleteLineLabel];
-
+    
     
     self.deleteLine = [UIButton buttonWithType:UIButtonTypeCustom];
     self.deleteLine.frame = CGRectMake(0, CGRectGetMaxY(self.drawNailView.frame) + [CloverScreen getVertical:54] - ((50 - deleteLineButtonImg.size.height)/2), 50, 50);
@@ -334,10 +351,10 @@
 - (void) greatSetLineColorImgButtonWithRefRect:(CGRect) refRect {
     UIImage *setLineColorImg = [UIImage imageNamed:@"调色板"];
     CGRect mr = [UIScreen mainScreen].bounds;
-
+    
     self.setLineColor = [UIButton buttonWithType:UIButtonTypeCustom];
     self.setLineColor.frame = CGRectMake( 0, CGRectGetMaxY(refRect) + [CloverScreen getVertical:54] - ((50 - setLineColorImg.size.height)/2) , 50, 50 );
-//    self.setLineColor.center = CGPointMake( CGRectGetMidX(self.lineColorLabel.frame), CGRectGetMinY(self.lineColorLabel.frame) - [CloverScreen getVertical:20] - (setLineColorImg.size.height/2) );
+    //    self.setLineColor.center = CGPointMake( CGRectGetMidX(self.lineColorLabel.frame), CGRectGetMinY(self.lineColorLabel.frame) - [CloverScreen getVertical:20] - (setLineColorImg.size.height/2) );
     self.setLineColor.center = CGPointMake( CGRectGetMidX(refRect), self.setLineColor.center.y);
     [self.setLineColor setImage:setLineColorImg forState:UIControlStateNormal];
     [self.setLineColor addTarget:self action:@selector(setLineColorFoo:) forControlEvents:UIControlEventTouchUpInside];
@@ -371,14 +388,104 @@
     [self.popViewCtrlButton addTarget:self action:@selector(goback:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void) createFinishButton:(UIButton *)button andRefRect:(CGRect) refRect {
+- (void)createFinishButton:(UIButton *)button andRefRect:(CGRect) refRect {
     CGRect ms = [UIScreen mainScreen].bounds;
     float bH = CGRectGetHeight(ms) - CGRectGetMaxY(refRect);
     float bW = bH;
     CGRect setButton = CGRectMake( CGRectGetMaxX(ms) - bW - [CloverScreen getHorizontal:30] , CGRectGetMaxY(refRect), bW, bH);
     button.frame = setButton;
     [button setTitle:@"完成" forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(finishDraw:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
+}
+
+#if 1
+void aProviderReleaseData (void *info, const void *data, size_t size)
+{
+    free((void*)data);
+}
+
+- (UIImage*) getNailWithMask:(UIImage *)maskImg andSrcImage:(UIImage *)image
+{
+    const int imageWidth = image.size.width;
+    const int imageHeight = image.size.height;
+    size_t      bytesPerRow = imageWidth * 4;
+    uint32_t* rgbImageBuf = (uint32_t*)malloc(bytesPerRow * imageHeight);
+    uint32_t* maskImageBuf = (uint32_t*)malloc(bytesPerRow * imageHeight);
+    
+    //   create context
+    CGColorSpaceRef colorSpace =    CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(rgbImageBuf, imageWidth, imageHeight, 8, bytesPerRow, colorSpace,
+                                                 //kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
+                                                 kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast  );
+    CGContextDrawImage(context, CGRectMake(0, 0, imageWidth, imageHeight), image.CGImage);
+    
+    CGContextRef contextMask = CGBitmapContextCreate(maskImageBuf, imageWidth, imageHeight, 8, bytesPerRow, colorSpace,
+                                                     //                                                 kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
+                                                     kCGBitmapByteOrder32Little | kCGImageAlphaPremultipliedLast);
+    //kCGBitmapByteOrder32Little  );
+    CGContextDrawImage(contextMask, CGRectMake(0, 0, imageWidth, imageHeight), maskImg.CGImage);
+    
+    
+    
+    // traverse pixe
+    int pixelNum = imageWidth * imageHeight;
+    
+    uint32_t* pCurPtr = rgbImageBuf;
+    uint32_t* pCurPtrMask = maskImageBuf;
+    for (int i = 0; i < pixelNum; i++, pCurPtr++, pCurPtrMask ++ )
+    {
+        uint8_t* ptr =  (uint8_t*)pCurPtr; //(uint8_t*)pCurPtr;
+        if ((*pCurPtrMask  &  0x000000ff) != 0x00000000)    // / make black to Transparent
+        {
+            ptr =  (uint8_t*)pCurPtr; //(uint8_t*)pCurPtr;
+            ptr[0] = 0;
+            ptr[1] = 0;
+            ptr[2] = 0;
+            ptr[3] = 0;
+        }
+        else if  ((*pCurPtr | 0x000000ff) ==  0x000000ff) {
+            ptr =  (uint8_t*)pCurPtr; //(uint8_t*)pCurPtr;
+            ptr[0] = 0;
+        }
+        
+        
+    }
+    
+    free( maskImageBuf );
+    // context to image
+    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, rgbImageBuf, bytesPerRow * imageHeight, aProviderReleaseData);
+    CGImageRef imageRef = CGImageCreate(imageWidth, imageHeight, 8, 32, bytesPerRow, colorSpace,
+                                        kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Little, dataProvider,
+                                        NULL, true, kCGRenderingIntentDefault);
+    CGDataProviderRelease(dataProvider);
+    
+    UIImage* resultUIImage = [UIImage imageWithCGImage:imageRef];
+    
+    // release
+    CGImageRelease(imageRef);
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpace);
+    
+    return resultUIImage;
+}
+#endif
+
+- (void)finishDraw:(id)sender {
+    UIImage *drawResult = [self.drawNailView capture];
+    UIImage *maskImg = [self.drawNailMask capture];
+    UIImage *resultImg = [self getNailWithMask:maskImg andSrcImage:drawResult];
+}
+
+- (UIImage *)createEmptyUIImageWithRect:(CGSize) size {
+    CGSize imageSize = size;//CGSizeMake(btn.frame.size.width, btn.frame.size.height);
+    UIGraphicsBeginImageContextWithOptions(imageSize, 0, [UIScreen mainScreen].scale);
+    //[[UIColor colorwithTSDefine:color_bg_11] set];
+    [[UIColor clearColor]set];
+    UIRectFill(CGRectMake(0, 0, imageSize.width, imageSize.height));
+    UIImage *pressedColorImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return pressedColorImg;
 }
 
 - (UIColor *) stringTOColor:(NSString *)hexColor {
@@ -394,43 +501,51 @@
     return [UIColor colorWithRed:(float)(red/255.0f)green:(float)(green / 255.0f) blue:(float)(blue / 255.0f)alpha:1.0f];
 }
 
-
-/*
--(void) greatRedoButton:(CGRect)mainS{
-    self.redo = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.redo.frame = CGRectMake(0, 0, 50, 50);
-    self.redo.center = CGPointMake(mainS.size.width/3, (self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height) + (self.setLineWidth.frame.size.height/2) + 50);
-    self.redo.backgroundColor = [UIColor whiteColor];
-    [self.redo.layer setCornerRadius:25];
-    [self.redo setTitle:@"<<" forState:UIControlStateNormal];
-    [self.redo setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.redo setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.redo  addTarget:self action:@selector(redoFoo:) forControlEvents:UIControlEventTouchUpInside];
+- (void) initMaskView {
+    UIImage *maskImg = [UIImage imageNamed:@"DrawNailMask"];
+    
+    self.drawNailMask = [[UIImageView alloc]initWithFrame:self.drawNailView.frame];
+    self.drawNailMask.image = maskImg;
+    [self.view insertSubview:self.drawNailMask aboveSubview:self.drawNailView];
 }
-
--(void) greatUndoButton:(CGRect)mainS{
-    self.undo = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.undo.frame = CGRectMake(0, 0, 50, 50);
-    self.undo.center = CGPointMake(mainS.size.width*2/3, (self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height) + (self.setLineWidth.frame.size.height/2) + 50);
-    self.undo.backgroundColor = [UIColor whiteColor];
-    [self.undo.layer setCornerRadius:25];
-    [self.undo setTitle:@">>" forState:UIControlStateNormal];
-    [self.undo setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.undo setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [self.undo   addTarget:self action:@selector(undoFoo:) forControlEvents:UIControlEventTouchUpInside];
-}
-*/
-
 
 
 /*
-#pragma mark - Navigation
+ -(void) greatRedoButton:(CGRect)mainS{
+ self.redo = [UIButton buttonWithType:UIButtonTypeCustom];
+ self.redo.frame = CGRectMake(0, 0, 50, 50);
+ self.redo.center = CGPointMake(mainS.size.width/3, (self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height) + (self.setLineWidth.frame.size.height/2) + 50);
+ self.redo.backgroundColor = [UIColor whiteColor];
+ [self.redo.layer setCornerRadius:25];
+ [self.redo setTitle:@"<<" forState:UIControlStateNormal];
+ [self.redo setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+ [self.redo setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+ [self.redo  addTarget:self action:@selector(redoFoo:) forControlEvents:UIControlEventTouchUpInside];
+ }
+ 
+ -(void) greatUndoButton:(CGRect)mainS{
+ self.undo = [UIButton buttonWithType:UIButtonTypeCustom];
+ self.undo.frame = CGRectMake(0, 0, 50, 50);
+ self.undo.center = CGPointMake(mainS.size.width*2/3, (self.drawNailView.frame.origin.y + self.drawNailView.frame.size.height) + (self.setLineWidth.frame.size.height/2) + 50);
+ self.undo.backgroundColor = [UIColor whiteColor];
+ [self.undo.layer setCornerRadius:25];
+ [self.undo setTitle:@">>" forState:UIControlStateNormal];
+ [self.undo setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+ [self.undo setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
+ [self.undo   addTarget:self action:@selector(undoFoo:) forControlEvents:UIControlEventTouchUpInside];
+ }
+ */
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

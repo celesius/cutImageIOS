@@ -22,6 +22,9 @@
 -(void) redo;
 -(void) undo;
 -(void) resetDraw;
+
+
+- (UIImage *)capture;
 //-(void) setLineScale:(float) scale;
 /**
  *  设置的线宽和颜色
@@ -30,4 +33,7 @@
 @property (strong, nonatomic) UIColor *lineColor;
 @property (nonatomic, assign) float lineScale;
 @property (nonatomic, weak) id<DrawViewDelegate> delegate;
+
+@property (nonatomic) BOOL deleteLine;
+
 @end
