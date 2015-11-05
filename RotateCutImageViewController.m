@@ -58,7 +58,7 @@
     
     self.showImgView = [[UIImageView alloc]init];
     self.orgShowImgViewTransform = self.showImgView.transform;
-    self.showImgView.backgroundColor = [UIColor greenColor];
+    self.showImgView.backgroundColor = [UIColor clearColor];//[UIColor greenColor];
   //  self.showImgView.backgroundColor = [UIColor clearColor];
    
     //[self creatPan];

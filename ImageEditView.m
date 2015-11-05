@@ -17,7 +17,11 @@
 /**
  *  显示图片用View
  */
-@property(nonatomic, strong) UIImageView *pictureImage;
+@property (nonatomic, strong)  UIImageView *pictureImage;
+/**
+ *  显示计算结果Image
+ */
+@property (nonatomic, strong) UIImageView *maskImage;
 /**
  *  算法模块
  */
@@ -39,9 +43,12 @@
     {
         self.drawView = [[DrawView alloc]initWithFrame:self.bounds andIsCutImage:YES];
         self.pictureImage = [[UIImageView alloc]initWithFrame:self.bounds];
+        self.maskImage = [[UIImageView alloc]initWithFrame:self.bounds];
         
         self.pictureImage.backgroundColor = [UIColor blackColor];
         self.drawView.backgroundColor = [UIColor clearColor];
+        self.maskImage.backgroundColor = [UIColor clearColor]; //[UIColor colorWithWhite:0.5 alpha:0.5];
+       // self.maskImage.alpha = 0.5;
         
         self.b2opcv = [[Bridge2OpenCV alloc]init];
         self.b2opcv.delegate = self;
@@ -62,6 +69,7 @@
         
         [self addSubview:self.pictureImage];
         [self addSubview:self.drawView];
+        [self addSubview:self.maskImage];
     }
     return self;
 }
@@ -109,7 +117,11 @@
     NSValue *sendV = [NSValue value:&have withObjCType:@encode(BOOL) ];
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.pictureImage.image = sendImage;
+        UIColor *sendColor = [UIColor colorWithRed:197.0/255.0 green:81.0/255.0 blue:223.0/255.0 alpha:100.0/255.0];
+//        self.pictureImage.image = sendImage;
+//        self.maskImage.image = [self.b2opcv imageBlackToSetColor:sendImage];
+//        self.maskImage.image = [self.b2opcv imageWhiteToSetColor:sendImage setColor:[UIColor colorWithRed:197.0/255.0 green:81.0/255.0 blue:223.0/255.0 alpha:100.0/255.0]];
+        self.maskImage.image = [self.b2opcv imageWhiteToSetColor:sendImage setColor:sendColor];//[UIColor redColor]];
        [[NSNotificationCenter defaultCenter]postNotificationName:@"com.clover.cutImageGetResultImage" object:sendV];
     });
 }
@@ -144,6 +156,7 @@
 {
     self.drawView.frame = self.bounds;
     self.pictureImage.frame = self.bounds;
+    self.maskImage.frame = self.bounds;
     [self.b2opcv updateWindowSize:self.bounds.size];
 }
 

@@ -147,14 +147,14 @@
             CGContextSaveGState(context);
         }else{
             */
-            
-            CGContextSetLineWidth(context, myViewModel.width);
-            CGContextSetLineCap(context, kCGLineCapRound);
-            CGContextSetLineJoin(context, kCGLineJoinRound);
-            CGContextSetFlatness(context, 0.6);
-            CGContextSetMiterLimit(context, 5);
-            CGContextStrokePath(context);
-            CGContextSaveGState(context);
+        
+        CGContextSetLineWidth(context, myViewModel.width);
+        CGContextSetLineCap(context, kCGLineCapRound);
+        CGContextSetLineJoin(context, kCGLineJoinRound);
+        CGContextSetFlatness(context, 0.6);
+        CGContextSetMiterLimit(context, 5);
+        CGContextStrokePath(context);
+        CGContextSaveGState(context);
         //}
     }
     if (_isHavePath) {

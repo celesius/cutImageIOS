@@ -27,6 +27,8 @@
 -(void) redoPoint;
 -(void) undoPoint;
 
+- (UIImage*) imageWhiteToSetColor:(UIImage*) image setColor:(UIColor *) color;
+
 @property (nonatomic,weak) id<Bridge2OpenCVDelegate> delegate;
 
 @end
