@@ -3,7 +3,7 @@
 //  cutImageIOS
 //
 //  Created by vk on 15/10/28.
-//  Copyright © 2015年 quxiu8. All rights reserved.
+//  Copyright © 2015年 Clover. All rights reserved.
 //
 
 #import "CloverOpacitySliderBackgroundLayer.h"

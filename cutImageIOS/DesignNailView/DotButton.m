@@ -3,7 +3,7 @@
 //  cutImageIOS
 //  建立一个点按键，每个按键是一个圆点，用于表示画笔的变化，每个按键都与画笔宽度相同
 //  Created by vk on 15/9/28.
-//  Copyright © 2015年 quxiu8. All rights reserved.
+//  Copyright © 2015年 Clover. All rights reserved.
 //
 
 #import "DotButton.h"

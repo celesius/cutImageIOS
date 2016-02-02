@@ -3,7 +3,7 @@
 //  cutImageIOS
 //
 //  Created by vk on 15/8/21.
-//  Copyright (c) 2015年 quxiu8. All rights reserved.
+//  Copyright (c) 2015年 Clover. All rights reserved.
 //
 
 #import "AppDelegate.h"
@@ -18,7 +18,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor clearColor];
     CreatNailRootViewController *cnc = [[CreatNailRootViewController alloc]init];
     UINavigationController *nc = [[UINavigationController alloc]initWithRootViewController:cnc];

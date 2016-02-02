@@ -3,7 +3,7 @@
 //  cutImageIOS
 //
 //  Created by vk on 15/8/24.
-//  Copyright (c) 2015年 quxiu8. All rights reserved.
+//  Copyright (c) 2015年 Clover. All rights reserved.
 //
 
 #import "Bridge2OpenCV.h"
@@ -355,23 +355,11 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     uint32_t* pCurPtr = rgbImageBuf;
     for (int i = 0; i < pixelNum; i++, pCurPtr++)
     {
-//        if ((*pCurPtr & 0xFFFFFF00) == 0xffffff00)    // make white to Transparent
         if ((*pCurPtr & 0xFFFFFF00) == 0x00000000)    // / make black to Transparent
         {
             uint8_t* ptr = (uint8_t*)pCurPtr;
             ptr[0] = 0;
         }
-        /*
-        else
-        {
-            uint8_t* ptr = (uint8_t*)pCurPtr;
-            ptr[3] = 0; //0~255
-            ptr[2] = 0;
-            ptr[1] = 0;
-            
-        }
-         */
-        
     }
     
     // context to image
@@ -442,7 +430,7 @@ void ProviderReleaseData (void *info, const void *data, size_t size)
     }
     
     // context to image
-    CGDataProviderRef dataProvider = CGDataProviderCreateWithData(NULL, rgbImageBuf, bytesPerRow * imageHeight, ProviderReleaseData);
+    CGDataProviderRef dataProvider =  CGDataProviderCreateWithData(NULL, rgbImageBuf, bytesPerRow * imageHeight, ProviderReleaseData);
     CGImageRef imageRef = CGImageCreate(imageWidth, imageHeight, 8, 32, bytesPerRow, colorSpace,
                                         kCGImageAlphaPremultipliedLast| kCGBitmapByteOrder32Little, dataProvider,
                                         NULL, true, kCGRenderingIntentDefault);
